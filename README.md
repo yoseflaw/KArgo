@@ -1,2 +1,2 @@
 # KArgo
-Special cargo domain unsupervised term and relation extraction
+Automatic Knowledge Acquisition for Special Cargo Domain with Unsupervised Terms and Relations Extraction

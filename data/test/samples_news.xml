@@ -1,0 +1,48 @@
+<corpus xmlns:py="http://codespeak.net/lxml/objectify/pytype" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" py:pytype="TREE">
+  <news>
+    <url>https://www.aircargonews.net/cargo-airport/luxembourg-airport-to-develop-cargo-community-system/</url>
+    <title>Luxembourg Airport to develop cargo community system</title>
+    <category>cargo-airport</category>
+    <author>Damian Brett</author>
+    <published_time>2020-03-06T15:11:39+00:00</published_time>
+    <topics>
+      <topic>Arthur Welter</topic>
+      <topic>Cargolux</topic>
+      <topic>Kuehne+Nagel</topic>
+      <topic>LuxairCargo</topic>
+      <topic>Luxembourg</topic>
+      <topic>Luxembourg Airport</topic>
+    </topics>
+    <content>
+      <p>Luxembourg Airport has selected Nallian to implement a cargo community system (CCS) in order to offer a neutral data sharing platform for businesses based at the hub.</p>
+      <p>The airport said that the CCS represented an important component of the Luxembourg Single Window for Logistics programme and will be open to all actors involved in international trade.</p>
+      <p>The CCS will enable real-time capturing and sharing of granular information regarding shipment processing, to “better plan and execute” processes and “drive efficiency and visibility with in-depth insights in performance”.</p>
+      <p>The first phase of the roll out will cover perishable and live animal shipments and will only be available to Cargolux, LuxairCargo, Kuehne+Nagel, Arthur Welter and the public administrations concerned.</p>
+      <p>The CCS will then be rolled out to all types of cargo and all companies that are interested to join.</p>
+      <p>René Steinhaus, chief executive of lux-Airport, said: “Lux-Airport is excited to implement, together with its cargo community, a data sharing platform.</p>
+      <p>“With this decision lux-Airport demonstrates its commitment to support the airport cargo community and to foster the competitiveness and further growth of Luxembourg as a European multimodal logistics hub.”</p>
+      <p>In 2019 Luxembourg airport handled 893,090 tons of cargo.</p>
+    </content>
+  </news>
+  <news py:pytype="TREE">
+    <url py:pytype="str">https://www.aircargoweek.com/logistics-company-makes-an-art-of-offsetting-carbon-emissions/</url>
+    <title py:pytype="str">Logistics company makes an art of offsetting carbon emissions</title>
+    <category py:pytype="str">Latest News</category>
+    <author py:pytype="str">James Graham</author>
+    <published_time py:pytype="str">2020-01-17T16:24:08+00:00</published_time>
+    <topics py:pytype="TREE">
+      <topic py:pytype="str">Art Basel</topic>
+      <topic py:pytype="str">Cargolux</topic>
+      <topic py:pytype="str">Dietl International</topic>
+      <topic py:pytype="str">Rock-It Cargo</topic>
+    </topics>
+    <content py:pytype="TREE">
+      <p py:pytype="str">A logistics company has offset the carbon emissions from taking works of art of an exhibition by helping to pay for an environmental project in Brazil.</p>
+      <p py:pytype="str">Dietl International, which claims to be the largest US artwork shipping provider, moved 167 tonnes to the Art Basel exhibition in Miami, Florida, which showcased paintings, sculptures, installations, photographs, films from the masters of Modern and contemporary art and emerging artists from leading galleries from North America, Latin America, Europe, Asia, Australia, and Africa.</p>
+      <p py:pytype="str">The Dietl shipments included a Boeing 747 Cargolux freighter flying from Luxembourg with artwork from galleries in Germany, Switzerland, France and Britain.</p>
+      <p py:pytype="str">The transport was calculated to have generated 644 tonnes of carbon dioxide and Dietl and parent company Rock-it Cargo offset this by supporting the Jari Amapá REDD+ Project in the Valley of Jari, in the state of Amapá.</p>
+      <p py:pytype="str">The valley is threatened by agriculture, grazing, human settlements and large infrastructure work.</p>
+      <p py:pytype="str">The project aims to protect nearly 66,000 hectares of tropical forest, where there are more than 2,000 animal species, more than 100 of which are endangered. The work also seeks to provide economic opportunities for more than 2,000 families in the area.</p>
+    </content>
+  </news>
+</corpus>
