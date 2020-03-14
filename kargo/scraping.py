@@ -1,12 +1,12 @@
+import os
 import time
 import random
 import requests
 from datetime import date, datetime
 from bs4 import BeautifulSoup
 from kargo.corpus import Corpus
-import os
-from kargo.logger import get_logger
-logger = get_logger(__name__)
+from kargo import logger
+log = logger.get_logger(__name__, logger.INFO)
 
 
 class Spider(object):
@@ -39,7 +39,7 @@ class Spider(object):
     def scrape(self, page_no):
         self.current_page = page_no
         soup = Spider.get_soup(self.seed_url + str(page_no))
-        logger.info(f"Extracting Page-{page_no}")
+        log.info(f"Extracting Page-{page_no}")
         page_corpus = self.extract_pages(soup)
         today_date = date.today().strftime("%Y-%m-%d")
         page_corpus.write_xml_to(os.path.join(self.output_folder, f"{today_date}_{self.current_page}.xml"))
@@ -58,7 +58,7 @@ class AirCargoNewsSpider(Spider):
             time.sleep(random.randint(1, 3))
             # get news metadata
             url = news_snippet.find("a")["href"]
-            logger.info(f"Scraping URL={url}")
+            log.info(f"Scraping URL={url}")
             if len(url.split("/")) <= 5: continue
             title = news_snippet.find("h3", class_="post-title").text
             categories = url.split("/")[3]
@@ -66,7 +66,6 @@ class AirCargoNewsSpider(Spider):
             author = author_p.text[3:] if author_p is not None else ""
             # get news content
             news_soup = Spider.get_soup(url)
-            # logger.info(f"Scraping URL: {url}")
             if not news_soup: continue
             paragraphs = news_soup.find("div", class_="content-section clearfix")
             if paragraphs is None: continue
@@ -89,7 +88,7 @@ class AirCargoWeekSpider(Spider):
         for news_snippet in news_snippets:
             time.sleep(random.randint(1, 3))
             url = news_snippet.find("a")["href"]
-            logger.info(f"Scraping URL={url}")
+            log.info(f"Scraping URL={url}")
             news_soup = Spider.get_soup(url)
             if not news_soup: continue
             title = news_soup.find("h1", class_="entry-title").text
@@ -113,7 +112,7 @@ class AirCargoWorldSpider(Spider):
         for news_snippet in news_snippets:
             time.sleep(random.randint(1, 3))
             url = news_snippet.find("a")["href"]
-            logger.info(f"Scraping URL={url}")
+            log.info(f"Scraping URL={url}")
             if "aircargoworld.com" not in url: continue
             news_soup = Spider.get_soup(url)
             if not news_soup: continue
@@ -155,7 +154,7 @@ class StatTimesSpider(Spider):
         for news_snippet in news_snippets:
             time.sleep(random.randint(1, 3))
             url = news_snippet.find("a")["href"]
-            logger.info(f"Scraping URL={url}")
+            log.info(f"Scraping URL={url}")
             news_soup = Spider.get_soup(url)
             if not news_soup: continue
             title = news_soup.find("div", class_="single-header").find("h1").text
@@ -186,7 +185,7 @@ class TheLoadStarSpider(Spider):
         for news_snippet in news_snippets:
             time.sleep(random.randint(1, 3))
             url = news_snippet.find("a")["href"]
-            logger.info(f"Scraping URL={url}")
+            log.info(f"Scraping URL={url}")
             if "theloadstar.com" not in url: continue
             news_soup = Spider.get_soup(url)
             if not news_soup: continue
@@ -208,26 +207,26 @@ class TheLoadStarSpider(Spider):
 if __name__ == "__main__":
     air_cargo_news_spider = AirCargoNewsSpider(
         seed_url="https://www.aircargonews.net/news-by-date/page/",
-        output_folder="../../data/scraped/aircargoweek.com/"
+        output_folder="../data/scraped/aircargoweek.com/"
     )
     air_cargo_news_spider.start(1, 3)
     air_cargo_week_spider = AirCargoWeekSpider(
         seed_url="https://www.aircargoweek.com/category/news-menu/page/",
-        output_folder="../../data/scraped/aircargoweek.com/"
+        output_folder="../data/scraped/aircargoweek.com/"
     )
     air_cargo_week_spider.start(1, 3)
     air_cargo_world_spider = AirCargoWorldSpider(
         seed_url="https://aircargoworld.com/allposts/category/news/page/",
-        output_folder="../../data/scraped/aircargoworld.com/"
+        output_folder="../data/scraped/aircargoworld.com/"
     )
     air_cargo_world_spider.start(1, 3)
     the_load_star_spider = TheLoadStarSpider(
         seed_url="https://theloadstar.com/category/news/page/",
-        output_folder="../../data/scraped/theloadstar.com/"
+        output_folder="../data/scraped/theloadstar.com/"
     )
     the_load_star_spider.start(1, 3)
     stat_times_spider = StatTimesSpider(
         seed_url="https://www.stattimes.com/category/air-cargo/page/",
-        output_folder="../../data/scraped/stattimes.com/"
+        output_folder="../data/scraped/stattimes.com/"
     )
     stat_times_spider.start(1, 3)
