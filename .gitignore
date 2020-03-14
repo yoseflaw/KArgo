@@ -130,3 +130,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# exclude scraped data
+/data/scraped/
+/data/interim/

@@ -12,6 +12,9 @@ class XMLBase(object):
     def get_root(self):
         return getattr(self, self.root_name)
 
+    def __len__(self):
+        return len([child for child in self.get_root().iterchildren()])
+
     def get_xml(self):
         objectify.deannotate(getattr(self, self.root_name), xsi_nil=True)
         etree.cleanup_namespaces(getattr(self, self.root_name))
@@ -49,13 +52,13 @@ class Corpus(XMLBase):
         new_document.published_time = published_time
         # handle lists
         new_document.terms = Element("terms")
-        new_document.terms.term = terms
+        if terms: new_document.terms.term = terms
         new_document.categories = Element("categories")
-        new_document.categories.category = categories
+        if categories: new_document.categories.category = categories
         new_document.topics = Element("topics")
-        new_document.topics.topic = topics
+        if topics: new_document.topics.topic = topics
         new_document.links = Element("links")
-        new_document.links.link = links
+        if links: new_document.links.link = links
         new_document.content = Element("content")
         new_document.content.p = content
         self.corpus.append(new_document)
@@ -89,7 +92,7 @@ class Corpus(XMLBase):
             self.add_document(**new_document_attrs)
 
 
-class CoreNLPDocument(XMLBase):
+class StanfordCoreNLPCorpus(XMLBase):
 
     def __init__(self, title_sentences, content_sentences):
         super().__init__("root")
