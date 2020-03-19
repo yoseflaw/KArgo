@@ -202,31 +202,3 @@ class TheLoadStarSpider(Spider):
             tags = [tag_meta["content"] for tag_meta in tag_metas]
             corpus.add_document(url, title, categories, published_time, content, author, tags)
         return corpus
-
-
-if __name__ == "__main__":
-    air_cargo_news_spider = AirCargoNewsSpider(
-        seed_url="https://www.aircargonews.net/news-by-date/page/",
-        output_folder="../data/scraped/aircargoweek.com/"
-    )
-    air_cargo_news_spider.start(1, 3)
-    air_cargo_week_spider = AirCargoWeekSpider(
-        seed_url="https://www.aircargoweek.com/category/news-menu/page/",
-        output_folder="../data/scraped/aircargoweek.com/"
-    )
-    air_cargo_week_spider.start(1, 3)
-    air_cargo_world_spider = AirCargoWorldSpider(
-        seed_url="https://aircargoworld.com/allposts/category/news/page/",
-        output_folder="../data/scraped/aircargoworld.com/"
-    )
-    air_cargo_world_spider.start(1, 3)
-    the_load_star_spider = TheLoadStarSpider(
-        seed_url="https://theloadstar.com/category/news/page/",
-        output_folder="../data/scraped/theloadstar.com/"
-    )
-    the_load_star_spider.start(1, 3)
-    stat_times_spider = StatTimesSpider(
-        seed_url="https://www.stattimes.com/category/air-cargo/page/",
-        output_folder="../data/scraped/stattimes.com/"
-    )
-    stat_times_spider.start(1, 3)

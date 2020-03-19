@@ -52,11 +52,3 @@ def write_core_nlp_xmls(corpus, output_folder, host="localhost", port=9000):
             annotated_content += annotate_sentence(p.text)
         core_nlp_corpus = StanfordCoreNLPDocument(annotated_title, annotated_content)
         core_nlp_corpus.write_xml_to(os.path.join(output_folder, f"{document_id}.xml"))
-
-
-if __name__ == "__main__":
-    combined_corpus = combine_xmls("../data/scraped/")
-    filtered_corpus = filter_empty(combined_corpus)
-    filtered_corpus.write_xml_to("../data/interim/all.xml")
-    manual_corpus = Corpus("../data/processed/random_sample_annotated.xml")
-    write_core_nlp_xmls(manual_corpus, "../data/processed/stanford_core_nlp_xmls/")

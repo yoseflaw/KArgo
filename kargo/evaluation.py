@@ -36,7 +36,10 @@ class Evaluator(object):
             current_correct_terms = [term for term in pred_terms if term in true_terms]
             correct_pred_pool[i] = current_correct_terms
             correct_term_pool.update(current_correct_terms)
-        relative_recalls = [(len(correct_pred) / len(correct_term_pool)) for correct_pred in correct_pred_pool]
+        relative_recalls = []
+        for correct_pred in correct_pred_pool:
+            relative_recall = (len(correct_pred) / len(correct_term_pool)) if len(correct_term_pool) > 0 else 0
+            relative_recalls.append(relative_recall)
         return relative_recalls
 
     def calculate_precision_all(self, pred_all_documents):
