@@ -19,7 +19,7 @@ langdetect==1.0.7
 lxml==4.5.0
 murmurhash==1.0.0
 networkx==2.4
-nltk==3.4.4
+nltk>=3.4.5
 numpy==1.18.1
 pke==1.8.1
 plac==0.9.6
