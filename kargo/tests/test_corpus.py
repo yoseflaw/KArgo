@@ -1,6 +1,6 @@
 import unittest
 from kargo import corpus, logger
-corpus.log = logger.get_logger(__name__, logger.WARNING)
+corpus.log.setLevel(logger.WARNING)
 
 
 class TestCorpus(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestCorpus(unittest.TestCase):
         self.assertEqual(len(check_corpus2), 102)
 
     def test_annotated(self):
-        check_corpus = corpus.Corpus("../../data/test/samples_annotated.xml", is_annotated=True)
+        check_corpus = corpus.Corpus("../../data/test/samples_with_manual_annotation.xml", is_annotated=True)
         self.assertEqual(len(check_corpus), 3)
 
     def test_wiki(self):

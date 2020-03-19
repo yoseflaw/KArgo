@@ -141,7 +141,7 @@ class Corpus(XMLBase):
         return subset_corpus
 
 
-class StanfordCoreNLPCorpus(XMLBase):
+class StanfordCoreNLPDocument(XMLBase):
 
     def __init__(self, title_sentences, content_sentences):
         super().__init__("root", "document")
