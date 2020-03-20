@@ -1,10 +1,13 @@
 import os
+from nltk.corpus import stopwords
 from kargo import logger, corpus, scraping, preprocessing, extraction, evaluation
-from pke.unsupervised import PositionRank
+from pke.unsupervised import PositionRank, MultipartiteRank
 SCRAPED_DIR = "data/scraped/"
 INTERIM_DIR = "data/interim/"
 PROCESSED_DIR = "data/processed/"
 MANUAL_DIR = "data/manual/"
+EXTRACTED_DIR = "data/interim/extracted_terms"
+PLOT_DIR = "plots/"
 log = logger.get_logger(__name__, logger.INFO)
 
 
@@ -67,18 +70,26 @@ def process_manual_annotation():
     manual_corpus.write_xml_to(os.path.join(PROCESSED_DIR, "random_sample_annotated.xml"))
 
 
-def extraction_and_evaluation():
-    # TODO consider splitting extraction and evaluation when there is no annotated corpus
+def extract_terms():
     log.info("Begin Extraction")
     core_nlp_host = "localhost"
     core_nlp_port = 9000
-    n = 10
+    n = 15
     annotated_corpus = corpus.Corpus(os.path.join(PROCESSED_DIR, "random_sample_annotated.xml"))
     # prepare core nlp xmls
     core_nlp_folder = os.path.join(PROCESSED_DIR, "stanford_core_nlp_xmls")
     preprocessing.write_core_nlp_xmls(annotated_corpus, core_nlp_folder, host=core_nlp_host, port=core_nlp_port)
-    # PKE
-    log.info("Begin Extraction with a PKE extractor")
+    # PKE: Multipartite
+    log.info("Begin Extraction with a PKE extractor: MultipartiteRank")
+    mprank_extractor = extraction.PKEBasedExtractor(MultipartiteRank)
+    mprank_selection_params = {
+        "pos": {"NOUN", "PROPN", "NUM", "ADJ", "ADP"},
+        "stoplist": stopwords.words("english")
+    }
+    mprank_extractor.extract(core_nlp_folder, n, mprank_selection_params,
+                             output_file=os.path.join(EXTRACTED_DIR, "multipartite.csv"))
+    # PKE: PositionRank
+    log.info("Begin Extraction with a PKE extractor: PositionRank")
     positionrank_extractor = extraction.PKEBasedExtractor(PositionRank)
     positionrank_selection_params = {
         "grammar": r"""
@@ -91,7 +102,8 @@ def extraction_and_evaluation():
                     """,
         "maximum_word_number": 5
     }
-    positionrank_keyphrases = positionrank_extractor.extract(core_nlp_folder, n, positionrank_selection_params)
+    positionrank_extractor.extract(core_nlp_folder, n, positionrank_selection_params,
+                                   output_file=os.path.join(EXTRACTED_DIR, "positionrank.csv"))
     # EmbedRank
     log.info("Begin Extraction with EmbedRank extractor")
     embedrank_extractor = extraction.EmbedRankExtractor(
@@ -99,15 +111,25 @@ def extraction_and_evaluation():
         core_nlp_host=core_nlp_host,
         core_nlp_port=core_nlp_port
     )
-    embedrank_keyphrases = embedrank_extractor.extract(annotated_corpus, n)
+    embedrank_extractor.extract(annotated_corpus, n, output_file=os.path.join(EXTRACTED_DIR, "embedrank.csv"))
+
+
+def evaluate_terms():
+    annotated_corpus = corpus.Corpus(os.path.join(PROCESSED_DIR, "random_sample_annotated.xml"))
     log.info("Begin evaluation")
     evaluator = evaluation.Evaluator(annotated_corpus)
-    positionrank_precision_score = evaluator.calculate_precision_all(positionrank_keyphrases)
-    embedrank_precision_score = evaluator.calculate_precision_all(embedrank_keyphrases)
-    relative_recall_scores = evaluator.calculate_relative_recalls_all([positionrank_keyphrases, embedrank_keyphrases])
-    print(positionrank_precision_score)
-    print(embedrank_precision_score)
-    print(relative_recall_scores)
+    multipartite_terms = extraction.Extractor.read_terms_from(os.path.join(EXTRACTED_DIR, "multipartite.csv"))
+    evaluator.add_prediction("MultipartiteRank", multipartite_terms)
+    positionrank_terms = extraction.Extractor.read_terms_from(os.path.join(EXTRACTED_DIR, "positionrank.csv"))
+    evaluator.add_prediction("PositionRank", positionrank_terms)
+    embedrank_terms = extraction.Extractor.read_terms_from(os.path.join(EXTRACTED_DIR, "embedrank.csv"))
+    evaluator.add_prediction("EmbedRank", embedrank_terms)
+    precision_scores = evaluator.calculate_precision_all()
+    avg_precision_score = evaluation.Evaluator.get_average_scores(precision_scores)
+    evaluation.Evaluator.visualize_scores(avg_precision_score, os.path.join(PLOT_DIR, "precision.html"))
+    relative_recall_scores = evaluator.calculate_relative_recalls_all()
+    avg_recall_score = evaluation.Evaluator.get_average_scores(relative_recall_scores)
+    evaluation.Evaluator.visualize_scores(avg_recall_score, os.path.join(PLOT_DIR, "relative_recall.html"))
 
 
 if __name__ == "__main__":
@@ -115,4 +137,5 @@ if __name__ == "__main__":
     combine_filter_sample_corpus()
     manual_term_annotation()
     process_manual_annotation()
-    extraction_and_evaluation()
+    extract_terms()
+    evaluate_terms()

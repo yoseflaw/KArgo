@@ -1,3 +1,5 @@
+import pandas as pd
+import altair as alt
 from kargo import logger
 from kargo.corpus import Corpus
 log = logger.get_logger(__name__, logger.INFO)
@@ -9,6 +11,7 @@ class Evaluator(object):
         self.reference_corpus = reference_corpus
         self.reference_document_ids = [document.document_id.text for document in self.reference_corpus.iter_documents()]
         self.true_terms = self.extract_true_terms()
+        self.predictions = {}
 
     def extract_true_terms(self):
         true_terms = {}
@@ -18,68 +21,120 @@ class Evaluator(object):
             true_terms[document_id] = terms
         return true_terms
 
+    def add_prediction(self, name, prediction):
+        if not type(prediction) is dict:
+            raise TypeError("prediction must be a dictionary with key=document_id, value=list of terms.")
+        if len(self.predictions) > 0:
+            sample_document_ids = set(self.reference_document_ids)
+            # check all predictions contain the same document ids
+            compare_document_ids = set(prediction.keys())
+            if sample_document_ids != compare_document_ids:
+                difference = set(sample_document_ids - compare_document_ids)
+                difference.update(compare_document_ids - sample_document_ids)
+                raise IndexError(f"Found difference of Document IDs: {difference}")
+        self.predictions[name] = prediction
+
     @staticmethod
     def preprocess(term):
         return term.lower()
 
     @staticmethod
     def get_precision(true_terms, pred_terms):
-        correct_terms = [term for term in pred_terms if term in true_terms]
-        precision = len(correct_terms) / len(pred_terms)
-        return precision
+        range_precision = []
+        correct_terms = []
+        for i, term in enumerate(pred_terms):
+            if term in true_terms:
+                correct_terms.append(term)
+            range_precision.append(len(correct_terms)/(i+1))
+        return range_precision
 
     @staticmethod
     def get_relative_recalls(true_terms, preds):
+        if len(preds) == 0:
+            raise IndexError("Minimum 1 preds provided.")
+        # if the number of preds are different, take the minimum length
+        values_list = list(preds.values())
+        min_length = min([len(val) for val in values_list])
+        range_relative_recalls = {name: [] for name in preds}
         correct_term_pool = set()
-        correct_pred_pool = [[] for _ in range(len(preds))]
-        for i, pred_terms in enumerate(preds):
-            current_correct_terms = [term for term in pred_terms if term in true_terms]
-            correct_pred_pool[i] = current_correct_terms
-            correct_term_pool.update(current_correct_terms)
-        relative_recalls = []
-        for correct_pred in correct_pred_pool:
-            relative_recall = (len(correct_pred) / len(correct_term_pool)) if len(correct_term_pool) > 0 else 0
-            relative_recalls.append(relative_recall)
-        return relative_recalls
+        current_correct_terms = {name: [] for name in preds}
+        for i in range(min_length):
+            for name, terms in preds.items():
+                if terms[i] in true_terms:
+                    current_correct_terms[name].append(terms[i])
+                    correct_term_pool.add(terms[i])
+            for name in preds:
+                relative_recall = (len(current_correct_terms[name])/len(correct_term_pool)) \
+                    if len(correct_term_pool) > 0 else 0
+                range_relative_recalls[name].append(relative_recall)
+        return range_relative_recalls
 
-    def calculate_precision_all(self, pred_all_documents):
+    @staticmethod
+    def get_average_score(score):
+        max_length = max([len(score_vals) for score_vals in score.values()])
+        average_score = [0 for _ in range(max_length)]
+        # calculate per n according to the number of document that has at least n number of scores
+        num_documents_per_length = [0 for _ in range(max_length)]
+        for document_id in score:
+            for i in range(len(score[document_id])):
+                average_score[i] += score[document_id][i]
+                num_documents_per_length[i] += 1
+        average_score = [average_score[i] / num_documents_per_length[i] for i in range(max_length)]
+        return average_score
+
+    @staticmethod
+    def get_average_scores(scores):
+        average_score = {}
+        for name in scores:
+            average_score[name] = Evaluator.get_average_score(scores[name])
+        return average_score
+
+    @staticmethod
+    def visualize_scores(scores, output_file):
+        scores_df = {"x": [], "method": [], "score": []}
+        for name, score in scores.items():
+            for i, s in enumerate(score):
+                scores_df["x"].append(i+1)
+                scores_df["method"].append(name)
+                scores_df["score"].append(s)
+        scores_df = pd.DataFrame(scores_df)
+        chart = alt.Chart(scores_df).mark_line().encode(x="x", y="score", color="method")
+        chart.save(output_file)
+
+    def calculate_precision_all(self):
         all_precision = {}
-        for document_id in pred_all_documents:
-            if document_id not in self.reference_document_ids:
-                raise KeyError(f"Document ID: {document_id} not in Evaluator's reference corpus.")
-            true_terms = self.true_terms[document_id]
-            pred_terms = pred_all_documents[document_id]
-            all_precision[document_id] = Evaluator.get_precision(true_terms, pred_terms)
+        for name, prediction in self.predictions.items():
+            precision = {}
+            for document_id in prediction:
+                if document_id not in self.reference_document_ids:
+                    raise KeyError(f"Document ID: {document_id} not in Evaluator's reference corpus.")
+                true_terms = self.true_terms[document_id]
+                pred_terms = prediction[document_id]
+                precision[document_id] = Evaluator.get_precision(true_terms, pred_terms)
+            all_precision[name] = precision
         return all_precision
 
-    def calculate_relative_recalls_all(self, preds_all_documents):
-        all_relative_recalls = {}
-        if not type(preds_all_documents) is list:
-            raise TypeError("preds_all_documents must be a list of set of predictions.")
-        if len(preds_all_documents) == 0:
-            raise IndexError("preds_all_documents must contain at least 1 set of predictions.")
-        sample_document_ids = set(preds_all_documents[0].keys())
-        if len(preds_all_documents) > 1:
-            # check all predictions contain the same document ids
-            for i, pred_all_documents in enumerate(preds_all_documents[1:]):
-                compare_document_ids = set(pred_all_documents.keys())
-                if sample_document_ids != compare_document_ids:
-                    difference = set(sample_document_ids - compare_document_ids)
-                    difference.update(compare_document_ids - sample_document_ids)
-                    raise IndexError(f"Found difference of Document IDs when comparing index 0 and {i+1}: {difference}")
-        for document_id in sample_document_ids:
-            preds = [pred[document_id] for pred in preds_all_documents]
-            all_relative_recalls[document_id] = Evaluator.get_relative_recalls(
-                self.true_terms[document_id], preds
-            )
+    def calculate_relative_recalls_all(self):
+        all_relative_recalls = {name: {} for name in self.predictions}
+        for document_id in self.reference_document_ids:
+            preds = {name: pred[document_id] for name, pred in self.predictions.items()}
+            relative_recalls = Evaluator.get_relative_recalls(self.true_terms[document_id], preds)
+            for name in self.predictions:
+                all_relative_recalls[name][document_id] = relative_recalls[name]
         return all_relative_recalls
 
 
 if __name__ == "__main__":
     labelled_corpus = Corpus("../data/test/samples_with_terms.xml")
     evaluator = Evaluator(labelled_corpus)
-    accurate_preds = evaluator.true_terms
-    all_predictions = evaluator.calculate_precision_all(accurate_preds)
-    print(all_predictions)
-    all_relative_recalls = evaluator.calculate_relative_recalls_all([accurate_preds, accurate_preds])
-    print(all_relative_recalls)
+    accurate_preds = {document_id: evaluator.true_terms[document_id][:10] for document_id in evaluator.true_terms}
+    evaluator.add_prediction("TEST", accurate_preds)
+    evaluator.add_prediction("TEST2", accurate_preds)
+    precisions = evaluator.calculate_precision_all()
+    avg_precisions = Evaluator.get_average_scores(precisions)
+    print(avg_precisions)
+    # Evaluator.visualize_scores(avg_precisions, "../plots/precision.html")
+    recalls = evaluator.calculate_relative_recalls_all()
+    avg_recalls = Evaluator.get_average_scores(recalls)
+    print(avg_recalls)
+    # Evaluator.visualize_scores(avg_recalls, "../plots/recall.html")
