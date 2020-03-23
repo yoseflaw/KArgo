@@ -132,9 +132,10 @@ dmypy.json
 .pyre/
 
 # exclude data
+/data/interim/*.xml
+/data/interim/*.zip
 /data/scraped_all/
-all.xml
-all.xml.zip
+/data/benchmarks/
 
 # exclude references
 /pretrain_models/

@@ -36,6 +36,12 @@ class TestCorpus(unittest.TestCase):
         subset_xml = check_corpus.get_documents_by_urls(sample_urls)
         self.assertEqual(len(subset_xml), len(sample_urls))
 
+    def test_combine_and_filter(self):
+        combined_corpus = corpus.Corpus(xml_input="../../data/test/scrape_samples/")
+        self.assertEqual(len(combined_corpus), 102)
+        combined_corpus.filter_empty()
+        self.assertEqual(len(combined_corpus), 99)
+
 
 if __name__ == "__main__":
     unittest.main()

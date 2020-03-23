@@ -108,24 +108,20 @@ class AirCargoWorldSpider(Spider):
 
     def extract_pages(self, soup):
         corpus = Corpus()
-        news_snippets = soup.find("div", class_="rd-blog-container rd-post-row").find_all("h3", class_="rd-title")
+        news_snippets = soup.find("div", id="rd-blog").find_all("h3", class_="rd-title")
         for news_snippet in news_snippets:
             time.sleep(random.randint(1, 3))
             url = news_snippet.find("a")["href"]
             log.info(f"Scraping URL={url}")
             if "aircargoworld.com" not in url: continue
             news_soup = Spider.get_soup(url)
-            if not news_soup: continue
+            if not news_soup or news_soup.find("input", id="wp-submit"): continue
+            paragraphs = news_soup.find("article", class_="rd-post-content").find_all("p")
             content = []
-            need_subscribe = False
-            paragraphs = news_soup.find("section", class_="rd-post-content").find_all("p")
             for paragraph in paragraphs:
                 paragraph_text = paragraph.text.strip()
-                if "Please login to your Air Cargo World account" in paragraph_text:
-                    need_subscribe = True
                 if len(paragraph_text) > 0:
                     content.append(paragraph_text)
-            if need_subscribe: continue
             title = news_soup.find("h3", class_="rd-title entry-title").text
             categories = news_soup.find("li", class_="rd-cats").find_all("a")
             categories = [topic.text for topic in categories]

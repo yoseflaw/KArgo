@@ -1,8 +1,10 @@
 from hashlib import md5
 import re
+import os
 import random
 from lxml.objectify import Element
 from lxml import etree, objectify
+import nltk
 from kargo import logger
 log = logger.get_logger(__name__, logger.INFO)
 
@@ -43,8 +45,14 @@ class Corpus(XMLBase):
         self.corpus = Element("corpus")
         self.url_indices = []
         if xml_input:
-            self.is_annotated = is_annotated
-            self.read_from_xml(xml_input)
+            if xml_input and not os.path.exists(xml_input):
+                raise FileNotFoundError(f"{xml_input} not found. Check the path again.")
+            elif os.path.isfile(xml_input):
+                self.is_annotated = is_annotated
+                self.read_from_xml(xml_input)
+            else:
+                self.is_annotated = is_annotated
+                self.read_from_folder(xml_input)
         else:
             self.is_annotated = False
 
@@ -91,6 +99,15 @@ class Corpus(XMLBase):
             document_elmt.document_id,
         )
 
+    def filter_empty(self):
+        empty_document_list = []
+        for document in self.iter_documents():
+            if document.content.countchildren() == 0:
+                empty_document_list.append(document)
+        for document in empty_document_list:
+            self.get_root().remove(document)
+        return self
+
     def read_from_xml(self, input_path):
         composites = ["terms", "topics", "content", "links", "categories"]
         corpus_etree = etree.parse(input_path)
@@ -118,6 +135,13 @@ class Corpus(XMLBase):
                 new_document_attrs["terms"] = list(unique_terms)
             self.add_document(**new_document_attrs)
 
+    def read_from_folder(self, root_folder):
+        in_folders = [folder for folder in os.listdir(root_folder) if os.path.isdir(os.path.join(root_folder, folder))]
+        for in_folder in in_folders:
+            xml_files = [f for f in os.listdir(os.path.join(root_folder, in_folder)) if f.endswith(".xml")]
+            for xml_file in xml_files:
+                self.read_from_xml(os.path.join(root_folder, in_folder, xml_file))
+
     def get_sample(self, n, excluded_ids=None):
         sample_corpus = Corpus()
         indices = list(range(len(self)))
@@ -139,6 +163,36 @@ class Corpus(XMLBase):
             if document.url.text in urls:
                 subset_corpus.add_document_from_element(document)
         return subset_corpus
+
+    def write_to_core_nlp_xmls(self, output_folder, host="localhost", port=9000):
+
+        def annotate_sentence(sentences):
+            properties = {"annotators": "tokenize,ssplit,pos,lemma"}
+            annotated_text = parser.api_call(sentences, properties=properties)
+            annotated_sentences = []
+            for sentence in annotated_text["sentences"]:
+                annotated_sentence = []
+                for token in sentence["tokens"]:
+                    annotated_sentence.append({
+                        "word": token["word"],
+                        "pos": token["pos"],
+                        "lemma": token["lemma"],
+                        "character_offset_begin": token["characterOffsetBegin"],
+                        "character_offset_end": token["characterOffsetEnd"]
+                    })
+                annotated_sentences.append(annotated_sentence)
+            return annotated_sentences
+
+        parser = nltk.CoreNLPParser(url=f"http://{host}:{port}")
+        for document in self.iter_documents():
+            document_id = document.document_id.text
+            title = document.title.text
+            annotated_title = annotate_sentence(title)
+            annotated_content = []
+            for p in document.content.p:
+                annotated_content += annotate_sentence(p.text)
+            core_nlp_corpus = StanfordCoreNLPDocument(annotated_title, annotated_content)
+            core_nlp_corpus.write_xml_to(os.path.join(output_folder, f"{document_id}.xml"))
 
 
 class StanfordCoreNLPDocument(XMLBase):

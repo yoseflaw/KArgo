@@ -1,6 +1,6 @@
 import os
 from nltk.corpus import stopwords
-from kargo import logger, corpus, scraping, preprocessing, extraction, evaluation
+from kargo import logger, corpus, scraping, extraction, evaluation
 from pke.unsupervised import PositionRank, MultipartiteRank
 SCRAPED_DIR = "data/scraped/"
 INTERIM_DIR = "data/interim/"
@@ -26,7 +26,7 @@ def scraping_news_sites():
     log.info("Begin scraping aircargoweek.com")
     air_cargo_week_spider.start(1, 2)
     air_cargo_world_spider = scraping.AirCargoWorldSpider(
-        seed_url="https://aircargoworld.com/allposts/category/news/page/",
+        seed_url="https://aircargoworld.com/category/news/page/",
         output_folder=os.path.join(SCRAPED_DIR, "aircargoworld.com")
     )
     log.info("Begin scraping aircargoworld.com")
@@ -47,12 +47,12 @@ def scraping_news_sites():
 
 def combine_filter_sample_corpus():
     log.info(f"Begin combining from {SCRAPED_DIR}")
-    combined_corpus = preprocessing.combine_xmls(SCRAPED_DIR)
+    combined_corpus = corpus.Corpus(SCRAPED_DIR)
     log.info("Begin filtering empty documents")
-    filtered_corpus = preprocessing.filter_empty(combined_corpus)
+    combined_corpus.filter_empty()
     n_sample = 10
     log.info(f"Begin sampling, n={n_sample}")
-    sampled_corpus = filtered_corpus.get_sample(n_sample)
+    sampled_corpus = combined_corpus.get_sample(n_sample)
     log.info(f"Write sample.xml to {INTERIM_DIR}")
     sampled_corpus.write_xml_to(os.path.join(INTERIM_DIR, "sample.xml"))
 
@@ -78,7 +78,7 @@ def extract_terms():
     annotated_corpus = corpus.Corpus(os.path.join(PROCESSED_DIR, "random_sample_annotated.xml"))
     # prepare core nlp xmls
     core_nlp_folder = os.path.join(PROCESSED_DIR, "stanford_core_nlp_xmls")
-    preprocessing.write_core_nlp_xmls(annotated_corpus, core_nlp_folder, host=core_nlp_host, port=core_nlp_port)
+    annotated_corpus.write_to_core_nlp_xmls(core_nlp_folder, host=core_nlp_host, port=core_nlp_port)
     # PKE: Multipartite
     log.info("Begin Extraction with a PKE extractor: MultipartiteRank")
     mprank_extractor = extraction.PKEBasedExtractor(MultipartiteRank)

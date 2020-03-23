@@ -24,10 +24,10 @@ class TestScraping(unittest.TestCase):
 
     def test_aircargoworld(self):
         air_cargo_world_spider = scraping.AirCargoWorldSpider(
-            seed_url="https://aircargoworld.com/allposts/category/news/page/",
+            seed_url="https://aircargoworld.com/category/news/page/",
             output_folder="../../data/interim/"
         )
-        result = air_cargo_world_spider.scrape(1)
+        result = air_cargo_world_spider.scrape(10)  # articles in page 1 are behind paywall
         self.assertGreater(len(result), 0)
 
     def test_stattimes(self):
