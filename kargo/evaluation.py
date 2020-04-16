@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import altair as alt
 from kargo import logger
@@ -12,6 +13,7 @@ class Evaluator(object):
         self.reference_document_ids = [document.document_id.text for document in self.reference_corpus.iter_documents()]
         self.true_terms = self.extract_true_terms()
         self.predictions = {}
+        self.scores = {}
 
     def extract_true_terms(self):
         true_terms = {}
@@ -70,36 +72,36 @@ class Evaluator(object):
         return range_relative_recalls
 
     @staticmethod
-    def get_average_score(score):
+    def get_aggr_score(score):
         max_length = max([len(score_vals) for score_vals in score.values()])
-        average_score = [0 for _ in range(max_length)]
+        accumulative_score = [[] for _ in range(max_length)]
         # calculate per n according to the number of document that has at least n number of scores
-        num_documents_per_length = [0 for _ in range(max_length)]
         for document_id in score:
             for i in range(len(score[document_id])):
-                average_score[i] += score[document_id][i]
-                num_documents_per_length[i] += 1
-        average_score = [average_score[i] / num_documents_per_length[i] for i in range(max_length)]
-        return average_score
+                accumulative_score[i].append(score[document_id][i])
+        aggr_score = [
+            (np.mean(accumulative_score[i]), np.std(accumulative_score[i]))
+            for i in range(max_length) if len(accumulative_score[i]) > 0
+        ]
+        return aggr_score
 
     @staticmethod
-    def get_average_scores(scores):
-        average_score = {}
-        for name in scores:
-            average_score[name] = Evaluator.get_average_score(scores[name])
-        return average_score
-
-    @staticmethod
-    def visualize_scores(scores, output_file):
-        scores_df = {"x": [], "method": [], "score": []}
-        for name, score in scores.items():
-            for i, s in enumerate(score):
-                scores_df["x"].append(i+1)
-                scores_df["method"].append(name)
-                scores_df["score"].append(s)
-        scores_df = pd.DataFrame(scores_df)
-        chart = alt.Chart(scores_df).mark_line().encode(x="x", y="score", color="method")
-        chart.save(output_file)
+    def get_aggr_scores_df(scores, score_name):
+        scores_dict = {"method": [], "k": [], score_name: [], "std": [], "ymin": [], "ymax": []}
+        for method_name, score in scores.items():
+            aggr_score = Evaluator.get_aggr_score(score)
+            for k, (score_mean, score_std) in enumerate(aggr_score):
+                scores_dict["method"].append(method_name)
+                scores_dict["k"].append(k+1)
+                scores_dict[score_name].append(score_mean)
+                scores_dict["std"].append(score_std)
+                scores_dict["ymin"].append(score_mean-2*score_std)
+                scores_dict["ymax"].append(score_mean+2*score_std)
+        scores_df = pd.pivot_table(
+            pd.DataFrame(scores_dict),
+            values=[score_name, "ymin", "ymax", "std"], index=["method", "k"]
+        ).reset_index()
+        return scores_df
 
     def calculate_precision_all(self):
         all_precision = {}
@@ -123,6 +125,54 @@ class Evaluator(object):
                 all_relative_recalls[name][document_id] = relative_recalls[name]
         return all_relative_recalls
 
+    def calculate_fscores_all(self, precisions, relative_recalls):
+        f_scores = {}
+        for method_name in self.predictions:
+            for doc_id in self.reference_document_ids:
+                for i in range(len(relative_recalls[method_name][doc_id])):
+                    p = precisions[method_name][doc_id][i]
+                    r = relative_recalls[method_name][doc_id][i]
+                    f = 0 if p == r == 0 else (2 * p * r) / (p + r)
+                    if method_name not in f_scores:
+                        f_scores[method_name] = {}
+                    if doc_id not in f_scores[method_name]:
+                        f_scores[method_name][doc_id] = []
+                    f_scores[method_name][doc_id].append(f)
+        return f_scores
+
+    def evaluate_and_visualize(self, output_file):
+        # Evaluate precisions
+        precisions = self.calculate_precision_all()
+        precisions_df = Evaluator.get_aggr_scores_df(precisions, "precisions")
+        # Evaluate recalls
+        relative_recalls = self.calculate_relative_recalls_all()
+        relative_recalls_df = Evaluator.get_aggr_scores_df(relative_recalls, "relative recalls")
+        # Calculate F-score
+        f_scores = self.calculate_fscores_all(precisions, relative_recalls)
+        f_scores_df = Evaluator.get_aggr_scores_df(f_scores, "F-score")
+        # Combine scores
+        combine_df = f_scores_df[["method", "k", "F-score"]].merge(
+            precisions_df[["method", "k", "precisions"]],
+            how="inner",
+            on=["method", "k"]
+        ).merge(
+            relative_recalls_df[["method", "k", "relative recalls"]],
+            how="inner",
+            on=["method", "k"]
+        )
+        combine_melt_df = pd.melt(
+            combine_df, id_vars=["method", "k"], value_vars=["F-score", "precisions", "relative recalls"]
+        )
+        combine_melt_df.columns = ["Method", "k", "Evaluation", "Score"]
+        charts = alt.Chart(combine_melt_df).mark_line(point=True).encode(
+            x="k",
+            y="Score",
+            color="Method",
+            column="Evaluation",
+            tooltip=["Method", "k", "Score"]
+        )
+        charts.save(output_file)
+
 
 if __name__ == "__main__":
     labelled_corpus = Corpus("../data/test/samples_with_terms.xml")
@@ -130,11 +180,4 @@ if __name__ == "__main__":
     accurate_preds = {document_id: evaluator.true_terms[document_id][:10] for document_id in evaluator.true_terms}
     evaluator.add_prediction("TEST", accurate_preds)
     evaluator.add_prediction("TEST2", accurate_preds)
-    precisions = evaluator.calculate_precision_all()
-    avg_precisions = Evaluator.get_average_scores(precisions)
-    print(avg_precisions)
-    # Evaluator.visualize_scores(avg_precisions, "../plots/precision.html")
-    recalls = evaluator.calculate_relative_recalls_all()
-    avg_recalls = Evaluator.get_average_scores(recalls)
-    print(avg_recalls)
-    # Evaluator.visualize_scores(avg_recalls, "../plots/recall.html")
+    evaluator.evaluate_and_visualize("../data/test/evaluation/eval.html")

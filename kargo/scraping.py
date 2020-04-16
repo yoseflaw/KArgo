@@ -41,7 +41,7 @@ class Spider(object):
         soup = Spider.get_soup(self.seed_url + str(page_no))
         log.info(f"Extracting Page-{page_no}")
         page_corpus = self.extract_pages(soup)
-        today_date = date.today().strftime("%Y-%m-%d")
+        today_date = date.today().strftime("%Y%m%d")
         page_corpus.write_xml_to(os.path.join(self.output_folder, f"{today_date}_{self.current_page}.xml"))
         return page_corpus
 

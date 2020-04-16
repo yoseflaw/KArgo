@@ -1,13 +1,16 @@
 import os
+from datetime import date
 from spacy.lang.en.stop_words import STOP_WORDS
 from kargo import logger, corpus, scraping, extraction, evaluation
-from pke.unsupervised import PositionRank, MultipartiteRank, EmbedRank
-SCRAPED_DIR = "data/scraped/"
-INTERIM_DIR = "data/interim/"
-PROCESSED_DIR = "data/processed/"
-MANUAL_DIR = "data/manual/"
-EXTRACTED_DIR = "data/interim/extracted_terms"
-PLOT_DIR = "plots/"
+from pke.unsupervised import PositionRank, MultipartiteRank
+SCRAPED_DIR = "data/scraped"
+INTERIM_DIR = "data/interim"
+PROCESSED_DIR = "data/processed"
+MANUAL_DIR = "data/manual"
+RESULTS_DIR = "results"
+CORE_NLP_DIR = os.path.join(PROCESSED_DIR, "stanford_core_nlp_xmls")
+EXTRACTED_DIR = os.path.join(RESULTS_DIR, "extracted_terms")
+PLOT_DIR = os.path.join(RESULTS_DIR, "plots")
 log = logger.get_logger(__name__, logger.INFO)
 
 
@@ -71,7 +74,7 @@ def process_manual_annotation():
 
 
 def create_core_nlp_documents(core_nlp_folder):
-    log.info("Begin preparing Core NLP Documents")
+    log.info(f"Begin preparing Core NLP Documents to {core_nlp_folder}")
     annotated_corpus = corpus.Corpus(os.path.join(PROCESSED_DIR, "random_sample_annotated.xml"))
     annotated_corpus.write_to_core_nlp_xmls(core_nlp_folder)
 
@@ -81,34 +84,34 @@ def extract_terms(core_nlp_folder):
     n = 15
     considered_pos = {"NOUN", "PROPN", "NUM", "ADJ", "ADP"}
     # PKE: Multipartite
-    # log.info("Begin Extraction with a PKE extractor: MultipartiteRank")
-    # mprank_extractor = extraction.PKEBasedExtractor(MultipartiteRank)
-    # mprank_selection_params = {
-    #     "pos": considered_pos,
-    #     "stoplist": list(STOP_WORDS)
-    # }
-    # mprank_extractor.extract(core_nlp_folder, n,
-    #                          selection_params=mprank_selection_params,
-    #                          weighting_params={},
-    #                          output_file=os.path.join(EXTRACTED_DIR, "multipartite.csv"))
-    # # PKE: PositionRank
-    # log.info("Begin Extraction with a PKE extractor: PositionRank")
-    # positionrank_extractor = extraction.PKEBasedExtractor(PositionRank)
-    # positionrank_selection_params = {
-    #     "grammar": r"""
-    #                 NBAR:
-    #                     {<NOUN|PROPN|NUM|ADJ>*<NOUN|PROPN>}
-    #
-    #                 NP:
-    #                     {<NBAR>}
-    #                     {<NBAR><ADP><NBAR>}
-    #                 """,
-    #     "maximum_word_number": 5
-    # }
-    # positionrank_extractor.extract(core_nlp_folder, n,
-    #                                selection_params=positionrank_selection_params,
-    #                                weighting_params={},
-    #                                output_file=os.path.join(EXTRACTED_DIR, "positionrank.csv"))
+    log.info("Begin Extraction with a PKE extractor: MultipartiteRank")
+    mprank_extractor = extraction.PKEBasedExtractor(MultipartiteRank)
+    mprank_selection_params = {
+        "pos": considered_pos,
+        "stoplist": list(STOP_WORDS)
+    }
+    mprank_extractor.extract(core_nlp_folder, n,
+                             selection_params=mprank_selection_params,
+                             weighting_params={},
+                             output_file=os.path.join(EXTRACTED_DIR, "multipartite.csv"))
+    # PKE: PositionRank
+    log.info("Begin Extraction with a PKE extractor: PositionRank")
+    positionrank_extractor = extraction.PKEBasedExtractor(PositionRank)
+    positionrank_selection_params = {
+        "grammar": r"""
+                    NBAR:
+                        {<NOUN|PROPN|NUM|ADJ>*<NOUN|PROPN>}
+
+                    NP:
+                        {<NBAR>}
+                        {<NBAR><ADP><NBAR>}
+                    """,
+        "maximum_word_number": 5
+    }
+    positionrank_extractor.extract(core_nlp_folder, n,
+                                   selection_params=positionrank_selection_params,
+                                   weighting_params={},
+                                   output_file=os.path.join(EXTRACTED_DIR, "positionrank.csv"))
     # EmbedRank
     log.info("Begin Extraction with EmbedRank extractor")
     embedrank_extractor = extraction.EmbedRankExtractor(
@@ -133,20 +136,16 @@ def evaluate_terms():
         os.path.join(EXTRACTED_DIR, "embedrank_wiki_unigrams.csv")
     )
     evaluator.add_prediction("EmbedRank_wiki", embedrank_wiki_terms)
-    precision_scores = evaluator.calculate_precision_all()
-    avg_precision_score = evaluation.Evaluator.get_average_scores(precision_scores)
-    evaluation.Evaluator.visualize_scores(avg_precision_score, os.path.join(PLOT_DIR, "precision.html"))
-    relative_recall_scores = evaluator.calculate_relative_recalls_all()
-    avg_recall_score = evaluation.Evaluator.get_average_scores(relative_recall_scores)
-    evaluation.Evaluator.visualize_scores(avg_recall_score, os.path.join(PLOT_DIR, "relative_recall.html"))
+    today_date = date.today().strftime("%Y%m%d")
+    evaluator.evaluate_and_visualize(os.path.join(PLOT_DIR, f"eval_{today_date}.html"))
 
 
 if __name__ == "__main__":
-    # scraping_news_sites()
-    # combine_filter_sample_corpus()
-    # manual_term_annotation()
-    # process_manual_annotation()
     core_nlp_input = os.path.join(PROCESSED_DIR, "stanford_core_nlp_xmls")
-    # create_core_nlp_documents(core_nlp_input)
-    # extract_terms(core_nlp_input)
+    scraping_news_sites()
+    combine_filter_sample_corpus()
+    manual_term_annotation()
+    process_manual_annotation()
+    create_core_nlp_documents(core_nlp_input)
+    extract_terms(core_nlp_input)
     evaluate_terms()

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.2"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-d69df7bc76cc8dffb47ac0f2ffd3d500"}, "mark": {"type": "line", "point": true}, "encoding": {"color": {"type": "nominal", "field": "Method"}, "column": {"type": "nominal", "field": "Evaluation"}, "x": {"type": "quantitative", "field": "k"}, "y": {"type": "quantitative", "field": "Score"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-d69df7bc76cc8dffb47ac0f2ffd3d500": [{"Method": "TEST", "k": 1, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST", "k": 2, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST", "k": 3, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST", "k": 4, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST", "k": 5, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST", "k": 6, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST", "k": 7, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST", "k": 8, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST", "k": 9, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST", "k": 10, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST2", "k": 1, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST2", "k": 2, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST2", "k": 3, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST2", "k": 4, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST2", "k": 5, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST2", "k": 6, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST2", "k": 7, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST2", "k": 8, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST2", "k": 9, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST2", "k": 10, "Evaluation": "F-score", "Score": 1.0}, {"Method": "TEST", "k": 1, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST", "k": 2, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST", "k": 3, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST", "k": 4, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST", "k": 5, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST", "k": 6, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST", "k": 7, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST", "k": 8, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST", "k": 9, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST", "k": 10, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST2", "k": 1, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST2", "k": 2, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST2", "k": 3, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST2", "k": 4, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST2", "k": 5, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST2", "k": 6, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST2", "k": 7, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST2", "k": 8, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST2", "k": 9, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST2", "k": 10, "Evaluation": "precisions", "Score": 1.0}, {"Method": "TEST", "k": 1, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST", "k": 2, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST", "k": 3, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST", "k": 4, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST", "k": 5, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST", "k": 6, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST", "k": 7, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST", "k": 8, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST", "k": 9, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST", "k": 10, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST2", "k": 1, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST2", "k": 2, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST2", "k": 3, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST2", "k": 4, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST2", "k": 5, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST2", "k": 6, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST2", "k": 7, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST2", "k": 8, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST2", "k": 9, "Evaluation": "relative recalls", "Score": 1.0}, {"Method": "TEST2", "k": 10, "Evaluation": "relative recalls", "Score": 1.0}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

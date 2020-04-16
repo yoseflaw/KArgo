@@ -7,6 +7,7 @@ WARNING = logging.WARNING
 
 def get_logger(name, level):
     logger = logging.getLogger(name)
+    logger.propagate = False
     logger.setLevel(level)
     log_format = logging.Formatter("%(asctime)s|%(levelname)s|%(module)s: %(message)s")
     stream = logging.StreamHandler()

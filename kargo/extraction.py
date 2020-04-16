@@ -62,7 +62,7 @@ class EmbedRankExtractor(Extractor):
     def __init__(self, emdib_model_path):
         self.embedding_distrib = EmbeddingDistributorLocal(emdib_model_path)
 
-    def extract(self, core_nlp_folder, n_term, considered_tags, lang="en",
+    def extract(self, core_nlp_folder, n_term, considered_tags=None, lang="en",
                 beta=0.55, alias_threshold=0.7, output_file=None):
         xml_files = [filename for filename in os.listdir(core_nlp_folder) if filename.endswith(".xml")]
         all_terms = {}
@@ -71,7 +71,7 @@ class EmbedRankExtractor(Extractor):
             core_nlp_doc = core_nlp_reader.read(path=os.path.join(core_nlp_folder, xml_file))
             tagged_text = [list(zip(sentence.words, sentence.pos)) for sentence in core_nlp_doc.sentences]
             text_obj = InputTextObj(tagged_text, lang)
-            text_obj.considered_tags = considered_tags
+            if considered_tags: text_obj.considered_tags = considered_tags
             result = MMRPhrase(self.embedding_distrib, text_obj,
                                N=n_term, beta=beta, alias_threshold=alias_threshold)
             document_id = xml_file.split(".")[0]
@@ -99,7 +99,7 @@ if __name__ == "__main__":
         core_nlp_folder, n,
         selection_params=positionrank_selection_params,
         weighting_params={},
-        output_file="../data/interim/extracted_terms/positionrank.csv"
+        output_file="../results/extracted_terms/positionrank.csv"
     )
     embedrank_extractor = EmbedRankExtractor(
         emdib_model_path="../pretrain_models/torontobooks_unigrams.bin"
@@ -107,6 +107,6 @@ if __name__ == "__main__":
     embedrank_terms = embedrank_extractor.extract(
         core_nlp_folder, n,
         considered_tags={"NOUN", "PROPN", "NUM", "ADJ", "ADP"},
-        output_file="../data/interim/extracted_terms/embedrank.csv"
+        output_file="../results/extracted_terms/embedrank.csv"
     )
 

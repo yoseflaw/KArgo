@@ -16,16 +16,14 @@ class TestEvalution(unittest.TestCase):
         self.evaluator.add_prediction("method2", accurate_preds)
 
     def test_precision(self):
-        all_precisions = self.evaluator.calculate_precision_all()
-        avg_precision_score = evaluation.Evaluator.get_average_scores(all_precisions)
-        for scores in avg_precision_score.values():
-            self.assertEqual(len(scores), sum(scores))
+        precisions = self.evaluator.calculate_precision_all()
+        precisions_df = evaluation.Evaluator.get_aggr_scores_df(precisions, "precisions")
+        self.assertEqual(len(precisions_df), sum(precisions_df["precisions"]))
 
     def test_recall(self):
-        all_relative_recalls = self.evaluator.calculate_relative_recalls_all()
-        avg_relative_recalls = evaluation.Evaluator.get_average_scores(all_relative_recalls)
-        for scores in avg_relative_recalls.values():
-            self.assertEqual(len(scores), sum(scores))
+        relative_recalls = self.evaluator.calculate_relative_recalls_all()
+        relative_recalls_df = evaluation.Evaluator.get_aggr_scores_df(relative_recalls, "relative recalls")
+        self.assertEqual(len(relative_recalls_df), sum(relative_recalls_df["relative recalls"]))
 
 
 if __name__ == "__main__":
