@@ -2,9 +2,12 @@ from hashlib import md5
 import re
 import os
 import random
+import json
+import html
+from tqdm import tqdm
 from lxml.objectify import Element
 from lxml import etree, objectify
-import nltk
+import stanza
 from kargo import logger
 log = logger.get_logger(__name__, logger.INFO)
 
@@ -56,6 +59,14 @@ class Corpus(XMLBase):
         else:
             self.is_annotated = False
 
+    @staticmethod
+    def unicodify(text):
+        return text.replace("“", "\"")\
+            .replace("”", "\"")\
+            .replace("’", "'")\
+            .replace("‘", "'") \
+            .replace("\n", " ")
+
     def add_document(self, url, title, categories, published_time, content, author=None, topics=None, links=None,
                      terms=None, document_id=None):
         if url is None or len(url) == 0:
@@ -67,12 +78,10 @@ class Corpus(XMLBase):
         new_document.document_id = md5(url.encode("utf-8")).hexdigest()[-6:] if document_id is None or \
             len(document_id) == 0 else document_id
         new_document.url = url
-        new_document.title = title
+        new_document.title = Corpus.unicodify(title)
         new_document.author = author
         new_document.published_time = published_time
         # handle lists
-        new_document.terms = Element("terms")
-        if terms: new_document.terms.term = terms
         new_document.categories = Element("categories")
         if categories: new_document.categories.category = categories
         new_document.topics = Element("topics")
@@ -80,7 +89,24 @@ class Corpus(XMLBase):
         new_document.links = Element("links")
         if links: new_document.links.link = links
         new_document.content = Element("content")
-        if content: new_document.content.p = content
+        if content:
+            new_document.content.p = [Corpus.unicodify(p) for p in content if p]
+        # handle terms
+        new_document.terms = Element("terms")
+        terms_list = []
+        if terms:
+            for term in terms:
+                term_elmt = Element("term")
+                term_elmt.word = term
+                term_elmt.locations = Element("locations")
+                locations_list = []
+                for location in terms[term]:
+                    location_elmt = Element("location")
+                    location_elmt.begin, location_elmt.end = location
+                    locations_list.append(location_elmt)
+                term_elmt.locations.location = locations_list
+                terms_list.append(term_elmt)
+            new_document.terms.term = terms_list
         self.corpus.append(new_document)
         self.url_indices.append(url)
 
@@ -112,27 +138,51 @@ class Corpus(XMLBase):
         composites = ["terms", "topics", "content", "links", "categories"]
         corpus_etree = etree.parse(input_path)
         corpus_root = corpus_etree.getroot()
+        has_terms = False
         for document in corpus_root:
             new_document_attrs = {}
-            unique_terms = set()
+            unique_terms = {}
+            buffer_len = 0
             for document_elmt in document:
                 if document_elmt.tag == "category":
                     new_document_attrs["categories"] = document_elmt.text.split(";") if document_elmt.text else []
                 elif document_elmt.tag == "title" and self.is_annotated:
-                    terms = re.findall(r"\[\[(.+?)\]\]", document_elmt.text)
-                    unique_terms.update(terms)
-                    new_document_attrs["title"] = re.sub(self.annotation_regex, r"\1", document_elmt.text)
+                    new_title = self.process_annotation(Corpus.unicodify(document_elmt.text), unique_terms, buffer_len)
+                    new_document_attrs["title"] = new_title
+                    buffer_len += len(new_title) + 1
                 elif document_elmt.tag == "content" and self.is_annotated:
+                    new_ps = []
                     for item in document_elmt:
-                        terms = re.findall(r"\[\[(.+?)\]\]", item.text)
-                        unique_terms.update(terms)
-                    new_document_attrs["content"] = [re.sub(self.annotation_regex, r"\1", p.text) for p in document_elmt]
+                        new_p = self.process_annotation(Corpus.unicodify(item.text), unique_terms, buffer_len)
+                        new_ps.append(new_p)
+                        buffer_len += len(new_p) + 1
+                    new_document_attrs["content"] = new_ps
+                elif document_elmt.tag == "terms":
+                    terms = {}
+                    for term_elmt in document_elmt:
+                        locations = []
+                        word = None
+                        for item_elmt in term_elmt:
+                            if item_elmt.tag == "word":
+                                word = item_elmt.text
+                            elif item_elmt.tag == "locations":
+                                begin, end = None, None
+                                for loc_elmt in item_elmt:
+                                    for point_elmt in loc_elmt:
+                                        if point_elmt.tag == "begin":
+                                            begin = int(point_elmt.text)
+                                        elif point_elmt.tag == "end":
+                                            end = int(point_elmt.text)
+                                locations.append((begin, end))
+                        terms[word] = locations
+                    has_terms = True
+                    new_document_attrs["terms"] = terms
                 elif document_elmt.tag in composites:
                     new_document_attrs[document_elmt.tag] = [item.text for item in document_elmt]
                 else:
                     new_document_attrs[document_elmt.tag] = document_elmt.text
-            if self.is_annotated:
-                new_document_attrs["terms"] = list(unique_terms)
+            if not has_terms and self.is_annotated:
+                new_document_attrs["terms"] = unique_terms
             self.add_document(**new_document_attrs)
 
     def read_from_folder(self, root_folder):
@@ -164,35 +214,79 @@ class Corpus(XMLBase):
                 subset_corpus.add_document_from_element(document)
         return subset_corpus
 
-    def write_to_core_nlp_xmls(self, output_folder, host="localhost", port=9000):
+    def process_annotation(self, text, unique_terms, buffer_len):
+        terms = re.findall(self.annotation_regex, text)
+        new_text = re.sub(self.annotation_regex, r"\1", text)
+        for term in terms:
+            locations = [
+                (buffer_len + m.start(), buffer_len + m.end()) for m in re.finditer(re.escape(term), new_text)
+            ]
+            if term in unique_terms:
+                unique_terms[term].update(locations)
+            else:
+                unique_terms[term] = set(locations)
+        return new_text
 
-        def annotate_sentence(sentences):
-            properties = {"annotators": "tokenize,ssplit,pos,lemma"}
-            annotated_text = parser.api_call(sentences, properties=properties)
+    def write_to_core_nlp_xmls(self, output_folder):
+
+        def annotate_sentence(sentences, nlp):
+            annotated_text = nlp(sentences)
             annotated_sentences = []
-            for sentence in annotated_text["sentences"]:
+            head_dict = {0: "root"}
+            for sentence in annotated_text.sentences:
                 annotated_sentence = []
-                for token in sentence["tokens"]:
+                for token in sentence.words:
+                    misc = dict(token_misc.split("=") for token_misc in token.misc.split("|"))
+                    token_id = int(token.id)
+                    head_dict[token_id] = token.text
                     annotated_sentence.append({
-                        "word": token["word"],
-                        "pos": token["pos"],
-                        "lemma": token["lemma"],
-                        "character_offset_begin": token["characterOffsetBegin"],
-                        "character_offset_end": token["characterOffsetEnd"]
+                        "id": token_id,
+                        "word": token.text,
+                        "pos": token.xpos,
+                        "lemma": token.lemma,
+                        "deprel": token.deprel,
+                        "deprel_head_id": token.head,
+                        "character_offset_begin": misc["start_char"],
+                        "character_offset_end": misc["end_char"]
                     })
+                for token in annotated_sentence:
+                    token["deprel_head_text"] = head_dict[token["deprel_head_id"]]
                 annotated_sentences.append(annotated_sentence)
             return annotated_sentences
 
-        parser = nltk.CoreNLPParser(url=f"http://{host}:{port}")
-        for document in self.iter_documents():
+        stanza_nlp = stanza.Pipeline("en", package="gum", processors="tokenize,pos,lemma,depparse", verbose=False)
+        for document in tqdm(self.iter_documents(), total=len(self)):
             document_id = document.document_id.text
             title = document.title.text
-            annotated_title = annotate_sentence(title)
+            annotated_title = annotate_sentence(title, stanza_nlp)
             annotated_content = []
             for p in document.content.p:
-                annotated_content += annotate_sentence(p.text)
+                annotated_content += annotate_sentence(p.text, stanza_nlp)
             core_nlp_corpus = StanfordCoreNLPDocument(annotated_title, annotated_content)
             core_nlp_corpus.write_xml_to(os.path.join(output_folder, f"{document_id}.xml"))
+
+    def write_annotation_to_jsonl(self, jsonl_path):
+        terms_found = False
+        with open(jsonl_path, "w") as out_file:
+            for document in self.iter_documents():
+                if document.terms.countchildren() > 0:
+                    labels = []
+                    for term in document.terms.term:
+                        for location in term.locations.location:
+                            labels.append([int(location.begin.text), int(location.end.text), "UNK"])
+                    text = {
+                        "text": "|".join(
+                            [html.unescape(document.title.text)]\
+                            + [p.text for p in document.content.p]
+                        ),
+                        # "text": document.title.text,
+                        # "labels": labels
+                    }
+                    json.dump(html.unescape(text), out_file)
+                    out_file.write("\n")
+                    terms_found = True
+        if not terms_found:
+            raise ValueError("No terms found. Provide XML with terms to create a JSONL file.")
 
 
 class StanfordCoreNLPDocument(XMLBase):
@@ -209,32 +303,37 @@ class StanfordCoreNLPDocument(XMLBase):
         self.root.append(document)
 
     def process_sentences(self, sentences, section_name, section_type):
+
+        def process_sentence(sent):
+            tokens = objectify.Element("tokens")
+            tokens_element = []
+            for token in sent:
+                token_id = token["id"]
+                token_element = objectify.Element("token", id=str(token_id))
+                token_element.word = token["word"]
+                token_element.lemma = token["lemma"]
+                token_element.CharacterOffsetBegin = token["character_offset_begin"]
+                token_element.CharacterOffsetEnd = token["character_offset_end"]
+                token_element.POS = token["pos"]
+                token_element.deprel = token["deprel"]
+                token_element.depreal_head_id = token["deprel_head_id"]
+                token_element.depreal_head_text = token["deprel_head_text"]
+                tokens_element.append(token_element)
+            tokens.token = tokens_element
+            return tokens
+
         sentences_element = []
         for sentence in sentences:
             sentence_element = objectify.Element("sentence",
                                                  section=section_name, type=section_type, id=str(self.sentence_id))
-            sentence_element.tokens = self.process_sentence(sentence)
+            sentence_element.tokens = process_sentence(sentence)
             sentences_element.append(sentence_element)
             self.sentence_id += 1
         return sentences_element
 
-    def process_sentence(self, sentence):
-        tokens = objectify.Element("tokens")
-        tokens_element = []
-        token_id = 1
-        for token in sentence:
-            token_element = objectify.Element("token", id=str(token_id))
-            token_element.word = token["word"]
-            token_element.lemma = token["lemma"]
-            token_element.CharacterOffsetBegin = token["character_offset_begin"]
-            token_element.CharacterOffsetEnd = token["character_offset_end"]
-            token_element.POS = token["pos"]
-            tokens_element.append(token_element)
-            token_id += 1
-        tokens.token = tokens_element
-        return tokens
 
 
 if __name__ == "__main__":
     corpus = Corpus("../data/manual/random_sample_annotated.xml", is_annotated=True)
     corpus.write_xml_to("../data/processed/random_sample_annotated.xml")
+    corpus.write_annotation_to_jsonl("../data/processed/random_sample_annotated.jsonl")

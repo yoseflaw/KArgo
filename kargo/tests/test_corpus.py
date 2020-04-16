@@ -13,7 +13,7 @@ class TestCorpus(unittest.TestCase):
 
     def test_annotated(self):
         check_corpus = corpus.Corpus("../../data/test/samples_with_manual_annotation.xml", is_annotated=True)
-        self.assertEqual(len(check_corpus), 3)
+        self.assertEqual(len(check_corpus), 4)
 
     def test_wiki(self):
         check_corpus = corpus.Corpus("../../data/test/samples_wiki.xml")

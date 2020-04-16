@@ -9,6 +9,9 @@
             <CharacterOffsetBegin>0</CharacterOffsetBegin>
             <CharacterOffsetEnd>3</CharacterOffsetEnd>
             <POS>NNP</POS>
+            <deprel>nsubj</deprel>
+            <depreal_head_id>2</depreal_head_id>
+            <depreal_head_text>takes</depreal_head_text>
           </token>
           <token id="2">
             <word>takes</word>
@@ -16,13 +19,19 @@
             <CharacterOffsetBegin>4</CharacterOffsetBegin>
             <CharacterOffsetEnd>9</CharacterOffsetEnd>
             <POS>VBZ</POS>
+            <deprel>root</deprel>
+            <depreal_head_id>0</depreal_head_id>
+            <depreal_head_text>root</depreal_head_text>
           </token>
           <token id="3">
             <word>on</word>
             <lemma>on</lemma>
             <CharacterOffsetBegin>10</CharacterOffsetBegin>
             <CharacterOffsetEnd>12</CharacterOffsetEnd>
-            <POS>RP</POS>
+            <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>fifth</depreal_head_text>
           </token>
           <token id="4">
             <word>fifth</word>
@@ -30,13 +39,19 @@
             <CharacterOffsetBegin>13</CharacterOffsetBegin>
             <CharacterOffsetEnd>18</CharacterOffsetEnd>
             <POS>JJ</POS>
+            <deprel>obl</deprel>
+            <depreal_head_id>2</depreal_head_id>
+            <depreal_head_text>takes</depreal_head_text>
           </token>
           <token id="5">
             <word>747-400F</word>
-            <lemma>747-400f</lemma>
+            <lemma>@card@</lemma>
             <CharacterOffsetBegin>19</CharacterOffsetBegin>
             <CharacterOffsetEnd>27</CharacterOffsetEnd>
-            <POS>NN</POS>
+            <POS>CD</POS>
+            <deprel>obl</deprel>
+            <depreal_head_id>2</depreal_head_id>
+            <depreal_head_text>takes</depreal_head_text>
           </token>
         </tokens>
       </sentence>
@@ -47,21 +62,30 @@
             <lemma>AIRBRIDGECARGO</lemma>
             <CharacterOffsetBegin>0</CharacterOffsetBegin>
             <CharacterOffsetEnd>14</CharacterOffsetEnd>
-            <POS>NNP</POS>
+            <POS>NNPS</POS>
+            <deprel>compound</deprel>
+            <depreal_head_id>2</depreal_head_id>
+            <depreal_head_text>Airlines</depreal_head_text>
           </token>
           <token id="2">
             <word>Airlines</word>
             <lemma>Airlines</lemma>
             <CharacterOffsetBegin>15</CharacterOffsetBegin>
             <CharacterOffsetEnd>23</CharacterOffsetEnd>
-            <POS>NNP</POS>
+            <POS>NNPS</POS>
+            <deprel>nsubj</deprel>
+            <depreal_head_id>7</depreal_head_id>
+            <depreal_head_text>added</depreal_head_text>
           </token>
           <token id="3">
-            <word>-LRB-</word>
-            <lemma>-lrb-</lemma>
+            <word>(</word>
+            <lemma>(</lemma>
             <CharacterOffsetBegin>24</CharacterOffsetBegin>
             <CharacterOffsetEnd>25</CharacterOffsetEnd>
             <POS>-LRB-</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>ABC</depreal_head_text>
           </token>
           <token id="4">
             <word>ABC</word>
@@ -69,13 +93,19 @@
             <CharacterOffsetBegin>25</CharacterOffsetBegin>
             <CharacterOffsetEnd>28</CharacterOffsetEnd>
             <POS>NNP</POS>
+            <deprel>appos</deprel>
+            <depreal_head_id>2</depreal_head_id>
+            <depreal_head_text>Airlines</depreal_head_text>
           </token>
           <token id="5">
-            <word>-RRB-</word>
-            <lemma>-rrb-</lemma>
+            <word>)</word>
+            <lemma>)</lemma>
             <CharacterOffsetBegin>28</CharacterOffsetBegin>
             <CharacterOffsetEnd>29</CharacterOffsetEnd>
             <POS>-RRB-</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>ABC</depreal_head_text>
           </token>
           <token id="6">
             <word>has</word>
@@ -83,6 +113,9 @@
             <CharacterOffsetBegin>30</CharacterOffsetBegin>
             <CharacterOffsetEnd>33</CharacterOffsetEnd>
             <POS>VBZ</POS>
+            <deprel>aux</deprel>
+            <depreal_head_id>7</depreal_head_id>
+            <depreal_head_text>added</depreal_head_text>
           </token>
           <token id="7">
             <word>added</word>
@@ -90,6 +123,9 @@
             <CharacterOffsetBegin>34</CharacterOffsetBegin>
             <CharacterOffsetEnd>39</CharacterOffsetEnd>
             <POS>VBN</POS>
+            <deprel>root</deprel>
+            <depreal_head_id>0</depreal_head_id>
+            <depreal_head_text>root</depreal_head_text>
           </token>
           <token id="8">
             <word>a</word>
@@ -97,6 +133,9 @@
             <CharacterOffsetBegin>40</CharacterOffsetBegin>
             <CharacterOffsetEnd>41</CharacterOffsetEnd>
             <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>11</depreal_head_id>
+            <depreal_head_text>freighter</depreal_head_text>
           </token>
           <token id="9">
             <word>fifth</word>
@@ -104,13 +143,19 @@
             <CharacterOffsetBegin>42</CharacterOffsetBegin>
             <CharacterOffsetEnd>47</CharacterOffsetEnd>
             <POS>JJ</POS>
+            <deprel>amod</deprel>
+            <depreal_head_id>11</depreal_head_id>
+            <depreal_head_text>freighter</depreal_head_text>
           </token>
           <token id="10">
             <word>747-400</word>
-            <lemma>747-400</lemma>
+            <lemma>@card@</lemma>
             <CharacterOffsetBegin>48</CharacterOffsetBegin>
             <CharacterOffsetEnd>55</CharacterOffsetEnd>
-            <POS>JJ</POS>
+            <POS>CD</POS>
+            <deprel>nummod</deprel>
+            <depreal_head_id>11</depreal_head_id>
+            <depreal_head_text>freighter</depreal_head_text>
           </token>
           <token id="11">
             <word>freighter</word>
@@ -118,6 +163,9 @@
             <CharacterOffsetBegin>56</CharacterOffsetBegin>
             <CharacterOffsetEnd>65</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>obj</deprel>
+            <depreal_head_id>7</depreal_head_id>
+            <depreal_head_text>added</depreal_head_text>
           </token>
           <token id="12">
             <word>to</word>
@@ -125,6 +173,9 @@
             <CharacterOffsetBegin>66</CharacterOffsetBegin>
             <CharacterOffsetEnd>68</CharacterOffsetEnd>
             <POS>TO</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>14</depreal_head_id>
+            <depreal_head_text>fleet</depreal_head_text>
           </token>
           <token id="13">
             <word>its</word>
@@ -132,6 +183,9 @@
             <CharacterOffsetBegin>69</CharacterOffsetBegin>
             <CharacterOffsetEnd>72</CharacterOffsetEnd>
             <POS>PRP$</POS>
+            <deprel>nmod:poss</deprel>
+            <depreal_head_id>14</depreal_head_id>
+            <depreal_head_text>fleet</depreal_head_text>
           </token>
           <token id="14">
             <word>fleet</word>
@@ -139,6 +193,9 @@
             <CharacterOffsetBegin>73</CharacterOffsetBegin>
             <CharacterOffsetEnd>78</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>obl</deprel>
+            <depreal_head_id>7</depreal_head_id>
+            <depreal_head_text>added</depreal_head_text>
           </token>
           <token id="15">
             <word>.</word>
@@ -146,6 +203,9 @@
             <CharacterOffsetBegin>78</CharacterOffsetBegin>
             <CharacterOffsetEnd>79</CharacterOffsetEnd>
             <POS>.</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>7</depreal_head_id>
+            <depreal_head_text>added</depreal_head_text>
           </token>
         </tokens>
       </sentence>
@@ -157,6 +217,9 @@
             <CharacterOffsetBegin>0</CharacterOffsetBegin>
             <CharacterOffsetEnd>4</CharacterOffsetEnd>
             <POS>DT</POS>
+            <deprel>nsubj</deprel>
+            <depreal_head_id>2</depreal_head_id>
+            <depreal_head_text>brings</depreal_head_text>
           </token>
           <token id="2">
             <word>brings</word>
@@ -164,6 +227,9 @@
             <CharacterOffsetBegin>5</CharacterOffsetBegin>
             <CharacterOffsetEnd>11</CharacterOffsetEnd>
             <POS>VBZ</POS>
+            <deprel>root</deprel>
+            <depreal_head_id>0</depreal_head_id>
+            <depreal_head_text>root</depreal_head_text>
           </token>
           <token id="3">
             <word>the</word>
@@ -171,6 +237,9 @@
             <CharacterOffsetBegin>12</CharacterOffsetBegin>
             <CharacterOffsetEnd>15</CharacterOffsetEnd>
             <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>airline</depreal_head_text>
           </token>
           <token id="4">
             <word>airline</word>
@@ -178,6 +247,9 @@
             <CharacterOffsetBegin>16</CharacterOffsetBegin>
             <CharacterOffsetEnd>23</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>nmod:poss</deprel>
+            <depreal_head_id>8</depreal_head_id>
+            <depreal_head_text>fleet</depreal_head_text>
           </token>
           <token id="5">
             <word>'s</word>
@@ -185,6 +257,9 @@
             <CharacterOffsetBegin>23</CharacterOffsetBegin>
             <CharacterOffsetEnd>25</CharacterOffsetEnd>
             <POS>POS</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>airline</depreal_head_text>
           </token>
           <token id="6">
             <word>total</word>
@@ -192,6 +267,9 @@
             <CharacterOffsetBegin>26</CharacterOffsetBegin>
             <CharacterOffsetEnd>31</CharacterOffsetEnd>
             <POS>JJ</POS>
+            <deprel>amod</deprel>
+            <depreal_head_id>8</depreal_head_id>
+            <depreal_head_text>fleet</depreal_head_text>
           </token>
           <token id="7">
             <word>freighter</word>
@@ -199,6 +277,9 @@
             <CharacterOffsetBegin>32</CharacterOffsetBegin>
             <CharacterOffsetEnd>41</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>compound</deprel>
+            <depreal_head_id>8</depreal_head_id>
+            <depreal_head_text>fleet</depreal_head_text>
           </token>
           <token id="8">
             <word>fleet</word>
@@ -206,6 +287,9 @@
             <CharacterOffsetBegin>42</CharacterOffsetBegin>
             <CharacterOffsetEnd>47</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>obj</deprel>
+            <depreal_head_id>2</depreal_head_id>
+            <depreal_head_text>brings</depreal_head_text>
           </token>
           <token id="9">
             <word>to</word>
@@ -213,6 +297,9 @@
             <CharacterOffsetBegin>48</CharacterOffsetBegin>
             <CharacterOffsetEnd>50</CharacterOffsetEnd>
             <POS>TO</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>10</depreal_head_id>
+            <depreal_head_text>eight</depreal_head_text>
           </token>
           <token id="10">
             <word>eight</word>
@@ -220,6 +307,9 @@
             <CharacterOffsetBegin>51</CharacterOffsetBegin>
             <CharacterOffsetEnd>56</CharacterOffsetEnd>
             <POS>CD</POS>
+            <deprel>obl</deprel>
+            <depreal_head_id>2</depreal_head_id>
+            <depreal_head_text>brings</depreal_head_text>
           </token>
           <token id="11">
             <word>,</word>
@@ -227,6 +317,9 @@
             <CharacterOffsetBegin>56</CharacterOffsetBegin>
             <CharacterOffsetEnd>57</CharacterOffsetEnd>
             <POS>,</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>13</depreal_head_id>
+            <depreal_head_text>includes</depreal_head_text>
           </token>
           <token id="12">
             <word>which</word>
@@ -234,6 +327,9 @@
             <CharacterOffsetBegin>58</CharacterOffsetBegin>
             <CharacterOffsetEnd>63</CharacterOffsetEnd>
             <POS>WDT</POS>
+            <deprel>nsubj</deprel>
+            <depreal_head_id>13</depreal_head_id>
+            <depreal_head_text>includes</depreal_head_text>
           </token>
           <token id="13">
             <word>includes</word>
@@ -241,6 +337,9 @@
             <CharacterOffsetBegin>64</CharacterOffsetBegin>
             <CharacterOffsetEnd>72</CharacterOffsetEnd>
             <POS>VBZ</POS>
+            <deprel>acl:relcl</deprel>
+            <depreal_head_id>10</depreal_head_id>
+            <depreal_head_text>eight</depreal_head_text>
           </token>
           <token id="14">
             <word>two</word>
@@ -248,13 +347,19 @@
             <CharacterOffsetBegin>73</CharacterOffsetBegin>
             <CharacterOffsetEnd>76</CharacterOffsetEnd>
             <POS>CD</POS>
+            <deprel>nummod</deprel>
+            <depreal_head_id>15</depreal_head_id>
+            <depreal_head_text>747-200s</depreal_head_text>
           </token>
           <token id="15">
             <word>747-200s</word>
-            <lemma>747-200</lemma>
+            <lemma>747-200s</lemma>
             <CharacterOffsetBegin>77</CharacterOffsetBegin>
             <CharacterOffsetEnd>85</CharacterOffsetEnd>
             <POS>NNS</POS>
+            <deprel>obj</deprel>
+            <depreal_head_id>13</depreal_head_id>
+            <depreal_head_text>includes</depreal_head_text>
           </token>
           <token id="16">
             <word>and</word>
@@ -262,6 +367,9 @@
             <CharacterOffsetBegin>86</CharacterOffsetBegin>
             <CharacterOffsetEnd>89</CharacterOffsetEnd>
             <POS>CC</POS>
+            <deprel>cc</deprel>
+            <depreal_head_id>17</depreal_head_id>
+            <depreal_head_text>one</depreal_head_text>
           </token>
           <token id="17">
             <word>one</word>
@@ -269,13 +377,19 @@
             <CharacterOffsetBegin>90</CharacterOffsetBegin>
             <CharacterOffsetEnd>93</CharacterOffsetEnd>
             <POS>CD</POS>
+            <deprel>conj</deprel>
+            <depreal_head_id>15</depreal_head_id>
+            <depreal_head_text>747-200s</depreal_head_text>
           </token>
           <token id="18">
             <word>747-300</word>
-            <lemma>747-300</lemma>
+            <lemma>@card@</lemma>
             <CharacterOffsetBegin>94</CharacterOffsetBegin>
             <CharacterOffsetEnd>101</CharacterOffsetEnd>
             <POS>CD</POS>
+            <deprel>nummod</deprel>
+            <depreal_head_id>17</depreal_head_id>
+            <depreal_head_text>one</depreal_head_text>
           </token>
           <token id="19">
             <word>.</word>
@@ -283,6 +397,9 @@
             <CharacterOffsetBegin>101</CharacterOffsetBegin>
             <CharacterOffsetEnd>102</CharacterOffsetEnd>
             <POS>.</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>2</depreal_head_id>
+            <depreal_head_text>brings</depreal_head_text>
           </token>
         </tokens>
       </sentence>
@@ -294,6 +411,9 @@
             <CharacterOffsetBegin>0</CharacterOffsetBegin>
             <CharacterOffsetEnd>3</CharacterOffsetEnd>
             <POS>NNP</POS>
+            <deprel>nsubj</deprel>
+            <depreal_head_id>3</depreal_head_id>
+            <depreal_head_text>ordered</depreal_head_text>
           </token>
           <token id="2">
             <word>had</word>
@@ -301,6 +421,9 @@
             <CharacterOffsetBegin>4</CharacterOffsetBegin>
             <CharacterOffsetEnd>7</CharacterOffsetEnd>
             <POS>VBD</POS>
+            <deprel>aux</deprel>
+            <depreal_head_id>3</depreal_head_id>
+            <depreal_head_text>ordered</depreal_head_text>
           </token>
           <token id="3">
             <word>ordered</word>
@@ -308,6 +431,9 @@
             <CharacterOffsetBegin>8</CharacterOffsetBegin>
             <CharacterOffsetEnd>15</CharacterOffsetEnd>
             <POS>VBN</POS>
+            <deprel>root</deprel>
+            <depreal_head_id>0</depreal_head_id>
+            <depreal_head_text>root</depreal_head_text>
           </token>
           <token id="4">
             <word>five</word>
@@ -315,6 +441,9 @@
             <CharacterOffsetBegin>16</CharacterOffsetBegin>
             <CharacterOffsetEnd>20</CharacterOffsetEnd>
             <POS>CD</POS>
+            <deprel>obj</deprel>
+            <depreal_head_id>3</depreal_head_id>
+            <depreal_head_text>ordered</depreal_head_text>
           </token>
           <token id="5">
             <word>of</word>
@@ -322,6 +451,9 @@
             <CharacterOffsetBegin>21</CharacterOffsetBegin>
             <CharacterOffsetEnd>23</CharacterOffsetEnd>
             <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>9</depreal_head_id>
+            <depreal_head_text>freighters</depreal_head_text>
           </token>
           <token id="6">
             <word>the</word>
@@ -329,6 +461,9 @@
             <CharacterOffsetBegin>24</CharacterOffsetBegin>
             <CharacterOffsetEnd>27</CharacterOffsetEnd>
             <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>9</depreal_head_id>
+            <depreal_head_text>freighters</depreal_head_text>
           </token>
           <token id="7">
             <word>new</word>
@@ -336,13 +471,19 @@
             <CharacterOffsetBegin>28</CharacterOffsetBegin>
             <CharacterOffsetEnd>31</CharacterOffsetEnd>
             <POS>JJ</POS>
+            <deprel>amod</deprel>
+            <depreal_head_id>9</depreal_head_id>
+            <depreal_head_text>freighters</depreal_head_text>
           </token>
           <token id="8">
             <word>747-8</word>
             <lemma>747-8</lemma>
             <CharacterOffsetBegin>32</CharacterOffsetBegin>
             <CharacterOffsetEnd>37</CharacterOffsetEnd>
-            <POS>CD</POS>
+            <POS>NNP</POS>
+            <deprel>compound</deprel>
+            <depreal_head_id>9</depreal_head_id>
+            <depreal_head_text>freighters</depreal_head_text>
           </token>
           <token id="9">
             <word>freighters</word>
@@ -350,6 +491,9 @@
             <CharacterOffsetBegin>38</CharacterOffsetBegin>
             <CharacterOffsetEnd>48</CharacterOffsetEnd>
             <POS>NNS</POS>
+            <deprel>nmod</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>five</depreal_head_text>
           </token>
           <token id="10">
             <word>,</word>
@@ -357,6 +501,9 @@
             <CharacterOffsetBegin>48</CharacterOffsetBegin>
             <CharacterOffsetEnd>49</CharacterOffsetEnd>
             <POS>,</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>17</depreal_head_id>
+            <depreal_head_text>put</depreal_head_text>
           </token>
           <token id="11">
             <word>but</word>
@@ -364,6 +511,9 @@
             <CharacterOffsetBegin>50</CharacterOffsetBegin>
             <CharacterOffsetEnd>53</CharacterOffsetEnd>
             <POS>CC</POS>
+            <deprel>cc</deprel>
+            <depreal_head_id>17</depreal_head_id>
+            <depreal_head_text>put</depreal_head_text>
           </token>
           <token id="12">
             <word>Boeing</word>
@@ -371,6 +521,9 @@
             <CharacterOffsetBegin>54</CharacterOffsetBegin>
             <CharacterOffsetEnd>60</CharacterOffsetEnd>
             <POS>NNP</POS>
+            <deprel>nmod:poss</deprel>
+            <depreal_head_id>15</depreal_head_id>
+            <depreal_head_text>delays</depreal_head_text>
           </token>
           <token id="13">
             <word>'s</word>
@@ -378,6 +531,9 @@
             <CharacterOffsetBegin>60</CharacterOffsetBegin>
             <CharacterOffsetEnd>62</CharacterOffsetEnd>
             <POS>POS</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>12</depreal_head_id>
+            <depreal_head_text>Boeing</depreal_head_text>
           </token>
           <token id="14">
             <word>production</word>
@@ -385,6 +541,9 @@
             <CharacterOffsetBegin>63</CharacterOffsetBegin>
             <CharacterOffsetEnd>73</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>compound</deprel>
+            <depreal_head_id>15</depreal_head_id>
+            <depreal_head_text>delays</depreal_head_text>
           </token>
           <token id="15">
             <word>delays</word>
@@ -392,6 +551,9 @@
             <CharacterOffsetBegin>74</CharacterOffsetBegin>
             <CharacterOffsetEnd>80</CharacterOffsetEnd>
             <POS>NNS</POS>
+            <deprel>nsubj</deprel>
+            <depreal_head_id>17</depreal_head_id>
+            <depreal_head_text>put</depreal_head_text>
           </token>
           <token id="16">
             <word>have</word>
@@ -399,6 +561,9 @@
             <CharacterOffsetBegin>81</CharacterOffsetBegin>
             <CharacterOffsetEnd>85</CharacterOffsetEnd>
             <POS>VBP</POS>
+            <deprel>aux</deprel>
+            <depreal_head_id>17</depreal_head_id>
+            <depreal_head_text>put</depreal_head_text>
           </token>
           <token id="17">
             <word>put</word>
@@ -406,6 +571,9 @@
             <CharacterOffsetBegin>86</CharacterOffsetBegin>
             <CharacterOffsetEnd>89</CharacterOffsetEnd>
             <POS>VBN</POS>
+            <deprel>conj</deprel>
+            <depreal_head_id>3</depreal_head_id>
+            <depreal_head_text>ordered</depreal_head_text>
           </token>
           <token id="18">
             <word>delivery</word>
@@ -413,6 +581,9 @@
             <CharacterOffsetBegin>90</CharacterOffsetBegin>
             <CharacterOffsetEnd>98</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>obj</deprel>
+            <depreal_head_id>17</depreal_head_id>
+            <depreal_head_text>put</depreal_head_text>
           </token>
           <token id="19">
             <word>of</word>
@@ -420,6 +591,9 @@
             <CharacterOffsetBegin>99</CharacterOffsetBegin>
             <CharacterOffsetEnd>101</CharacterOffsetEnd>
             <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>21</depreal_head_id>
+            <depreal_head_text>back</depreal_head_text>
           </token>
           <token id="20">
             <word>those</word>
@@ -427,13 +601,19 @@
             <CharacterOffsetBegin>102</CharacterOffsetBegin>
             <CharacterOffsetEnd>107</CharacterOffsetEnd>
             <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>21</depreal_head_id>
+            <depreal_head_text>back</depreal_head_text>
           </token>
           <token id="21">
             <word>back</word>
             <lemma>back</lemma>
             <CharacterOffsetBegin>108</CharacterOffsetBegin>
             <CharacterOffsetEnd>112</CharacterOffsetEnd>
-            <POS>JJ</POS>
+            <POS>RB</POS>
+            <deprel>nmod</deprel>
+            <depreal_head_id>18</depreal_head_id>
+            <depreal_head_text>delivery</depreal_head_text>
           </token>
           <token id="22">
             <word>to</word>
@@ -441,6 +621,9 @@
             <CharacterOffsetBegin>113</CharacterOffsetBegin>
             <CharacterOffsetEnd>115</CharacterOffsetEnd>
             <POS>TO</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>23</depreal_head_id>
+            <depreal_head_text>February</depreal_head_text>
           </token>
           <token id="23">
             <word>February</word>
@@ -448,13 +631,19 @@
             <CharacterOffsetBegin>116</CharacterOffsetBegin>
             <CharacterOffsetEnd>124</CharacterOffsetEnd>
             <POS>NNP</POS>
+            <deprel>obl</deprel>
+            <depreal_head_id>17</depreal_head_id>
+            <depreal_head_text>put</depreal_head_text>
           </token>
           <token id="24">
             <word>next</word>
             <lemma>next</lemma>
             <CharacterOffsetBegin>125</CharacterOffsetBegin>
             <CharacterOffsetEnd>129</CharacterOffsetEnd>
-            <POS>IN</POS>
+            <POS>JJ</POS>
+            <deprel>amod</deprel>
+            <depreal_head_id>25</depreal_head_id>
+            <depreal_head_text>year</depreal_head_text>
           </token>
           <token id="25">
             <word>year</word>
@@ -462,6 +651,9 @@
             <CharacterOffsetBegin>130</CharacterOffsetBegin>
             <CharacterOffsetEnd>134</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>obl:tmod</deprel>
+            <depreal_head_id>17</depreal_head_id>
+            <depreal_head_text>put</depreal_head_text>
           </token>
           <token id="26">
             <word>.</word>
@@ -469,280 +661,401 @@
             <CharacterOffsetBegin>134</CharacterOffsetBegin>
             <CharacterOffsetEnd>135</CharacterOffsetEnd>
             <POS>.</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>3</depreal_head_id>
+            <depreal_head_text>ordered</depreal_head_text>
           </token>
         </tokens>
       </sentence>
       <sentence section="content" type="bodyText" id="5">
         <tokens>
           <token id="1">
-            <word>``</word>
-            <lemma>``</lemma>
+            <word>"</word>
+            <lemma>"</lemma>
             <CharacterOffsetBegin>0</CharacterOffsetBegin>
             <CharacterOffsetEnd>1</CharacterOffsetEnd>
-            <POS>``</POS>
-          </token>
-          <token id="2">
-            <word>The</word>
-            <lemma>the</lemma>
-            <CharacterOffsetBegin>1</CharacterOffsetBegin>
-            <CharacterOffsetEnd>4</CharacterOffsetEnd>
-            <POS>DT</POS>
-          </token>
-          <token id="3">
-            <word>decision</word>
-            <lemma>decision</lemma>
-            <CharacterOffsetBegin>5</CharacterOffsetBegin>
-            <CharacterOffsetEnd>13</CharacterOffsetEnd>
-            <POS>NN</POS>
-          </token>
-          <token id="4">
-            <word>to</word>
-            <lemma>to</lemma>
-            <CharacterOffsetBegin>14</CharacterOffsetBegin>
-            <CharacterOffsetEnd>16</CharacterOffsetEnd>
-            <POS>TO</POS>
-          </token>
-          <token id="5">
-            <word>take</word>
-            <lemma>take</lemma>
-            <CharacterOffsetBegin>17</CharacterOffsetBegin>
-            <CharacterOffsetEnd>21</CharacterOffsetEnd>
-            <POS>VB</POS>
-          </token>
-          <token id="6">
-            <word>this</word>
-            <lemma>this</lemma>
-            <CharacterOffsetBegin>22</CharacterOffsetBegin>
-            <CharacterOffsetEnd>26</CharacterOffsetEnd>
-            <POS>DT</POS>
-          </token>
-          <token id="7">
-            <word>extra</word>
-            <lemma>extra</lemma>
-            <CharacterOffsetBegin>27</CharacterOffsetBegin>
-            <CharacterOffsetEnd>32</CharacterOffsetEnd>
-            <POS>JJ</POS>
-          </token>
-          <token id="8">
-            <word>aircraft</word>
-            <lemma>aircraft</lemma>
-            <CharacterOffsetBegin>33</CharacterOffsetBegin>
-            <CharacterOffsetEnd>41</CharacterOffsetEnd>
-            <POS>NN</POS>
-          </token>
-          <token id="9">
-            <word>represents</word>
-            <lemma>represent</lemma>
-            <CharacterOffsetBegin>42</CharacterOffsetBegin>
-            <CharacterOffsetEnd>52</CharacterOffsetEnd>
-            <POS>VBZ</POS>
-          </token>
-          <token id="10">
-            <word>our</word>
-            <lemma>we</lemma>
-            <CharacterOffsetBegin>53</CharacterOffsetBegin>
-            <CharacterOffsetEnd>56</CharacterOffsetEnd>
-            <POS>PRP$</POS>
-          </token>
-          <token id="11">
-            <word>commitment</word>
-            <lemma>commitment</lemma>
-            <CharacterOffsetBegin>57</CharacterOffsetBegin>
-            <CharacterOffsetEnd>67</CharacterOffsetEnd>
-            <POS>NN</POS>
-          </token>
-          <token id="12">
-            <word>to</word>
-            <lemma>to</lemma>
-            <CharacterOffsetBegin>68</CharacterOffsetBegin>
-            <CharacterOffsetEnd>70</CharacterOffsetEnd>
-            <POS>TO</POS>
-          </token>
-          <token id="13">
-            <word>continue</word>
-            <lemma>continue</lemma>
-            <CharacterOffsetBegin>71</CharacterOffsetBegin>
-            <CharacterOffsetEnd>79</CharacterOffsetEnd>
-            <POS>VB</POS>
-          </token>
-          <token id="14">
-            <word>our</word>
-            <lemma>we</lemma>
-            <CharacterOffsetBegin>80</CharacterOffsetBegin>
-            <CharacterOffsetEnd>83</CharacterOffsetEnd>
-            <POS>PRP$</POS>
-          </token>
-          <token id="15">
-            <word>development</word>
-            <lemma>development</lemma>
-            <CharacterOffsetBegin>84</CharacterOffsetBegin>
-            <CharacterOffsetEnd>95</CharacterOffsetEnd>
-            <POS>NN</POS>
-          </token>
-          <token id="16">
-            <word>plans</word>
-            <lemma>plan</lemma>
-            <CharacterOffsetBegin>96</CharacterOffsetBegin>
-            <CharacterOffsetEnd>101</CharacterOffsetEnd>
-            <POS>VBZ</POS>
-          </token>
-          <token id="17">
-            <word>despite</word>
-            <lemma>despite</lemma>
-            <CharacterOffsetBegin>102</CharacterOffsetBegin>
-            <CharacterOffsetEnd>109</CharacterOffsetEnd>
-            <POS>IN</POS>
-          </token>
-          <token id="18">
-            <word>delays</word>
-            <lemma>delay</lemma>
-            <CharacterOffsetBegin>110</CharacterOffsetBegin>
-            <CharacterOffsetEnd>116</CharacterOffsetEnd>
-            <POS>NNS</POS>
-          </token>
-          <token id="19">
-            <word>in</word>
-            <lemma>in</lemma>
-            <CharacterOffsetBegin>117</CharacterOffsetBegin>
-            <CharacterOffsetEnd>119</CharacterOffsetEnd>
-            <POS>IN</POS>
-          </token>
-          <token id="20">
-            <word>the</word>
-            <lemma>the</lemma>
-            <CharacterOffsetBegin>120</CharacterOffsetBegin>
-            <CharacterOffsetEnd>123</CharacterOffsetEnd>
-            <POS>DT</POS>
-          </token>
-          <token id="21">
-            <word>delivery</word>
-            <lemma>delivery</lemma>
-            <CharacterOffsetBegin>124</CharacterOffsetBegin>
-            <CharacterOffsetEnd>132</CharacterOffsetEnd>
-            <POS>NN</POS>
-          </token>
-          <token id="22">
-            <word>of</word>
-            <lemma>of</lemma>
-            <CharacterOffsetBegin>133</CharacterOffsetBegin>
-            <CharacterOffsetEnd>135</CharacterOffsetEnd>
-            <POS>IN</POS>
-          </token>
-          <token id="23">
-            <word>brand</word>
-            <lemma>brand</lemma>
-            <CharacterOffsetBegin>136</CharacterOffsetBegin>
-            <CharacterOffsetEnd>141</CharacterOffsetEnd>
-            <POS>NN</POS>
-          </token>
-          <token id="24">
-            <word>new</word>
-            <lemma>new</lemma>
-            <CharacterOffsetBegin>142</CharacterOffsetBegin>
-            <CharacterOffsetEnd>145</CharacterOffsetEnd>
-            <POS>JJ</POS>
-          </token>
-          <token id="25">
-            <word>Boeing</word>
-            <lemma>Boeing</lemma>
-            <CharacterOffsetBegin>146</CharacterOffsetBegin>
-            <CharacterOffsetEnd>152</CharacterOffsetEnd>
-            <POS>NNP</POS>
-          </token>
-          <token id="26">
-            <word>747-8</word>
-            <lemma>747-8</lemma>
-            <CharacterOffsetBegin>153</CharacterOffsetBegin>
-            <CharacterOffsetEnd>158</CharacterOffsetEnd>
-            <POS>CD</POS>
-          </token>
-          <token id="27">
-            <word>,</word>
-            <lemma>,</lemma>
-            <CharacterOffsetBegin>158</CharacterOffsetBegin>
-            <CharacterOffsetEnd>159</CharacterOffsetEnd>
-            <POS>,</POS>
-          </token>
-          <token id="28">
-            <word>''</word>
-            <lemma>''</lemma>
-            <CharacterOffsetBegin>159</CharacterOffsetBegin>
-            <CharacterOffsetEnd>160</CharacterOffsetEnd>
             <POS>''</POS>
-          </token>
-          <token id="29">
-            <word>said</word>
-            <lemma>say</lemma>
-            <CharacterOffsetBegin>161</CharacterOffsetBegin>
-            <CharacterOffsetEnd>165</CharacterOffsetEnd>
-            <POS>VBD</POS>
-          </token>
-          <token id="30">
-            <word>Tatyana</word>
-            <lemma>Tatyana</lemma>
-            <CharacterOffsetBegin>166</CharacterOffsetBegin>
-            <CharacterOffsetEnd>173</CharacterOffsetEnd>
-            <POS>NNP</POS>
-          </token>
-          <token id="31">
-            <word>Arslanova</word>
-            <lemma>Arslanova</lemma>
-            <CharacterOffsetBegin>174</CharacterOffsetBegin>
-            <CharacterOffsetEnd>183</CharacterOffsetEnd>
-            <POS>NNP</POS>
-          </token>
-          <token id="32">
-            <word>,</word>
-            <lemma>,</lemma>
-            <CharacterOffsetBegin>183</CharacterOffsetBegin>
-            <CharacterOffsetEnd>184</CharacterOffsetEnd>
-            <POS>,</POS>
-          </token>
-          <token id="33">
-            <word>ABC</word>
-            <lemma>ABC</lemma>
-            <CharacterOffsetBegin>185</CharacterOffsetBegin>
-            <CharacterOffsetEnd>188</CharacterOffsetEnd>
-            <POS>NNP</POS>
-          </token>
-          <token id="34">
-            <word>'s</word>
-            <lemma>'s</lemma>
-            <CharacterOffsetBegin>188</CharacterOffsetBegin>
-            <CharacterOffsetEnd>190</CharacterOffsetEnd>
-            <POS>POS</POS>
-          </token>
-          <token id="35">
-            <word>executive</word>
-            <lemma>executive</lemma>
-            <CharacterOffsetBegin>191</CharacterOffsetBegin>
-            <CharacterOffsetEnd>200</CharacterOffsetEnd>
-            <POS>JJ</POS>
-          </token>
-          <token id="36">
-            <word>president</word>
-            <lemma>president</lemma>
-            <CharacterOffsetBegin>201</CharacterOffsetBegin>
-            <CharacterOffsetEnd>210</CharacterOffsetEnd>
-            <POS>NN</POS>
-          </token>
-          <token id="37">
-            <word>.</word>
-            <lemma>.</lemma>
-            <CharacterOffsetBegin>210</CharacterOffsetBegin>
-            <CharacterOffsetEnd>211</CharacterOffsetEnd>
-            <POS>.</POS>
+            <deprel>root</deprel>
+            <depreal_head_id>0</depreal_head_id>
+            <depreal_head_text>root</depreal_head_text>
           </token>
         </tokens>
       </sentence>
       <sentence section="content" type="bodyText" id="6">
         <tokens>
           <token id="1">
-            <word>``</word>
-            <lemma>``</lemma>
+            <word>The</word>
+            <lemma>the</lemma>
+            <CharacterOffsetBegin>1</CharacterOffsetBegin>
+            <CharacterOffsetEnd>4</CharacterOffsetEnd>
+            <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>2</depreal_head_id>
+            <depreal_head_text>decision</depreal_head_text>
+          </token>
+          <token id="2">
+            <word>decision</word>
+            <lemma>decision</lemma>
+            <CharacterOffsetBegin>5</CharacterOffsetBegin>
+            <CharacterOffsetEnd>13</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <deprel>nsubj</deprel>
+            <depreal_head_id>8</depreal_head_id>
+            <depreal_head_text>represents</depreal_head_text>
+          </token>
+          <token id="3">
+            <word>to</word>
+            <lemma>to</lemma>
+            <CharacterOffsetBegin>14</CharacterOffsetBegin>
+            <CharacterOffsetEnd>16</CharacterOffsetEnd>
+            <POS>TO</POS>
+            <deprel>mark</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>take</depreal_head_text>
+          </token>
+          <token id="4">
+            <word>take</word>
+            <lemma>take</lemma>
+            <CharacterOffsetBegin>17</CharacterOffsetBegin>
+            <CharacterOffsetEnd>21</CharacterOffsetEnd>
+            <POS>VB</POS>
+            <deprel>acl</deprel>
+            <depreal_head_id>2</depreal_head_id>
+            <depreal_head_text>decision</depreal_head_text>
+          </token>
+          <token id="5">
+            <word>this</word>
+            <lemma>this</lemma>
+            <CharacterOffsetBegin>22</CharacterOffsetBegin>
+            <CharacterOffsetEnd>26</CharacterOffsetEnd>
+            <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>7</depreal_head_id>
+            <depreal_head_text>aircraft</depreal_head_text>
+          </token>
+          <token id="6">
+            <word>extra</word>
+            <lemma>extra</lemma>
+            <CharacterOffsetBegin>27</CharacterOffsetBegin>
+            <CharacterOffsetEnd>32</CharacterOffsetEnd>
+            <POS>JJ</POS>
+            <deprel>amod</deprel>
+            <depreal_head_id>7</depreal_head_id>
+            <depreal_head_text>aircraft</depreal_head_text>
+          </token>
+          <token id="7">
+            <word>aircraft</word>
+            <lemma>aircraft</lemma>
+            <CharacterOffsetBegin>33</CharacterOffsetBegin>
+            <CharacterOffsetEnd>41</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <deprel>obj</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>take</depreal_head_text>
+          </token>
+          <token id="8">
+            <word>represents</word>
+            <lemma>represent</lemma>
+            <CharacterOffsetBegin>42</CharacterOffsetBegin>
+            <CharacterOffsetEnd>52</CharacterOffsetEnd>
+            <POS>VBZ</POS>
+            <deprel>ccomp</deprel>
+            <depreal_head_id>28</depreal_head_id>
+            <depreal_head_text>said</depreal_head_text>
+          </token>
+          <token id="9">
+            <word>our</word>
+            <lemma>our</lemma>
+            <CharacterOffsetBegin>53</CharacterOffsetBegin>
+            <CharacterOffsetEnd>56</CharacterOffsetEnd>
+            <POS>PRP$</POS>
+            <deprel>nmod:poss</deprel>
+            <depreal_head_id>10</depreal_head_id>
+            <depreal_head_text>commitment</depreal_head_text>
+          </token>
+          <token id="10">
+            <word>commitment</word>
+            <lemma>commitment</lemma>
+            <CharacterOffsetBegin>57</CharacterOffsetBegin>
+            <CharacterOffsetEnd>67</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <deprel>obj</deprel>
+            <depreal_head_id>8</depreal_head_id>
+            <depreal_head_text>represents</depreal_head_text>
+          </token>
+          <token id="11">
+            <word>to</word>
+            <lemma>to</lemma>
+            <CharacterOffsetBegin>68</CharacterOffsetBegin>
+            <CharacterOffsetEnd>70</CharacterOffsetEnd>
+            <POS>TO</POS>
+            <deprel>mark</deprel>
+            <depreal_head_id>12</depreal_head_id>
+            <depreal_head_text>continue</depreal_head_text>
+          </token>
+          <token id="12">
+            <word>continue</word>
+            <lemma>continue</lemma>
+            <CharacterOffsetBegin>71</CharacterOffsetBegin>
+            <CharacterOffsetEnd>79</CharacterOffsetEnd>
+            <POS>VB</POS>
+            <deprel>acl</deprel>
+            <depreal_head_id>10</depreal_head_id>
+            <depreal_head_text>commitment</depreal_head_text>
+          </token>
+          <token id="13">
+            <word>our</word>
+            <lemma>our</lemma>
+            <CharacterOffsetBegin>80</CharacterOffsetBegin>
+            <CharacterOffsetEnd>83</CharacterOffsetEnd>
+            <POS>PRP$</POS>
+            <deprel>nmod:poss</deprel>
+            <depreal_head_id>15</depreal_head_id>
+            <depreal_head_text>plans</depreal_head_text>
+          </token>
+          <token id="14">
+            <word>development</word>
+            <lemma>development</lemma>
+            <CharacterOffsetBegin>84</CharacterOffsetBegin>
+            <CharacterOffsetEnd>95</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <deprel>compound</deprel>
+            <depreal_head_id>15</depreal_head_id>
+            <depreal_head_text>plans</depreal_head_text>
+          </token>
+          <token id="15">
+            <word>plans</word>
+            <lemma>plan</lemma>
+            <CharacterOffsetBegin>96</CharacterOffsetBegin>
+            <CharacterOffsetEnd>101</CharacterOffsetEnd>
+            <POS>NNS</POS>
+            <deprel>obj</deprel>
+            <depreal_head_id>12</depreal_head_id>
+            <depreal_head_text>continue</depreal_head_text>
+          </token>
+          <token id="16">
+            <word>despite</word>
+            <lemma>despite</lemma>
+            <CharacterOffsetBegin>102</CharacterOffsetBegin>
+            <CharacterOffsetEnd>109</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>17</depreal_head_id>
+            <depreal_head_text>delays</depreal_head_text>
+          </token>
+          <token id="17">
+            <word>delays</word>
+            <lemma>delay</lemma>
+            <CharacterOffsetBegin>110</CharacterOffsetBegin>
+            <CharacterOffsetEnd>116</CharacterOffsetEnd>
+            <POS>NNS</POS>
+            <deprel>obl</deprel>
+            <depreal_head_id>12</depreal_head_id>
+            <depreal_head_text>continue</depreal_head_text>
+          </token>
+          <token id="18">
+            <word>in</word>
+            <lemma>in</lemma>
+            <CharacterOffsetBegin>117</CharacterOffsetBegin>
+            <CharacterOffsetEnd>119</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>20</depreal_head_id>
+            <depreal_head_text>delivery</depreal_head_text>
+          </token>
+          <token id="19">
+            <word>the</word>
+            <lemma>the</lemma>
+            <CharacterOffsetBegin>120</CharacterOffsetBegin>
+            <CharacterOffsetEnd>123</CharacterOffsetEnd>
+            <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>20</depreal_head_id>
+            <depreal_head_text>delivery</depreal_head_text>
+          </token>
+          <token id="20">
+            <word>delivery</word>
+            <lemma>delivery</lemma>
+            <CharacterOffsetBegin>124</CharacterOffsetBegin>
+            <CharacterOffsetEnd>132</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <deprel>nmod</deprel>
+            <depreal_head_id>17</depreal_head_id>
+            <depreal_head_text>delays</depreal_head_text>
+          </token>
+          <token id="21">
+            <word>of</word>
+            <lemma>of</lemma>
+            <CharacterOffsetBegin>133</CharacterOffsetBegin>
+            <CharacterOffsetEnd>135</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>25</depreal_head_id>
+            <depreal_head_text>747-8</depreal_head_text>
+          </token>
+          <token id="22">
+            <word>brand</word>
+            <lemma>brand</lemma>
+            <CharacterOffsetBegin>136</CharacterOffsetBegin>
+            <CharacterOffsetEnd>141</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <deprel>compound</deprel>
+            <depreal_head_id>25</depreal_head_id>
+            <depreal_head_text>747-8</depreal_head_text>
+          </token>
+          <token id="23">
+            <word>new</word>
+            <lemma>new</lemma>
+            <CharacterOffsetBegin>142</CharacterOffsetBegin>
+            <CharacterOffsetEnd>145</CharacterOffsetEnd>
+            <POS>JJ</POS>
+            <deprel>amod</deprel>
+            <depreal_head_id>25</depreal_head_id>
+            <depreal_head_text>747-8</depreal_head_text>
+          </token>
+          <token id="24">
+            <word>Boeing</word>
+            <lemma>Boeing</lemma>
+            <CharacterOffsetBegin>146</CharacterOffsetBegin>
+            <CharacterOffsetEnd>152</CharacterOffsetEnd>
+            <POS>NNP</POS>
+            <deprel>compound</deprel>
+            <depreal_head_id>25</depreal_head_id>
+            <depreal_head_text>747-8</depreal_head_text>
+          </token>
+          <token id="25">
+            <word>747-8</word>
+            <lemma>747-8</lemma>
+            <CharacterOffsetBegin>153</CharacterOffsetBegin>
+            <CharacterOffsetEnd>158</CharacterOffsetEnd>
+            <POS>NNP</POS>
+            <deprel>nmod</deprel>
+            <depreal_head_id>20</depreal_head_id>
+            <depreal_head_text>delivery</depreal_head_text>
+          </token>
+          <token id="26">
+            <word>,</word>
+            <lemma>,</lemma>
+            <CharacterOffsetBegin>158</CharacterOffsetBegin>
+            <CharacterOffsetEnd>159</CharacterOffsetEnd>
+            <POS>,</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>8</depreal_head_id>
+            <depreal_head_text>represents</depreal_head_text>
+          </token>
+          <token id="27">
+            <word>"</word>
+            <lemma>"</lemma>
+            <CharacterOffsetBegin>159</CharacterOffsetBegin>
+            <CharacterOffsetEnd>160</CharacterOffsetEnd>
+            <POS>''</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>8</depreal_head_id>
+            <depreal_head_text>represents</depreal_head_text>
+          </token>
+          <token id="28">
+            <word>said</word>
+            <lemma>say</lemma>
+            <CharacterOffsetBegin>161</CharacterOffsetBegin>
+            <CharacterOffsetEnd>165</CharacterOffsetEnd>
+            <POS>VBD</POS>
+            <deprel>root</deprel>
+            <depreal_head_id>0</depreal_head_id>
+            <depreal_head_text>root</depreal_head_text>
+          </token>
+          <token id="29">
+            <word>Tatyana</word>
+            <lemma>Tatyana</lemma>
+            <CharacterOffsetBegin>166</CharacterOffsetBegin>
+            <CharacterOffsetEnd>173</CharacterOffsetEnd>
+            <POS>NNP</POS>
+            <deprel>nsubj</deprel>
+            <depreal_head_id>28</depreal_head_id>
+            <depreal_head_text>said</depreal_head_text>
+          </token>
+          <token id="30">
+            <word>Arslanova</word>
+            <lemma>Arslanova</lemma>
+            <CharacterOffsetBegin>174</CharacterOffsetBegin>
+            <CharacterOffsetEnd>183</CharacterOffsetEnd>
+            <POS>NNP</POS>
+            <deprel>flat</deprel>
+            <depreal_head_id>29</depreal_head_id>
+            <depreal_head_text>Tatyana</depreal_head_text>
+          </token>
+          <token id="31">
+            <word>,</word>
+            <lemma>,</lemma>
+            <CharacterOffsetBegin>183</CharacterOffsetBegin>
+            <CharacterOffsetEnd>184</CharacterOffsetEnd>
+            <POS>,</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>35</depreal_head_id>
+            <depreal_head_text>president</depreal_head_text>
+          </token>
+          <token id="32">
+            <word>ABC</word>
+            <lemma>ABC</lemma>
+            <CharacterOffsetBegin>185</CharacterOffsetBegin>
+            <CharacterOffsetEnd>188</CharacterOffsetEnd>
+            <POS>NNP</POS>
+            <deprel>nmod:poss</deprel>
+            <depreal_head_id>35</depreal_head_id>
+            <depreal_head_text>president</depreal_head_text>
+          </token>
+          <token id="33">
+            <word>'s</word>
+            <lemma>'s</lemma>
+            <CharacterOffsetBegin>188</CharacterOffsetBegin>
+            <CharacterOffsetEnd>190</CharacterOffsetEnd>
+            <POS>POS</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>32</depreal_head_id>
+            <depreal_head_text>ABC</depreal_head_text>
+          </token>
+          <token id="34">
+            <word>executive</word>
+            <lemma>executive</lemma>
+            <CharacterOffsetBegin>191</CharacterOffsetBegin>
+            <CharacterOffsetEnd>200</CharacterOffsetEnd>
+            <POS>JJ</POS>
+            <deprel>amod</deprel>
+            <depreal_head_id>35</depreal_head_id>
+            <depreal_head_text>president</depreal_head_text>
+          </token>
+          <token id="35">
+            <word>president</word>
+            <lemma>president</lemma>
+            <CharacterOffsetBegin>201</CharacterOffsetBegin>
+            <CharacterOffsetEnd>210</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <deprel>appos</deprel>
+            <depreal_head_id>29</depreal_head_id>
+            <depreal_head_text>Tatyana</depreal_head_text>
+          </token>
+          <token id="36">
+            <word>.</word>
+            <lemma>.</lemma>
+            <CharacterOffsetBegin>210</CharacterOffsetBegin>
+            <CharacterOffsetEnd>211</CharacterOffsetEnd>
+            <POS>.</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>28</depreal_head_id>
+            <depreal_head_text>said</depreal_head_text>
+          </token>
+        </tokens>
+      </sentence>
+      <sentence section="content" type="bodyText" id="7">
+        <tokens>
+          <token id="1">
+            <word>"</word>
+            <lemma>"</lemma>
             <CharacterOffsetBegin>0</CharacterOffsetBegin>
             <CharacterOffsetEnd>1</CharacterOffsetEnd>
             <POS>``</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>11</depreal_head_id>
+            <depreal_head_text>see</depreal_head_text>
           </token>
           <token id="2">
             <word>By</word>
@@ -750,6 +1063,9 @@
             <CharacterOffsetBegin>1</CharacterOffsetBegin>
             <CharacterOffsetEnd>3</CharacterOffsetEnd>
             <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>end</depreal_head_text>
           </token>
           <token id="3">
             <word>the</word>
@@ -757,6 +1073,9 @@
             <CharacterOffsetBegin>4</CharacterOffsetBegin>
             <CharacterOffsetEnd>7</CharacterOffsetEnd>
             <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>end</depreal_head_text>
           </token>
           <token id="4">
             <word>end</word>
@@ -764,6 +1083,9 @@
             <CharacterOffsetBegin>8</CharacterOffsetBegin>
             <CharacterOffsetEnd>11</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>obl</deprel>
+            <depreal_head_id>11</depreal_head_id>
+            <depreal_head_text>see</depreal_head_text>
           </token>
           <token id="5">
             <word>of</word>
@@ -771,13 +1093,19 @@
             <CharacterOffsetBegin>12</CharacterOffsetBegin>
             <CharacterOffsetEnd>14</CharacterOffsetEnd>
             <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>6</depreal_head_id>
+            <depreal_head_text>2009</depreal_head_text>
           </token>
           <token id="6">
             <word>2009</word>
-            <lemma>2009</lemma>
+            <lemma>@card@</lemma>
             <CharacterOffsetBegin>15</CharacterOffsetBegin>
             <CharacterOffsetEnd>19</CharacterOffsetEnd>
             <POS>CD</POS>
+            <deprel>nmod</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>end</depreal_head_text>
           </token>
           <token id="7">
             <word>,</word>
@@ -785,6 +1113,9 @@
             <CharacterOffsetBegin>19</CharacterOffsetBegin>
             <CharacterOffsetEnd>20</CharacterOffsetEnd>
             <POS>,</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>end</depreal_head_text>
           </token>
           <token id="8">
             <word>we</word>
@@ -792,6 +1123,9 @@
             <CharacterOffsetBegin>21</CharacterOffsetBegin>
             <CharacterOffsetEnd>23</CharacterOffsetEnd>
             <POS>PRP</POS>
+            <deprel>nsubj</deprel>
+            <depreal_head_id>11</depreal_head_id>
+            <depreal_head_text>see</depreal_head_text>
           </token>
           <token id="9">
             <word>could</word>
@@ -799,6 +1133,9 @@
             <CharacterOffsetBegin>24</CharacterOffsetBegin>
             <CharacterOffsetEnd>29</CharacterOffsetEnd>
             <POS>MD</POS>
+            <deprel>aux</deprel>
+            <depreal_head_id>11</depreal_head_id>
+            <depreal_head_text>see</depreal_head_text>
           </token>
           <token id="10">
             <word>clearly</word>
@@ -806,6 +1143,9 @@
             <CharacterOffsetBegin>30</CharacterOffsetBegin>
             <CharacterOffsetEnd>37</CharacterOffsetEnd>
             <POS>RB</POS>
+            <deprel>advmod</deprel>
+            <depreal_head_id>11</depreal_head_id>
+            <depreal_head_text>see</depreal_head_text>
           </token>
           <token id="11">
             <word>see</word>
@@ -813,6 +1153,9 @@
             <CharacterOffsetBegin>38</CharacterOffsetBegin>
             <CharacterOffsetEnd>41</CharacterOffsetEnd>
             <POS>VB</POS>
+            <deprel>root</deprel>
+            <depreal_head_id>0</depreal_head_id>
+            <depreal_head_text>root</depreal_head_text>
           </token>
           <token id="12">
             <word>that</word>
@@ -820,6 +1163,9 @@
             <CharacterOffsetBegin>42</CharacterOffsetBegin>
             <CharacterOffsetEnd>46</CharacterOffsetEnd>
             <POS>IN</POS>
+            <deprel>mark</deprel>
+            <depreal_head_id>14</depreal_head_id>
+            <depreal_head_text>are</depreal_head_text>
           </token>
           <token id="13">
             <word>there</word>
@@ -827,6 +1173,9 @@
             <CharacterOffsetBegin>47</CharacterOffsetBegin>
             <CharacterOffsetEnd>52</CharacterOffsetEnd>
             <POS>EX</POS>
+            <deprel>expl</deprel>
+            <depreal_head_id>14</depreal_head_id>
+            <depreal_head_text>are</depreal_head_text>
           </token>
           <token id="14">
             <word>are</word>
@@ -834,6 +1183,9 @@
             <CharacterOffsetBegin>53</CharacterOffsetBegin>
             <CharacterOffsetEnd>56</CharacterOffsetEnd>
             <POS>VBP</POS>
+            <deprel>ccomp</deprel>
+            <depreal_head_id>11</depreal_head_id>
+            <depreal_head_text>see</depreal_head_text>
           </token>
           <token id="15">
             <word>some</word>
@@ -841,6 +1193,9 @@
             <CharacterOffsetBegin>57</CharacterOffsetBegin>
             <CharacterOffsetEnd>61</CharacterOffsetEnd>
             <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>16</depreal_head_id>
+            <depreal_head_text>markets</depreal_head_text>
           </token>
           <token id="16">
             <word>markets</word>
@@ -848,6 +1203,9 @@
             <CharacterOffsetBegin>62</CharacterOffsetBegin>
             <CharacterOffsetEnd>69</CharacterOffsetEnd>
             <POS>NNS</POS>
+            <deprel>nsubj</deprel>
+            <depreal_head_id>14</depreal_head_id>
+            <depreal_head_text>are</depreal_head_text>
           </token>
           <token id="17">
             <word>in</word>
@@ -855,6 +1213,9 @@
             <CharacterOffsetBegin>70</CharacterOffsetBegin>
             <CharacterOffsetEnd>72</CharacterOffsetEnd>
             <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>19</depreal_head_id>
+            <depreal_head_text>world</depreal_head_text>
           </token>
           <token id="18">
             <word>the</word>
@@ -862,6 +1223,9 @@
             <CharacterOffsetBegin>73</CharacterOffsetBegin>
             <CharacterOffsetEnd>76</CharacterOffsetEnd>
             <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>19</depreal_head_id>
+            <depreal_head_text>world</depreal_head_text>
           </token>
           <token id="19">
             <word>world</word>
@@ -869,6 +1233,9 @@
             <CharacterOffsetBegin>77</CharacterOffsetBegin>
             <CharacterOffsetEnd>82</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>nmod</deprel>
+            <depreal_head_id>16</depreal_head_id>
+            <depreal_head_text>markets</depreal_head_text>
           </token>
           <token id="20">
             <word>,</word>
@@ -876,6 +1243,9 @@
             <CharacterOffsetBegin>82</CharacterOffsetBegin>
             <CharacterOffsetEnd>83</CharacterOffsetEnd>
             <POS>,</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>23</depreal_head_id>
+            <depreal_head_text>Shanghai</depreal_head_text>
           </token>
           <token id="21">
             <word>such</word>
@@ -883,6 +1253,9 @@
             <CharacterOffsetBegin>84</CharacterOffsetBegin>
             <CharacterOffsetEnd>88</CharacterOffsetEnd>
             <POS>JJ</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>23</depreal_head_id>
+            <depreal_head_text>Shanghai</depreal_head_text>
           </token>
           <token id="22">
             <word>as</word>
@@ -890,6 +1263,9 @@
             <CharacterOffsetBegin>89</CharacterOffsetBegin>
             <CharacterOffsetEnd>91</CharacterOffsetEnd>
             <POS>IN</POS>
+            <deprel>fixed</deprel>
+            <depreal_head_id>21</depreal_head_id>
+            <depreal_head_text>such</depreal_head_text>
           </token>
           <token id="23">
             <word>Shanghai</word>
@@ -897,6 +1273,9 @@
             <CharacterOffsetBegin>92</CharacterOffsetBegin>
             <CharacterOffsetEnd>100</CharacterOffsetEnd>
             <POS>NNP</POS>
+            <deprel>nmod</deprel>
+            <depreal_head_id>19</depreal_head_id>
+            <depreal_head_text>world</depreal_head_text>
           </token>
           <token id="24">
             <word>,</word>
@@ -904,6 +1283,9 @@
             <CharacterOffsetBegin>100</CharacterOffsetBegin>
             <CharacterOffsetEnd>101</CharacterOffsetEnd>
             <POS>,</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>26</depreal_head_id>
+            <depreal_head_text>require</depreal_head_text>
           </token>
           <token id="25">
             <word>that</word>
@@ -911,6 +1293,9 @@
             <CharacterOffsetBegin>102</CharacterOffsetBegin>
             <CharacterOffsetEnd>106</CharacterOffsetEnd>
             <POS>WDT</POS>
+            <deprel>nsubj</deprel>
+            <depreal_head_id>26</depreal_head_id>
+            <depreal_head_text>require</depreal_head_text>
           </token>
           <token id="26">
             <word>require</word>
@@ -918,6 +1303,9 @@
             <CharacterOffsetBegin>107</CharacterOffsetBegin>
             <CharacterOffsetEnd>114</CharacterOffsetEnd>
             <POS>VBP</POS>
+            <deprel>acl:relcl</deprel>
+            <depreal_head_id>23</depreal_head_id>
+            <depreal_head_text>Shanghai</depreal_head_text>
           </token>
           <token id="27">
             <word>increased</word>
@@ -925,6 +1313,9 @@
             <CharacterOffsetBegin>115</CharacterOffsetBegin>
             <CharacterOffsetEnd>124</CharacterOffsetEnd>
             <POS>VBN</POS>
+            <deprel>amod</deprel>
+            <depreal_head_id>29</depreal_head_id>
+            <depreal_head_text>capacity</depreal_head_text>
           </token>
           <token id="28">
             <word>aircraft</word>
@@ -932,6 +1323,9 @@
             <CharacterOffsetBegin>125</CharacterOffsetBegin>
             <CharacterOffsetEnd>133</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>compound</deprel>
+            <depreal_head_id>29</depreal_head_id>
+            <depreal_head_text>capacity</depreal_head_text>
           </token>
           <token id="29">
             <word>capacity</word>
@@ -939,6 +1333,9 @@
             <CharacterOffsetBegin>134</CharacterOffsetBegin>
             <CharacterOffsetEnd>142</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>obj</deprel>
+            <depreal_head_id>26</depreal_head_id>
+            <depreal_head_text>require</depreal_head_text>
           </token>
           <token id="30">
             <word>.</word>
@@ -946,10 +1343,13 @@
             <CharacterOffsetBegin>142</CharacterOffsetBegin>
             <CharacterOffsetEnd>143</CharacterOffsetEnd>
             <POS>.</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>11</depreal_head_id>
+            <depreal_head_text>see</depreal_head_text>
           </token>
         </tokens>
       </sentence>
-      <sentence section="content" type="bodyText" id="7">
+      <sentence section="content" type="bodyText" id="8">
         <tokens>
           <token id="1">
             <word>With</word>
@@ -957,6 +1357,9 @@
             <CharacterOffsetBegin>144</CharacterOffsetBegin>
             <CharacterOffsetEnd>148</CharacterOffsetEnd>
             <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>747-8</depreal_head_text>
           </token>
           <token id="2">
             <word>no</word>
@@ -964,6 +1367,9 @@
             <CharacterOffsetBegin>149</CharacterOffsetBegin>
             <CharacterOffsetEnd>151</CharacterOffsetEnd>
             <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>4</depreal_head_id>
+            <depreal_head_text>747-8</depreal_head_text>
           </token>
           <token id="3">
             <word>Boeing</word>
@@ -971,13 +1377,19 @@
             <CharacterOffsetBegin>152</CharacterOffsetBegin>
             <CharacterOffsetEnd>158</CharacterOffsetEnd>
             <POS>NNP</POS>
+            <deprel>obl</deprel>
+            <depreal_head_id>6</depreal_head_id>
+            <depreal_head_text>delivered</depreal_head_text>
           </token>
           <token id="4">
             <word>747-8</word>
-            <lemma>747-8</lemma>
+            <lemma>@card@</lemma>
             <CharacterOffsetBegin>159</CharacterOffsetBegin>
             <CharacterOffsetEnd>164</CharacterOffsetEnd>
             <POS>CD</POS>
+            <deprel>nsubj:pass</deprel>
+            <depreal_head_id>6</depreal_head_id>
+            <depreal_head_text>delivered</depreal_head_text>
           </token>
           <token id="5">
             <word>being</word>
@@ -985,6 +1397,9 @@
             <CharacterOffsetBegin>165</CharacterOffsetBegin>
             <CharacterOffsetEnd>170</CharacterOffsetEnd>
             <POS>VBG</POS>
+            <deprel>aux:pass</deprel>
+            <depreal_head_id>6</depreal_head_id>
+            <depreal_head_text>delivered</depreal_head_text>
           </token>
           <token id="6">
             <word>delivered</word>
@@ -992,6 +1407,9 @@
             <CharacterOffsetBegin>171</CharacterOffsetBegin>
             <CharacterOffsetEnd>180</CharacterOffsetEnd>
             <POS>VBN</POS>
+            <deprel>advcl</deprel>
+            <depreal_head_id>15</depreal_head_id>
+            <depreal_head_text>enable</depreal_head_text>
           </token>
           <token id="7">
             <word>this</word>
@@ -999,6 +1417,9 @@
             <CharacterOffsetBegin>181</CharacterOffsetBegin>
             <CharacterOffsetEnd>185</CharacterOffsetEnd>
             <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>8</depreal_head_id>
+            <depreal_head_text>year</depreal_head_text>
           </token>
           <token id="8">
             <word>year</word>
@@ -1006,6 +1427,9 @@
             <CharacterOffsetBegin>186</CharacterOffsetBegin>
             <CharacterOffsetEnd>190</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>obl:tmod</deprel>
+            <depreal_head_id>6</depreal_head_id>
+            <depreal_head_text>delivered</depreal_head_text>
           </token>
           <token id="9">
             <word>,</word>
@@ -1013,6 +1437,9 @@
             <CharacterOffsetBegin>190</CharacterOffsetBegin>
             <CharacterOffsetEnd>191</CharacterOffsetEnd>
             <POS>,</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>6</depreal_head_id>
+            <depreal_head_text>delivered</depreal_head_text>
           </token>
           <token id="10">
             <word>the</word>
@@ -1020,6 +1447,9 @@
             <CharacterOffsetBegin>192</CharacterOffsetBegin>
             <CharacterOffsetEnd>195</CharacterOffsetEnd>
             <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>12</depreal_head_id>
+            <depreal_head_text>Boeing</depreal_head_text>
           </token>
           <token id="11">
             <word>additional</word>
@@ -1027,6 +1457,9 @@
             <CharacterOffsetBegin>196</CharacterOffsetBegin>
             <CharacterOffsetEnd>206</CharacterOffsetEnd>
             <POS>JJ</POS>
+            <deprel>amod</deprel>
+            <depreal_head_id>12</depreal_head_id>
+            <depreal_head_text>Boeing</depreal_head_text>
           </token>
           <token id="12">
             <word>Boeing</word>
@@ -1034,6 +1467,9 @@
             <CharacterOffsetBegin>207</CharacterOffsetBegin>
             <CharacterOffsetEnd>213</CharacterOffsetEnd>
             <POS>NNP</POS>
+            <deprel>nsubj</deprel>
+            <depreal_head_id>15</depreal_head_id>
+            <depreal_head_text>enable</depreal_head_text>
           </token>
           <token id="13">
             <word>747-400</word>
@@ -1041,6 +1477,9 @@
             <CharacterOffsetBegin>214</CharacterOffsetBegin>
             <CharacterOffsetEnd>221</CharacterOffsetEnd>
             <POS>NNP</POS>
+            <deprel>flat</deprel>
+            <depreal_head_id>12</depreal_head_id>
+            <depreal_head_text>Boeing</depreal_head_text>
           </token>
           <token id="14">
             <word>will</word>
@@ -1048,6 +1487,9 @@
             <CharacterOffsetBegin>222</CharacterOffsetBegin>
             <CharacterOffsetEnd>226</CharacterOffsetEnd>
             <POS>MD</POS>
+            <deprel>aux</deprel>
+            <depreal_head_id>15</depreal_head_id>
+            <depreal_head_text>enable</depreal_head_text>
           </token>
           <token id="15">
             <word>enable</word>
@@ -1055,6 +1497,9 @@
             <CharacterOffsetBegin>227</CharacterOffsetBegin>
             <CharacterOffsetEnd>233</CharacterOffsetEnd>
             <POS>VB</POS>
+            <deprel>root</deprel>
+            <depreal_head_id>0</depreal_head_id>
+            <depreal_head_text>root</depreal_head_text>
           </token>
           <token id="16">
             <word>ABC</word>
@@ -1062,6 +1507,9 @@
             <CharacterOffsetBegin>234</CharacterOffsetBegin>
             <CharacterOffsetEnd>237</CharacterOffsetEnd>
             <POS>NNP</POS>
+            <deprel>obj</deprel>
+            <depreal_head_id>15</depreal_head_id>
+            <depreal_head_text>enable</depreal_head_text>
           </token>
           <token id="17">
             <word>to</word>
@@ -1069,6 +1517,9 @@
             <CharacterOffsetBegin>238</CharacterOffsetBegin>
             <CharacterOffsetEnd>240</CharacterOffsetEnd>
             <POS>TO</POS>
+            <deprel>mark</deprel>
+            <depreal_head_id>18</depreal_head_id>
+            <depreal_head_text>increase</depreal_head_text>
           </token>
           <token id="18">
             <word>increase</word>
@@ -1076,6 +1527,9 @@
             <CharacterOffsetBegin>241</CharacterOffsetBegin>
             <CharacterOffsetEnd>249</CharacterOffsetEnd>
             <POS>VB</POS>
+            <deprel>xcomp</deprel>
+            <depreal_head_id>15</depreal_head_id>
+            <depreal_head_text>enable</depreal_head_text>
           </token>
           <token id="19">
             <word>number</word>
@@ -1083,6 +1537,9 @@
             <CharacterOffsetBegin>250</CharacterOffsetBegin>
             <CharacterOffsetEnd>256</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>obj</deprel>
+            <depreal_head_id>18</depreal_head_id>
+            <depreal_head_text>increase</depreal_head_text>
           </token>
           <token id="20">
             <word>of</word>
@@ -1090,6 +1547,9 @@
             <CharacterOffsetBegin>257</CharacterOffsetBegin>
             <CharacterOffsetEnd>259</CharacterOffsetEnd>
             <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>21</depreal_head_id>
+            <depreal_head_text>frequencies</depreal_head_text>
           </token>
           <token id="21">
             <word>frequencies</word>
@@ -1097,6 +1557,9 @@
             <CharacterOffsetBegin>260</CharacterOffsetBegin>
             <CharacterOffsetEnd>271</CharacterOffsetEnd>
             <POS>NNS</POS>
+            <deprel>nmod</deprel>
+            <depreal_head_id>19</depreal_head_id>
+            <depreal_head_text>number</depreal_head_text>
           </token>
           <token id="22">
             <word>from</word>
@@ -1104,6 +1567,9 @@
             <CharacterOffsetBegin>272</CharacterOffsetBegin>
             <CharacterOffsetEnd>276</CharacterOffsetEnd>
             <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>23</depreal_head_id>
+            <depreal_head_text>Shanghai</depreal_head_text>
           </token>
           <token id="23">
             <word>Shanghai</word>
@@ -1111,6 +1577,9 @@
             <CharacterOffsetBegin>277</CharacterOffsetBegin>
             <CharacterOffsetEnd>285</CharacterOffsetEnd>
             <POS>NNP</POS>
+            <deprel>nmod</deprel>
+            <depreal_head_id>21</depreal_head_id>
+            <depreal_head_text>frequencies</depreal_head_text>
           </token>
           <token id="24">
             <word>to</word>
@@ -1118,13 +1587,19 @@
             <CharacterOffsetBegin>286</CharacterOffsetBegin>
             <CharacterOffsetEnd>288</CharacterOffsetEnd>
             <POS>TO</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>25</depreal_head_id>
+            <depreal_head_text>12</depreal_head_text>
           </token>
           <token id="25">
             <word>12</word>
-            <lemma>12</lemma>
+            <lemma>@card@</lemma>
             <CharacterOffsetBegin>289</CharacterOffsetBegin>
             <CharacterOffsetEnd>291</CharacterOffsetEnd>
             <POS>CD</POS>
+            <deprel>obl</deprel>
+            <depreal_head_id>18</depreal_head_id>
+            <depreal_head_text>increase</depreal_head_text>
           </token>
           <token id="26">
             <word>a</word>
@@ -1132,6 +1607,9 @@
             <CharacterOffsetBegin>292</CharacterOffsetBegin>
             <CharacterOffsetEnd>293</CharacterOffsetEnd>
             <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>27</depreal_head_id>
+            <depreal_head_text>week</depreal_head_text>
           </token>
           <token id="27">
             <word>week</word>
@@ -1139,6 +1617,9 @@
             <CharacterOffsetBegin>294</CharacterOffsetBegin>
             <CharacterOffsetEnd>298</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>obl:tmod</deprel>
+            <depreal_head_id>18</depreal_head_id>
+            <depreal_head_text>increase</depreal_head_text>
           </token>
           <token id="28">
             <word>,</word>
@@ -1146,6 +1627,9 @@
             <CharacterOffsetBegin>298</CharacterOffsetBegin>
             <CharacterOffsetEnd>299</CharacterOffsetEnd>
             <POS>,</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>30</depreal_head_id>
+            <depreal_head_text>providing</depreal_head_text>
           </token>
           <token id="29">
             <word>thus</word>
@@ -1153,6 +1637,9 @@
             <CharacterOffsetBegin>300</CharacterOffsetBegin>
             <CharacterOffsetEnd>304</CharacterOffsetEnd>
             <POS>RB</POS>
+            <deprel>advmod</deprel>
+            <depreal_head_id>30</depreal_head_id>
+            <depreal_head_text>providing</depreal_head_text>
           </token>
           <token id="30">
             <word>providing</word>
@@ -1160,13 +1647,19 @@
             <CharacterOffsetBegin>305</CharacterOffsetBegin>
             <CharacterOffsetEnd>314</CharacterOffsetEnd>
             <POS>VBG</POS>
+            <deprel>advcl</deprel>
+            <depreal_head_id>18</depreal_head_id>
+            <depreal_head_text>increase</depreal_head_text>
           </token>
           <token id="31">
             <word>our</word>
-            <lemma>we</lemma>
+            <lemma>our</lemma>
             <CharacterOffsetBegin>315</CharacterOffsetBegin>
             <CharacterOffsetEnd>318</CharacterOffsetEnd>
             <POS>PRP$</POS>
+            <deprel>nmod:poss</deprel>
+            <depreal_head_id>32</depreal_head_id>
+            <depreal_head_text>customers</depreal_head_text>
           </token>
           <token id="32">
             <word>customers</word>
@@ -1174,6 +1667,9 @@
             <CharacterOffsetBegin>319</CharacterOffsetBegin>
             <CharacterOffsetEnd>328</CharacterOffsetEnd>
             <POS>NNS</POS>
+            <deprel>obj</deprel>
+            <depreal_head_id>30</depreal_head_id>
+            <depreal_head_text>providing</depreal_head_text>
           </token>
           <token id="33">
             <word>with</word>
@@ -1181,6 +1677,9 @@
             <CharacterOffsetBegin>329</CharacterOffsetBegin>
             <CharacterOffsetEnd>333</CharacterOffsetEnd>
             <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>35</depreal_head_id>
+            <depreal_head_text>capacity</depreal_head_text>
           </token>
           <token id="34">
             <word>more</word>
@@ -1188,6 +1687,9 @@
             <CharacterOffsetBegin>334</CharacterOffsetBegin>
             <CharacterOffsetEnd>338</CharacterOffsetEnd>
             <POS>JJR</POS>
+            <deprel>amod</deprel>
+            <depreal_head_id>35</depreal_head_id>
+            <depreal_head_text>capacity</depreal_head_text>
           </token>
           <token id="35">
             <word>capacity</word>
@@ -1195,6 +1697,9 @@
             <CharacterOffsetBegin>339</CharacterOffsetBegin>
             <CharacterOffsetEnd>347</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>obl</deprel>
+            <depreal_head_id>30</depreal_head_id>
+            <depreal_head_text>providing</depreal_head_text>
           </token>
           <token id="36">
             <word>as</word>
@@ -1202,6 +1707,9 @@
             <CharacterOffsetBegin>348</CharacterOffsetBegin>
             <CharacterOffsetEnd>350</CharacterOffsetEnd>
             <POS>IN</POS>
+            <deprel>mark</deprel>
+            <depreal_head_id>37</depreal_head_id>
+            <depreal_head_text>dictated</depreal_head_text>
           </token>
           <token id="37">
             <word>dictated</word>
@@ -1209,6 +1717,9 @@
             <CharacterOffsetBegin>351</CharacterOffsetBegin>
             <CharacterOffsetEnd>359</CharacterOffsetEnd>
             <POS>VBN</POS>
+            <deprel>advcl</deprel>
+            <depreal_head_id>30</depreal_head_id>
+            <depreal_head_text>providing</depreal_head_text>
           </token>
           <token id="38">
             <word>by</word>
@@ -1216,6 +1727,9 @@
             <CharacterOffsetBegin>360</CharacterOffsetBegin>
             <CharacterOffsetEnd>362</CharacterOffsetEnd>
             <POS>IN</POS>
+            <deprel>case</deprel>
+            <depreal_head_id>41</depreal_head_id>
+            <depreal_head_text>demand</depreal_head_text>
           </token>
           <token id="39">
             <word>the</word>
@@ -1223,6 +1737,9 @@
             <CharacterOffsetBegin>363</CharacterOffsetBegin>
             <CharacterOffsetEnd>366</CharacterOffsetEnd>
             <POS>DT</POS>
+            <deprel>det</deprel>
+            <depreal_head_id>41</depreal_head_id>
+            <depreal_head_text>demand</depreal_head_text>
           </token>
           <token id="40">
             <word>market</word>
@@ -1230,6 +1747,9 @@
             <CharacterOffsetBegin>367</CharacterOffsetBegin>
             <CharacterOffsetEnd>373</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>compound</deprel>
+            <depreal_head_id>41</depreal_head_id>
+            <depreal_head_text>demand</depreal_head_text>
           </token>
           <token id="41">
             <word>demand</word>
@@ -1237,6 +1757,9 @@
             <CharacterOffsetBegin>374</CharacterOffsetBegin>
             <CharacterOffsetEnd>380</CharacterOffsetEnd>
             <POS>NN</POS>
+            <deprel>obl</deprel>
+            <depreal_head_id>37</depreal_head_id>
+            <depreal_head_text>dictated</depreal_head_text>
           </token>
           <token id="42">
             <word>.</word>
@@ -1244,13 +1767,19 @@
             <CharacterOffsetBegin>380</CharacterOffsetBegin>
             <CharacterOffsetEnd>381</CharacterOffsetEnd>
             <POS>.</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>30</depreal_head_id>
+            <depreal_head_text>providing</depreal_head_text>
           </token>
           <token id="43">
-            <word>''</word>
-            <lemma>''</lemma>
+            <word>"</word>
+            <lemma>"</lemma>
             <CharacterOffsetBegin>381</CharacterOffsetBegin>
             <CharacterOffsetEnd>382</CharacterOffsetEnd>
             <POS>''</POS>
+            <deprel>punct</deprel>
+            <depreal_head_id>30</depreal_head_id>
+            <depreal_head_text>providing</depreal_head_text>
           </token>
         </tokens>
       </sentence>

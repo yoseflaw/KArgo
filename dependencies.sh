@@ -1,6 +1,7 @@
 python -m nltk.downloader stopwords
 python -m nltk.downloader universal_tagset
 python -m spacy download en
+# stanza.download("en")
 # install sent2vec
 git clone https://github.com/epfml/sent2vec
 cd sent2vec || exit

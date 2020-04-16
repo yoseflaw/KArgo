@@ -17,7 +17,7 @@ class Evaluator(object):
         true_terms = {}
         for document in self.reference_corpus.iter_documents():
             document_id = document.document_id.text
-            terms = [Evaluator.preprocess(term.text) for term in document.terms.term]
+            terms = [Evaluator.preprocess(term.word.text) for term in document.terms.term]
             true_terms[document_id] = terms
         return true_terms
 
