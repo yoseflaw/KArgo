@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import altair as alt
+from altair import datum
 from kargo import logger
 from kargo.corpus import Corpus
 log = logger.get_logger(__name__, logger.INFO)
@@ -164,14 +165,27 @@ class Evaluator(object):
             combine_df, id_vars=["method", "k"], value_vars=["F-score", "precisions", "relative recalls"]
         )
         combine_melt_df.columns = ["Method", "k", "Evaluation", "Score"]
-        charts = alt.Chart(combine_melt_df).mark_line(point=True).encode(
+        click = alt.selection_multi(fields=["Method"])
+        method_charts = alt.Chart(combine_melt_df).mark_line(point=True).encode(
             x="k",
             y="Score",
             color="Method",
             column="Evaluation",
             tooltip=["Method", "k", "Score"]
+        ).transform_filter(
+            click
         )
-        charts.save(output_file)
+        overall_chart = alt.Chart(combine_melt_df).mark_bar().encode(
+            x=alt.X("mean(Score):Q", title="Avg F-score"),
+            y=alt.Y("Method", sort="-x"),
+            color=alt.condition(click, "Method", alt.value("lightgray"))
+        ).transform_filter(
+            datum.Evaluation == "F-score"
+        ).properties(
+            selection=click
+        )
+        all_charts = method_charts & overall_chart
+        all_charts.save(output_file)
 
 
 if __name__ == "__main__":
