@@ -18,14 +18,14 @@ class TestExtraction(unittest.TestCase):
         positionrank_keyphrases = positionrank_extractor.extract(
             self.core_nlp_folder, 10, selection_params={}, weighting_params={}
         )
-        self.assertEqual(len(positionrank_keyphrases), 3)
+        self.assertEqual(2, len(positionrank_keyphrases))
 
     def test_embedrank(self):
         embedrank_extractor = extraction.EmbedRankExtractor(
-            emdib_model_path="../../pretrain_models/wiki_unigrams.bin",
+            emdib_model_path="../../pretrain_models/torontobooks_unigrams.bin",
         )
         embedrank_keyphrases = embedrank_extractor.extract(self.core_nlp_folder, 10)
-        self.assertEqual(len(embedrank_keyphrases), 3)
+        self.assertEqual(2, len(embedrank_keyphrases))
 
 
 if __name__ == "__main__":

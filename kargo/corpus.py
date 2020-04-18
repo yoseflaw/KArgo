@@ -4,6 +4,7 @@ import os
 import random
 import json
 import html
+from bisect import bisect, insort
 from tqdm import tqdm
 from lxml.objectify import Element
 from lxml import etree, objectify
@@ -22,7 +23,7 @@ class XMLBase(object):
         return getattr(self, self.root_name)
 
     def __len__(self):
-        return len(getattr(self.get_root(), self.document_tag))
+        return self.get_root().countchildren()
 
     def __getitem__(self, i):
         return getattr(self.get_root(), self.document_tag)[i]
@@ -43,21 +44,19 @@ class XMLBase(object):
 class Corpus(XMLBase):
     annotation_regex = r"\[\[(.+?)\]\]"
 
-    def __init__(self, xml_input=None, is_annotated=False):
+    def __init__(self, xml_input=None, annotation_file=None):
         super().__init__("corpus", "document")
         self.corpus = Element("corpus")
         self.url_indices = []
+        self.has_terms_locations = False
+        self.annotations = self.process_json_annotation(annotation_file) if annotation_file else None
         if xml_input:
             if xml_input and not os.path.exists(xml_input):
                 raise FileNotFoundError(f"{xml_input} not found. Check the path again.")
             elif os.path.isfile(xml_input):
-                self.is_annotated = is_annotated
                 self.read_from_xml(xml_input)
             else:
-                self.is_annotated = is_annotated
                 self.read_from_folder(xml_input)
-        else:
-            self.is_annotated = False
 
     @staticmethod
     def unicodify(text):
@@ -75,10 +74,11 @@ class Corpus(XMLBase):
             log.info(f"Ignoring duplicate URL={url}")
             return
         new_document = Element("document")
-        new_document.document_id = md5(url.encode("utf-8")).hexdigest()[-6:] if document_id is None or \
+        title = Corpus.unicodify(title)
+        new_document.document_id = md5(title.encode("utf-8")).hexdigest()[-6:] if document_id is None or \
             len(document_id) == 0 else document_id
         new_document.url = url
-        new_document.title = Corpus.unicodify(title)
+        new_document.title = title
         new_document.author = author
         new_document.published_time = published_time
         # handle lists
@@ -138,30 +138,17 @@ class Corpus(XMLBase):
         composites = ["terms", "topics", "content", "links", "categories"]
         corpus_etree = etree.parse(input_path)
         corpus_root = corpus_etree.getroot()
-        has_terms = False
         for document in corpus_root:
             new_document_attrs = {}
-            unique_terms = {}
-            buffer_len = 0
+            annotated_terms = {}
+            contain_terms_elmt = False
             for document_elmt in document:
                 if document_elmt.tag == "category":
                     new_document_attrs["categories"] = document_elmt.text.split(";") if document_elmt.text else []
-                elif document_elmt.tag == "title" and self.is_annotated:
-                    new_title = self.process_annotation(Corpus.unicodify(document_elmt.text), unique_terms, buffer_len)
-                    new_document_attrs["title"] = new_title
-                    buffer_len += len(new_title) + 1
-                elif document_elmt.tag == "content" and self.is_annotated:
-                    new_ps = []
-                    for item in document_elmt:
-                        new_p = self.process_annotation(Corpus.unicodify(item.text), unique_terms, buffer_len)
-                        new_ps.append(new_p)
-                        buffer_len += len(new_p) + 1
-                    new_document_attrs["content"] = new_ps
-                elif document_elmt.tag == "terms":
-                    terms = {}
+                elif document_elmt.tag == "terms":  # the document has existing annotations
                     for term_elmt in document_elmt:
-                        locations = []
                         word = None
+                        locations = []
                         for item_elmt in term_elmt:
                             if item_elmt.tag == "word":
                                 word = item_elmt.text
@@ -173,17 +160,23 @@ class Corpus(XMLBase):
                                             begin = int(point_elmt.text)
                                         elif point_elmt.tag == "end":
                                             end = int(point_elmt.text)
-                                locations.append((begin, end))
-                        terms[word] = locations
-                    has_terms = True
-                    new_document_attrs["terms"] = terms
+                                    locations.append((begin, end))
+                        annotated_terms[word] = locations
+                        contain_terms_elmt = True
                 elif document_elmt.tag in composites:
                     new_document_attrs[document_elmt.tag] = [item.text for item in document_elmt]
                 else:
                     new_document_attrs[document_elmt.tag] = document_elmt.text
-            if not has_terms and self.is_annotated:
-                new_document_attrs["terms"] = unique_terms
-            self.add_document(**new_document_attrs)
+            if self.annotations and new_document_attrs["document_id"] in self.annotations:  # annotation file
+                new_document_attrs["terms"] = self.annotations[new_document_attrs["document_id"]]
+                self.add_document(**new_document_attrs)
+                self.has_terms_locations = True  # at least 1 with terms
+            elif contain_terms_elmt:  # there is no annotation file but terms element exist
+                new_document_attrs["terms"] = annotated_terms
+                self.add_document(**new_document_attrs)
+                self.has_terms_locations = True
+            elif self.annotations is None:  # there is no annotation file and no terms element
+                self.add_document(**new_document_attrs)
 
     def read_from_folder(self, root_folder):
         in_folders = [folder for folder in os.listdir(root_folder) if os.path.isdir(os.path.join(root_folder, folder))]
@@ -214,23 +207,43 @@ class Corpus(XMLBase):
                 subset_corpus.add_document_from_element(document)
         return subset_corpus
 
-    def process_annotation(self, text, unique_terms, buffer_len):
-        terms = re.findall(self.annotation_regex, text)
-        new_text = re.sub(self.annotation_regex, r"\1", text)
-        for term in terms:
-            locations = [
-                (buffer_len + m.start(), buffer_len + m.end()) for m in re.finditer(re.escape(term), new_text)
-            ]
-            if term in unique_terms:
-                unique_terms[term].update(locations)
-            else:
-                unique_terms[term] = set(locations)
-        return new_text
+    def process_json_annotation(self, annotation_file):
+        with open(annotation_file, "r") as f_anno:
+            annotations = f_anno.readlines()
+        annotations_dict = {}
+        for annotation in annotations:
+            doc = json.loads(annotation)
+            title = doc["text"].split("|")[0]
+            text = doc["text"]
+            doc_id = md5(title.encode("utf-8")).hexdigest()[-6:]
+            has_irrelevant = False
+            annotation_mapping = {}
+            for tag in doc["labels"]:
+                begin, end, term_type = tag
+                if term_type == "IRRELEVANT":
+                    has_irrelevant = True
+                    break
+                term = text[begin:end]
+                if term in annotation_mapping:
+                    annotation_mapping[term].append((begin, end))
+                else:
+                    annotation_mapping[term] = [(begin, end)]
+            if not has_irrelevant:
+                annotations_dict[doc_id] = annotation_mapping
+        return annotations_dict
 
     def write_to_core_nlp_xmls(self, output_folder):
+        term_locs = []
+        term_state = ["O", "B", "I"]
+        stanza_nlp = stanza.Pipeline(
+            "en",
+            package="lines",
+            processors={"tokenize": "lines", "lemma": "lines", "pos": "gum", "depparse": "lines"},
+            verbose=False
+        )
 
-        def annotate_sentence(sentences, nlp):
-            annotated_text = nlp(sentences)
+        def annotate_sentence(sentences):
+            annotated_text = stanza_nlp(sentences)
             annotated_sentences = []
             head_dict = {0: "root"}
             for sentence in annotated_text.sentences:
@@ -239,6 +252,8 @@ class Corpus(XMLBase):
                     misc = dict(token_misc.split("=") for token_misc in token.misc.split("|"))
                     token_id = int(token.id)
                     head_dict[token_id] = token.text
+                    start_char = buffer_offset + int(misc["start_char"])
+                    end_char = buffer_offset + int(misc["end_char"])
                     annotated_sentence.append({
                         "id": token_id,
                         "word": token.text,
@@ -246,24 +261,35 @@ class Corpus(XMLBase):
                         "lemma": token.lemma,
                         "deprel": token.deprel,
                         "deprel_head_id": token.head,
-                        "character_offset_begin": misc["start_char"],
-                        "character_offset_end": misc["end_char"]
+                        "character_offset_begin": start_char,
+                        "character_offset_end": end_char,
+                        "term_tag": term_state[bisect(term_locs, start_char) % 3] if len(term_locs) > 0 else None
                     })
                 for token in annotated_sentence:
                     token["deprel_head_text"] = head_dict[token["deprel_head_id"]]
                 annotated_sentences.append(annotated_sentence)
             return annotated_sentences
 
-        stanza_nlp = stanza.Pipeline("en", package="gum", processors="tokenize,pos,lemma,depparse", verbose=False)
         for document in tqdm(self.iter_documents(), total=len(self)):
+            buffer_offset = 0
             document_id = document.document_id.text
             title = document.title.text
-            annotated_title = annotate_sentence(title, stanza_nlp)
+            term_locs = []
+            if self.has_terms_locations:
+                for term in document.terms.term:
+                    for location in term.locations.location:
+                        insort(term_locs, int(location.begin.text)-0.5)
+                        insort(term_locs, int(location.begin.text)+0.5)
+                        insort(term_locs, int(location.end.text))
+            annotated_title = annotate_sentence(title)
+            buffer_offset += len(title) + 1
             annotated_content = []
             for p in document.content.p:
-                annotated_content += annotate_sentence(p.text, stanza_nlp)
-            core_nlp_corpus = StanfordCoreNLPDocument(annotated_title, annotated_content)
-            core_nlp_corpus.write_xml_to(os.path.join(output_folder, f"{document_id}.xml"))
+                annotated_content += annotate_sentence(p.text)
+                buffer_offset += len(p.text) + 1
+            core_nlp_document = StanfordCoreNLPDocument()
+            core_nlp_document.from_sentences(annotated_title, annotated_content)
+            core_nlp_document.write_xml_to(os.path.join(output_folder, f"{document_id}.xml"))
 
     def write_annotation_to_jsonl(self, jsonl_path):
         terms_found = False
@@ -279,8 +305,6 @@ class Corpus(XMLBase):
                             [html.unescape(document.title.text)]\
                             + [p.text for p in document.content.p]
                         ),
-                        # "text": document.title.text,
-                        # "labels": labels
                     }
                     json.dump(html.unescape(text), out_file)
                     out_file.write("\n")
@@ -291,12 +315,14 @@ class Corpus(XMLBase):
 
 class StanfordCoreNLPDocument(XMLBase):
 
-    def __init__(self, title_sentences, content_sentences):
+    def __init__(self):
         super().__init__("root", "document")
         self.root = objectify.Element("root")
+        self.sentence_id = 1
+
+    def from_sentences(self, title_sentences, content_sentences):
         document = objectify.Element("document")
         document.sentences = objectify.Element("sentences")
-        self.sentence_id = 1
         sentences_element = self.process_sentences(title_sentences, "title", "title") + \
             self.process_sentences(content_sentences, "content", "bodyText")
         document.sentences.sentence = sentences_element
@@ -318,22 +344,42 @@ class StanfordCoreNLPDocument(XMLBase):
                 token_element.deprel = token["deprel"]
                 token_element.depreal_head_id = token["deprel_head_id"]
                 token_element.depreal_head_text = token["deprel_head_text"]
+                token_element.term_tag = token["term_tag"]
                 tokens_element.append(token_element)
             tokens.token = tokens_element
             return tokens
 
         sentences_element = []
         for sentence in sentences:
-            sentence_element = objectify.Element("sentence",
-                                                 section=section_name, type=section_type, id=str(self.sentence_id))
+            sentence_element = objectify.Element(
+                "sentence",
+                section=section_name,
+                type=section_type,
+                id=str(self.sentence_id)
+            )
             sentence_element.tokens = process_sentence(sentence)
             sentences_element.append(sentence_element)
             self.sentence_id += 1
         return sentences_element
 
 
-
 if __name__ == "__main__":
-    corpus = Corpus("../data/manual/random_sample_annotated.xml", is_annotated=True)
-    corpus.write_xml_to("../data/processed/random_sample_annotated.xml")
-    corpus.write_annotation_to_jsonl("../data/processed/random_sample_annotated.jsonl")
+    # corpus = Corpus("../data/scraped_all/")
+    # corpus.write_xml_to("../data/interim/all.xml")
+    # corpus = Corpus("../data/interim/all.xml")
+    # corpus.filter_empty()
+    # n_sample = 10
+    # sampled_corpus = corpus.get_sample(n_sample)
+    # sampled_corpus.write_xml_to("../data/test/samples_news_clean_random.xml")
+    # clean_corpus = Corpus(
+    #     "../data/test/samples_news_clean_unanno.xml",
+    #     annotation_file="../data/test/samples_with_manual_annotation.json1"
+    # )
+    # clean_corpus.write_to_core_nlp_xmls("../data/test/core_nlp_samples/")
+    # clean_corpus.write_xml_to("../data/test/samples_with_terms_empty.xml")
+    # corpus.write_annotation_to_jsonl("../data/processed/random_sample_annotated.jsonl")
+    # test_corpus = Corpus("../data/test/samples_with_terms.xml")
+    # test_corpus.write_xml_to("../data/test/samples_with_terms_temp.xml")
+    # test_corpus.write_to_core_nlp_xmls("../data/test/core_nlp_samples/")
+    fix_corpus = Corpus("../data/interim/random_sample_annotated.xml")
+    fix_corpus.write_xml_to("../data/interim/random_sample_annotated_v2.xml")

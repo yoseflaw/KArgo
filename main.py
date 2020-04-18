@@ -5,6 +5,7 @@ from kargo import logger, corpus, scraping, extraction, evaluation
 from pke.utils import compute_document_frequency, load_document_frequency_file
 from pke.unsupervised import TfIdf, KPMiner, YAKE
 from pke.unsupervised import SingleRank, TopicRank, PositionRank, MultipartiteRank
+from pke.supervised import Kea
 SCRAPED_DIR = "data/scraped"
 INTERIM_DIR = "data/interim"
 PROCESSED_DIR = "data/processed"
@@ -59,11 +60,11 @@ def combine_filter_sample_corpus():
     log.info(f"Begin sampling, n={n_sample}")
     sampled_corpus = combined_corpus.get_sample(n_sample)
     log.info(f"Write sample.xml to {INTERIM_DIR}")
-    sampled_corpus.write_xml_to(os.path.join(INTERIM_DIR, "sample.xml"))
+    sampled_corpus.write_xml_to(os.path.join(INTERIM_DIR, "sample.xml"))  # use dummy filename for now
 
 
 def manual_term_annotation():
-    log.info(f"Manual annotation assumed to be done, results in {MANUAL_DIR}")
+    log.info(f"Manual annotation assumed to be done with doccano, export results to {MANUAL_DIR}")
     # currently done manually to output of combine_filter_sample_corpus
     # assumed result in MANUAL_DIR
     pass
@@ -71,7 +72,10 @@ def manual_term_annotation():
 
 def process_manual_annotation():
     log.info(f"Begin incorporating manual annotation to the XML, result in {PROCESSED_DIR}")
-    manual_corpus = corpus.Corpus(os.path.join(MANUAL_DIR, "random_sample_annotated.xml"), is_annotated=True)
+    manual_corpus = corpus.Corpus(
+        os.path.join(INTERIM_DIR, "random_sample_annotated.xml"),
+        annotation_file=os.path.join(MANUAL_DIR, "annotation.json1")
+    )
     manual_corpus.write_xml_to(os.path.join(PROCESSED_DIR, "random_sample_annotated.xml"))
 
 
@@ -201,12 +205,12 @@ def extract_terms(core_nlp_folder):
     # EmbedRank
     log.info("Begin Extraction with EmbedRank extractor")
     embedrank_extractor = extraction.EmbedRankExtractor(
-        emdib_model_path="pretrain_models/wiki_unigrams.bin"
+        emdib_model_path="pretrain_models/torontobooks_unigrams.bin"
     )
     embedrank_extractor.extract(
         core_nlp_folder, n,
         considered_tags=considered_pos,
-        output_file=os.path.join(EXTRACTED_DIR, "embedrank_wiki_unigrams.csv")
+        output_file=os.path.join(EXTRACTED_DIR, "embedrank_toronto_unigrams.csv")
     )
 
 
@@ -222,7 +226,7 @@ def evaluate_terms():
         "TopicRank": "topicrank.csv",
         "MultipartiteRank": "multipartite.csv",
         "PositionRank": "positionrank.csv",
-        "EmbedRank": "embedrank_wiki_unigrams.csv"
+        "EmbedRank": "embedrank_toronto_unigrams.csv"
     }
     for method, file_name in extracted_terms.items():
         terms = extraction.Extractor.read_terms_from(os.path.join(EXTRACTED_DIR, file_name))
@@ -232,11 +236,10 @@ def evaluate_terms():
 
 
 if __name__ == "__main__":
-    core_nlp_input = os.path.join(PROCESSED_DIR, "stanford_core_nlp_xmls")
     scraping_news_sites()
     combine_filter_sample_corpus()
     manual_term_annotation()
     process_manual_annotation()
-    create_core_nlp_documents(core_nlp_input)
-    extract_terms(core_nlp_input)
+    create_core_nlp_documents(CORE_NLP_DIR)
+    extract_terms(CORE_NLP_DIR)
     evaluate_terms()
