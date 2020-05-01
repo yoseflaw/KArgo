@@ -1,5 +1,4 @@
 from hashlib import md5
-import re
 import os
 import random
 import json
@@ -235,61 +234,72 @@ class Corpus(XMLBase):
     def write_to_core_nlp_xmls(self, output_folder):
         term_locs = []
         term_state = ["O", "B", "I"]
-        stanza_nlp = stanza.Pipeline(
+        stanza_nlp_w_ssplit = stanza.Pipeline(
             "en",
-            package="lines",
-            processors={"tokenize": "lines", "lemma": "lines", "pos": "gum", "depparse": "lines"},
+            processors={"tokenize": "lines", "ner": "default", "lemma": "lines", "pos": "gum", "depparse": "lines"},
             verbose=False
         )
+        stanza_nlp_no_ssplit = stanza.Pipeline(
+            "en",
+            processors={"tokenize": "lines", "ner": "default", "lemma": "lines", "pos": "gum", "depparse": "lines"},
+            verbose=False,
+            tokenize_no_ssplit=True
+        )
 
-        def annotate_sentence(sentences):
-            annotated_text = stanza_nlp(sentences)
+        def annotate_sentence(sentences, no_ssplit):
+            annotated_text = stanza_nlp_no_ssplit(sentences) if no_ssplit else stanza_nlp_w_ssplit(sentences)
             annotated_sentences = []
             head_dict = {0: "root"}
             for sentence in annotated_text.sentences:
                 annotated_sentence = []
-                for token in sentence.words:
-                    misc = dict(token_misc.split("=") for token_misc in token.misc.split("|"))
-                    token_id = int(token.id)
-                    head_dict[token_id] = token.text
-                    start_char = buffer_offset + int(misc["start_char"])
-                    end_char = buffer_offset + int(misc["end_char"])
-                    annotated_sentence.append({
-                        "id": token_id,
-                        "word": token.text,
-                        "pos": token.xpos,
-                        "lemma": token.lemma,
-                        "deprel": token.deprel,
-                        "deprel_head_id": token.head,
-                        "character_offset_begin": start_char,
-                        "character_offset_end": end_char,
-                        "term_tag": term_state[bisect(term_locs, start_char) % 3] if len(term_locs) > 0 else None
-                    })
+                for token in sentence.tokens:
+                    if len(token.words) > 1: print(token)
+                    else:
+                        word = token.words[0]
+                        misc = dict(token_misc.split("=") for token_misc in word.misc.split("|"))
+                        word_id = int(word.id)
+                        head_dict[word_id] = word.text
+                        start_char = buffer_offset + int(misc["start_char"])
+                        end_char = buffer_offset + int(misc["end_char"])
+                        annotated_sentence.append({
+                            "id": word_id,
+                            "word": word.text,
+                            "pos": word.xpos,
+                            "lemma": word.lemma,
+                            "deprel": word.deprel,
+                            "deprel_head_id": word.head,
+                            "character_offset_begin": start_char,
+                            "character_offset_end": end_char,
+                            "ner": token.ner
+                            # "term_tag": term_state[bisect(term_locs, start_char) % 3] if len(term_locs) > 0 else None
+                        })
                 for token in annotated_sentence:
                     token["deprel_head_text"] = head_dict[token["deprel_head_id"]]
                 annotated_sentences.append(annotated_sentence)
             return annotated_sentences
 
         for document in tqdm(self.iter_documents(), total=len(self)):
-            buffer_offset = 0
             document_id = document.document_id.text
-            title = document.title.text
-            term_locs = []
-            if self.has_terms_locations:
-                for term in document.terms.term:
-                    for location in term.locations.location:
-                        insort(term_locs, int(location.begin.text)-0.5)
-                        insort(term_locs, int(location.begin.text)+0.5)
-                        insort(term_locs, int(location.end.text))
-            annotated_title = annotate_sentence(title)
-            buffer_offset += len(title) + 1
-            annotated_content = []
-            for p in document.content.p:
-                annotated_content += annotate_sentence(p.text)
-                buffer_offset += len(p.text) + 1
-            core_nlp_document = StanfordCoreNLPDocument()
-            core_nlp_document.from_sentences(annotated_title, annotated_content)
-            core_nlp_document.write_xml_to(os.path.join(output_folder, f"{document_id}.xml"))
+            if f"{document_id}.xml" not in os.listdir(output_folder):
+                buffer_offset = 0
+                title = document.title.text
+                term_locs = []
+                if self.has_terms_locations:
+                    for term in document.terms.term:
+                        for location in term.locations.location:
+                            insort(term_locs, int(location.begin.text)-0.5)
+                            insort(term_locs, int(location.begin.text)+0.5)
+                            insort(term_locs, int(location.end.text))
+                annotated_title = annotate_sentence(title, no_ssplit=True)
+                buffer_offset += len(title) + 1
+                annotated_content = []
+                for p in document.content.p:
+                    if len(p.text.strip()) > 0:
+                        annotated_content += annotate_sentence(p.text, no_ssplit=False)
+                        buffer_offset += len(p.text) + 1
+                core_nlp_document = StanfordCoreNLPDocument()
+                core_nlp_document.from_sentences(annotated_title, annotated_content)
+                core_nlp_document.write_xml_to(os.path.join(output_folder, f"{document_id}.xml"))
 
     def write_annotation_to_jsonl(self, jsonl_path):
         terms_found = False
@@ -313,12 +323,34 @@ class Corpus(XMLBase):
             raise ValueError("No terms found. Provide XML with terms to create a JSONL file.")
 
 
+class StanfordCoreNLPCorpus(XMLBase):
+
+    def __init__(self, core_nlp_folder):
+        super().__init__("root", "document")
+        self.root = objectify.Element("root")
+        self.read_from_folder(core_nlp_folder)
+
+    def read_from_folder(self, core_nlp_folder):
+        filenames = [filename for filename in os.listdir(core_nlp_folder) if filename.endswith(".xml")]
+        for filename in filenames:
+            doc = StanfordCoreNLPDocument()
+            doc.read_from_xml(os.path.join(core_nlp_folder, filename))
+            doc = doc.root.document
+            doc.set("id", filename.split(".")[0])
+            self.root.append(doc)
+
+
 class StanfordCoreNLPDocument(XMLBase):
 
     def __init__(self):
         super().__init__("root", "document")
         self.root = objectify.Element("root")
         self.sentence_id = 1
+
+    def read_from_xml(self, xml_file):
+        with open(xml_file) as f:
+            xml = f.read()
+        self.root = objectify.fromstring(xml)
 
     def from_sentences(self, title_sentences, content_sentences):
         document = objectify.Element("document")
@@ -342,9 +374,10 @@ class StanfordCoreNLPDocument(XMLBase):
                 token_element.CharacterOffsetEnd = token["character_offset_end"]
                 token_element.POS = token["pos"]
                 token_element.deprel = token["deprel"]
-                token_element.depreal_head_id = token["deprel_head_id"]
-                token_element.depreal_head_text = token["deprel_head_text"]
-                token_element.term_tag = token["term_tag"]
+                token_element.deprel_head_id = token["deprel_head_id"]
+                token_element.deprel_head_text = token["deprel_head_text"]
+                # token_element.term_tag = token["term_tag"]
+                token_element.ner = token["ner"]
                 tokens_element.append(token_element)
             tokens.token = tokens_element
             return tokens
@@ -362,24 +395,28 @@ class StanfordCoreNLPDocument(XMLBase):
             self.sentence_id += 1
         return sentences_element
 
+    def find_sentences_w_term(self, term):
+        sentences = []
+        term_tokens = term.split()
+        for sentence in self.root.document.sentences.sentence:
+            token_words = [token.word.text.lower() for token in sentence.tokens.token]
+            for i in range(len(token_words)):
+                if token_words[i:i+len(term_tokens)] == term_tokens:
+                    sentences.append(sentence)
+        return sentences
+
 
 if __name__ == "__main__":
-    # corpus = Corpus("../data/scraped_all/")
-    # corpus.write_xml_to("../data/interim/all.xml")
-    # corpus = Corpus("../data/interim/all.xml")
-    # corpus.filter_empty()
+    # corpus = Corpus("../data/processed/lda_sampling_10p.xml")
+    # corpus.write_to_core_nlp_xmls("../data/processed/scnlp_xmls")
     # n_sample = 10
     # sampled_corpus = corpus.get_sample(n_sample)
     # sampled_corpus.write_xml_to("../data/test/samples_news_clean_random.xml")
-    # clean_corpus = Corpus(
-    #     "../data/test/samples_news_clean_unanno.xml",
-    #     annotation_file="../data/test/samples_with_manual_annotation.json1"
-    # )
-    # clean_corpus.write_to_core_nlp_xmls("../data/test/core_nlp_samples/")
-    # clean_corpus.write_xml_to("../data/test/samples_with_terms_empty.xml")
-    # corpus.write_annotation_to_jsonl("../data/processed/random_sample_annotated.jsonl")
-    # test_corpus = Corpus("../data/test/samples_with_terms.xml")
-    # test_corpus.write_xml_to("../data/test/samples_with_terms_temp.xml")
-    # test_corpus.write_to_core_nlp_xmls("../data/test/core_nlp_samples/")
-    fix_corpus = Corpus("../data/interim/random_sample_annotated.xml")
-    fix_corpus.write_xml_to("../data/interim/random_sample_annotated_v2.xml")
+    clean_corpus = Corpus(
+        "../data/processed/lda_sampling_15p.xml",
+        annotation_file="../data/manual/backup-20200426.json1"
+    )
+    clean_corpus.write_xml_to("../data/processed/lda_sampling_15p.annotated.xml")
+    clean_corpus.write_to_core_nlp_xmls("../data/processed/scnlp_xmls/")
+    # corpus = StanfordCoreNLPCorpus("../data/test/core_nlp_samples")
+    # corpus.write_xml_to("../data/interim/delete_me1.xml")

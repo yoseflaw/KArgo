@@ -135,6 +135,7 @@ dmypy.json
 /data/interim/*.zip
 /data/scraped_all/
 /data/benchmarks/
+/data/interim/lda*.xml
 
 # exclude references
 /pretrain_models/

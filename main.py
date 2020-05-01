@@ -1,17 +1,16 @@
 import os
 from datetime import date
 from spacy.lang.en.stop_words import STOP_WORDS
-from kargo import logger, corpus, scraping, extraction, evaluation
+from kargo import logger, corpus, scraping, term_extraction, evaluation
 from pke.utils import compute_document_frequency, load_document_frequency_file
 from pke.unsupervised import TfIdf, KPMiner, YAKE
 from pke.unsupervised import SingleRank, TopicRank, PositionRank, MultipartiteRank
-from pke.supervised import Kea
 SCRAPED_DIR = "data/scraped"
 INTERIM_DIR = "data/interim"
 PROCESSED_DIR = "data/processed"
 MANUAL_DIR = "data/manual"
 RESULTS_DIR = "results"
-CORE_NLP_DIR = os.path.join(PROCESSED_DIR, "stanford_core_nlp_xmls")
+CORE_NLP_DIR = os.path.join(PROCESSED_DIR, "scnlp_xmls")
 EXTRACTED_DIR = os.path.join(RESULTS_DIR, "extracted_terms")
 PLOT_DIR = os.path.join(RESULTS_DIR, "plots")
 log = logger.get_logger(__name__, logger.INFO)
@@ -73,15 +72,15 @@ def manual_term_annotation():
 def process_manual_annotation():
     log.info(f"Begin incorporating manual annotation to the XML, result in {PROCESSED_DIR}")
     manual_corpus = corpus.Corpus(
-        os.path.join(INTERIM_DIR, "random_sample_annotated.xml"),
+        os.path.join(INTERIM_DIR, "lda_sampling_15p.xml"),
         annotation_file=os.path.join(MANUAL_DIR, "annotation.json1")
     )
-    manual_corpus.write_xml_to(os.path.join(PROCESSED_DIR, "random_sample_annotated.xml"))
+    manual_corpus.write_xml_to(os.path.join(PROCESSED_DIR, "lda_sampling_15p.annotated.xml"))
 
 
 def create_core_nlp_documents(core_nlp_folder):
     log.info(f"Begin preparing Core NLP Documents to {core_nlp_folder}")
-    annotated_corpus = corpus.Corpus(os.path.join(PROCESSED_DIR, "random_sample_annotated.xml"))
+    annotated_corpus = corpus.Corpus(os.path.join(PROCESSED_DIR, "lda_sampling_15p.annotated.xml"))
     annotated_corpus.write_to_core_nlp_xmls(core_nlp_folder)
     compute_document_frequency(
         core_nlp_folder, os.path.join(INTERIM_DIR, "cargo_df.tsv.gz"),
@@ -91,12 +90,12 @@ def create_core_nlp_documents(core_nlp_folder):
 
 def extract_terms(core_nlp_folder):
     log.info("Begin Extraction")
-    n = 15
+    n = 5
     considered_pos = {"NOUN", "PROPN", "NUM", "ADJ", "ADP"}
     cargo_df = load_document_frequency_file(os.path.join(INTERIM_DIR, "cargo_df.tsv.gz"))
     # PKE: Tfidf
     log.info("Begin extraction with a PKE extractor: TF-IDF")
-    tfidf_extractor = extraction.PKEBasedExtractor(TfIdf)
+    tfidf_extractor = term_extraction.PKEBasedTermsExtractor(TfIdf)
     tfidf_selection_params = {
         "stoplist": list(STOP_WORDS)
     }
@@ -111,7 +110,7 @@ def extract_terms(core_nlp_folder):
     )
     # PKE: KPM
     log.info("Begin extraction with a PKE extractor: KPMiner")
-    kpm_extractor = extraction.PKEBasedExtractor(KPMiner)
+    kpm_extractor = term_extraction.PKEBasedTermsExtractor(KPMiner)
     kpm_selection_params = {
         "lasf": 1,
         "cutoff": 200,
@@ -128,11 +127,9 @@ def extract_terms(core_nlp_folder):
     )
     # PKE: YAKE
     log.info("Begin extraction with a PKE extractor: YAKE")
-    yake_extractor = extraction.PKEBasedExtractor(YAKE)
+    yake_extractor = term_extraction.PKEBasedTermsExtractor(YAKE)
     yake_selection_params = {}
-    yake_weighting_params = {
-        "window": 2
-    }
+    yake_weighting_params = {}
     yake_extractor.extract(
         core_nlp_folder, n,
         selection_params=yake_selection_params,
@@ -141,7 +138,7 @@ def extract_terms(core_nlp_folder):
     )
     # PKE: SingleRank
     log.info("Begin Extraction with a PKE extractor: SingleRank")
-    singlerank_extractor = extraction.PKEBasedExtractor(SingleRank)
+    singlerank_extractor = term_extraction.PKEBasedTermsExtractor(SingleRank)
     singlerank_selection_params = {
         "pos": considered_pos
     }
@@ -157,7 +154,7 @@ def extract_terms(core_nlp_folder):
     )
     # PKE: TopicRank
     log.info("Begin Extraction with a PKE extractor: TopicRank")
-    topicrank_extractor = extraction.PKEBasedExtractor(TopicRank)
+    topicrank_extractor = term_extraction.PKEBasedTermsExtractor(TopicRank)
     topicrank_selection_params = {
         "pos": considered_pos,
         "stoplist": list(STOP_WORDS)
@@ -171,7 +168,7 @@ def extract_terms(core_nlp_folder):
     )
     # PKE: Multipartite
     log.info("Begin Extraction with a PKE extractor: MultipartiteRank")
-    mprank_extractor = extraction.PKEBasedExtractor(MultipartiteRank)
+    mprank_extractor = term_extraction.PKEBasedTermsExtractor(MultipartiteRank)
     mprank_selection_params = {
         "pos": considered_pos,
         "stoplist": list(STOP_WORDS)
@@ -184,7 +181,7 @@ def extract_terms(core_nlp_folder):
     )
     # PKE: PositionRank
     log.info("Begin Extraction with a PKE extractor: PositionRank")
-    positionrank_extractor = extraction.PKEBasedExtractor(PositionRank)
+    positionrank_extractor = term_extraction.PKEBasedTermsExtractor(PositionRank)
     positionrank_selection_params = {
         "grammar": r"""
                     NBAR:
@@ -204,7 +201,7 @@ def extract_terms(core_nlp_folder):
     )
     # EmbedRank
     log.info("Begin Extraction with EmbedRank extractor")
-    embedrank_extractor = extraction.EmbedRankExtractor(
+    embedrank_extractor = term_extraction.EmbedRankTermsExtractor(
         emdib_model_path="pretrain_models/torontobooks_unigrams.bin"
     )
     embedrank_extractor.extract(
@@ -215,7 +212,7 @@ def extract_terms(core_nlp_folder):
 
 
 def evaluate_terms():
-    annotated_corpus = corpus.Corpus(os.path.join(PROCESSED_DIR, "random_sample_annotated.xml"))
+    annotated_corpus = corpus.Corpus(os.path.join(PROCESSED_DIR, "lda_sampling_15p.annotated.xml"))
     log.info("Begin evaluation")
     evaluator = evaluation.Evaluator(annotated_corpus)
     extracted_terms = {
@@ -229,16 +226,16 @@ def evaluate_terms():
         "EmbedRank": "embedrank_toronto_unigrams.csv"
     }
     for method, file_name in extracted_terms.items():
-        terms = extraction.Extractor.read_terms_from(os.path.join(EXTRACTED_DIR, file_name))
+        terms = term_extraction.TermsExtractor.read_terms_from(os.path.join(EXTRACTED_DIR, file_name))
         evaluator.add_prediction(method, terms)
     today_date = date.today().strftime("%Y%m%d")
     evaluator.evaluate_and_visualize(os.path.join(PLOT_DIR, f"eval_{today_date}.html"))
 
 
 if __name__ == "__main__":
-    scraping_news_sites()
-    combine_filter_sample_corpus()
-    manual_term_annotation()
+    # scraping_news_sites()
+    # combine_filter_sample_corpus()
+    # manual_term_annotation()
     process_manual_annotation()
     create_core_nlp_documents(CORE_NLP_DIR)
     extract_terms(CORE_NLP_DIR)
