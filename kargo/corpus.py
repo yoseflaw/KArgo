@@ -199,6 +199,16 @@ class Corpus(XMLBase):
             acquired_count += 1
         return sample_corpus
 
+    def get_more_sample(self, n, json1_filename):
+        existing_ids = []
+        with open(json1_filename, "r") as json1_file:
+            lines = json1_file.readlines()
+        for line in lines:
+            json_news = json.loads(line)
+            current_id = md5(json_news["text"].split("|")[0].encode("utf-8")).hexdigest()[-6:]
+            existing_ids.append(current_id)
+        return self.get_sample(n, existing_ids)
+
     def get_documents_by_urls(self, urls):
         subset_corpus = Corpus()
         for document in self:
@@ -301,26 +311,25 @@ class Corpus(XMLBase):
                 core_nlp_document.from_sentences(annotated_title, annotated_content)
                 core_nlp_document.write_xml_to(os.path.join(output_folder, f"{document_id}.xml"))
 
-    def write_annotation_to_jsonl(self, jsonl_path):
-        terms_found = False
+    def write_to_jsonl(self, jsonl_path):
+        # terms_found = False
         with open(jsonl_path, "w") as out_file:
             for document in self.iter_documents():
-                if document.terms.countchildren() > 0:
-                    labels = []
-                    for term in document.terms.term:
-                        for location in term.locations.location:
-                            labels.append([int(location.begin.text), int(location.end.text), "UNK"])
-                    text = {
-                        "text": "|".join(
-                            [html.unescape(document.title.text)]\
-                            + [p.text for p in document.content.p]
-                        ),
-                    }
-                    json.dump(html.unescape(text), out_file)
-                    out_file.write("\n")
-                    terms_found = True
-        if not terms_found:
-            raise ValueError("No terms found. Provide XML with terms to create a JSONL file.")
+                # if document.terms.countchildren() > 0:
+                #     labels = []
+                #     for term in document.terms.term:
+                #         for location in term.locations.location:
+                #             labels.append([int(location.begin.text), int(location.end.text), "UNK"])
+                text = {
+                    "text": "|".join(
+                        [document.title.text] + [p.text for p in document.content.p]
+                    ),
+                }
+                json.dump(html.unescape(text), out_file)
+                out_file.write("\n")
+                # terms_found = True
+        # if not terms_found:
+        #     raise ValueError("No terms found. Provide XML with terms to create a JSONL file.")
 
 
 class StanfordCoreNLPCorpus(XMLBase):
@@ -407,16 +416,18 @@ class StanfordCoreNLPDocument(XMLBase):
 
 
 if __name__ == "__main__":
-    # corpus = Corpus("../data/processed/lda_sampling_10p.xml")
-    # corpus.write_to_core_nlp_xmls("../data/processed/scnlp_xmls")
+    corpus = Corpus("../data/interim/lda_sampling_15p.xml")
+    # corpus.write_to_core_nlp_xmls("../data/processed/scnlp_lda_all")
     # n_sample = 10
     # sampled_corpus = corpus.get_sample(n_sample)
     # sampled_corpus.write_xml_to("../data/test/samples_news_clean_random.xml")
-    clean_corpus = Corpus(
-        "../data/processed/lda_sampling_15p.xml",
-        annotation_file="../data/manual/backup-20200426.json1"
-    )
-    clean_corpus.write_xml_to("../data/processed/lda_sampling_15p.annotated.xml")
-    clean_corpus.write_to_core_nlp_xmls("../data/processed/scnlp_xmls/")
+    # clean_corpus = Corpus(
+    #     "../data/processed/lda_sampling_15p.xml",
+    #     annotation_file="../data/manual/backup-20200426.json1"
+    # )
+    # clean_corpus.write_xml_to("../data/processed/lda_sampling_15p.annotated.xml")
+    # clean_corpus.write_to_core_nlp_xmls("../data/processed/scnlp_xmls/")
     # corpus = StanfordCoreNLPCorpus("../data/test/core_nlp_samples")
     # corpus.write_xml_to("../data/interim/delete_me1.xml")
+    more_sample = corpus.get_more_sample(50, "../data/manual/backup-20200511.json1")
+    more_sample.write_to_jsonl("../data/processed/more_sample_50_2_lda15p.json1")

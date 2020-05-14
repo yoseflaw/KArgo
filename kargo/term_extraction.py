@@ -1,9 +1,11 @@
 import os
 from csv import DictWriter, DictReader
 
+from pke import compute_document_frequency, load_document_frequency_file
 from tqdm import tqdm
-from pke.unsupervised import PositionRank
+from pke.unsupervised import PositionRank, MultipartiteRank, KPMiner
 from pke.readers import MinimalCoreNLPReader
+from spacy.lang.en.stop_words import STOP_WORDS
 
 from swisscom_ai.research_keyphrase.embeddings.emb_distrib_local import EmbeddingDistributorLocal
 from swisscom_ai.research_keyphrase.model.input_representation import InputTextObj
@@ -81,26 +83,42 @@ class EmbedRankTermsExtractor(TermsExtractor):
 
 
 if __name__ == "__main__":
-    n = 5
+    n = 10
     snlp_folder = "../data/test/core_nlp_samples"
-    positionrank_extractor = PKEBasedTermsExtractor(PositionRank)
-    positionrank_selection_params = {
-        "grammar": r"""
-                    NBAR:
-                        {<NOUN|PROPN|NUM|ADJ>*<NOUN|PROPN>}
-
-                    NP:
-                        {<NBAR>}
-                        {<NBAR><ADP><NBAR>}
-                    """,
-        "maximum_word_number": 5
-    }
-    positionrank_terms = positionrank_extractor.extract(
-        snlp_folder, n,
-        selection_params=positionrank_selection_params,
-        weighting_params={},
-        output_file="../data/test/extracted_terms_sample/positionrank.csv"
+    compute_document_frequency(
+        snlp_folder, os.path.join("../data/test/interim/test_cargo_df.tsv.gz"),
+        stoplist=list(STOP_WORDS)
     )
+    cargo_df = load_document_frequency_file("../data/test/interim/test_cargo_df.tsv.gz")
+    log.info("Begin extraction with a PKE extractor: KPMiner")
+    kpm_extractor = PKEBasedTermsExtractor(KPMiner)
+    kpm_selection_params = {
+        "lasf": 1,
+        "cutoff": 200,
+        "stoplist": list(STOP_WORDS)
+    }
+    kpm_weighting_params = {
+        "df": cargo_df
+    }
+    kpm_extractor.extract(
+        snlp_folder, n,
+        selection_params=kpm_selection_params,
+        weighting_params=kpm_weighting_params,
+        output_file="../data/test/extracted_terms_sample/kpminer.csv"
+    )
+    log.info("Begin Extraction with a PKE extractor: MultipartiteRank")
+    mprank_extractor = PKEBasedTermsExtractor(MultipartiteRank)
+    mprank_selection_params = {
+        "pos": {"NOUN", "PROPN", "NUM", "ADJ", "ADP"},
+        "stoplist": list(STOP_WORDS)
+    }
+    mprank_extractor.extract(
+        snlp_folder, n,
+        selection_params=mprank_selection_params,
+        weighting_params={},
+        output_file="../data/test/extracted_terms_sample/mprank.csv"
+    )
+    log.info("Begin Extraction with EmbedRank")
     embedrank_extractor = EmbedRankTermsExtractor(
         emdib_model_path="../pretrain_models/torontobooks_unigrams.bin"
     )

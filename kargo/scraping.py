@@ -156,7 +156,17 @@ class StatTimesSpider(Spider):
             title = news_soup.find("div", class_="single-header").find("h1").text
             categories = ["Air Cargo"]
             author = news_soup.find("meta", attrs={"name": "author"})["content"]
-            published_time = news_soup.find("meta", attrs={"property": "article:published_time"})["content"]
+            published_time_meta = news_soup.find("meta", attrs={"article:published_time"})
+            if published_time_meta:
+                published_time = published_time_meta["content"]
+            else:
+                updated_time_meta = news_soup.find("meta", attrs={"property": "og:updated_time"})
+                if updated_time_meta:
+                    published_time = updated_time_meta["content"]
+                else:
+                    published_time_raw = news_soup.find("span", class_="meta_date")
+                    published_time = datetime.strptime(published_time_raw.text, "%B %d, %Y")
+                    published_time = published_time.strftime("%Y-%m-%d")  # assumed
             paragraphs = news_soup.find("div", class_="single-content").find_all(
                 "p", attrs={"data-mce-style": "text-align: justify;"})
             content = []

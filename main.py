@@ -90,7 +90,7 @@ def create_core_nlp_documents(core_nlp_folder):
 
 def extract_terms(core_nlp_folder):
     log.info("Begin Extraction")
-    n = 5
+    n = 10
     considered_pos = {"NOUN", "PROPN", "NUM", "ADJ", "ADP"}
     cargo_df = load_document_frequency_file(os.path.join(INTERIM_DIR, "cargo_df.tsv.gz"))
     # PKE: Tfidf
@@ -125,17 +125,17 @@ def extract_terms(core_nlp_folder):
         weighting_params=kpm_weighting_params,
         output_file=os.path.join(EXTRACTED_DIR, "kpminer.csv")
     )
-    # PKE: YAKE
-    log.info("Begin extraction with a PKE extractor: YAKE")
-    yake_extractor = term_extraction.PKEBasedTermsExtractor(YAKE)
-    yake_selection_params = {}
-    yake_weighting_params = {}
-    yake_extractor.extract(
-        core_nlp_folder, n,
-        selection_params=yake_selection_params,
-        weighting_params=yake_weighting_params,
-        output_file=os.path.join(EXTRACTED_DIR, "yake.csv")
-    )
+    # PKE: YAKE (TODO: find out why index out of bound)
+    # log.info("Begin extraction with a PKE extractor: YAKE")
+    # yake_extractor = term_extraction.PKEBasedTermsExtractor(YAKE)
+    # yake_selection_params = {}
+    # yake_weighting_params = {}
+    # yake_extractor.extract(
+    #     core_nlp_folder, n,
+    #     selection_params=yake_selection_params,
+    #     weighting_params=yake_weighting_params,
+    #     output_file=os.path.join(EXTRACTED_DIR, "yake.csv")
+    # )
     # PKE: SingleRank
     log.info("Begin Extraction with a PKE extractor: SingleRank")
     singlerank_extractor = term_extraction.PKEBasedTermsExtractor(SingleRank)
@@ -218,7 +218,7 @@ def evaluate_terms():
     extracted_terms = {
         "TF-IDF": "tfidf.csv",
         "KPM": "kpminer.csv",
-        "YAKE": "yake.csv",
+        # "YAKE": "yake.csv",
         "SingleRank": "singlerank.csv",
         "TopicRank": "topicrank.csv",
         "MultipartiteRank": "multipartite.csv",
@@ -233,9 +233,9 @@ def evaluate_terms():
 
 
 if __name__ == "__main__":
-    # scraping_news_sites()
-    # combine_filter_sample_corpus()
-    # manual_term_annotation()
+    scraping_news_sites()
+    combine_filter_sample_corpus()
+    manual_term_annotation()
     process_manual_annotation()
     create_core_nlp_documents(CORE_NLP_DIR)
     extract_terms(CORE_NLP_DIR)
