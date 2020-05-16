@@ -1,7 +1,7 @@
 import os
 from datetime import date
 from spacy.lang.en.stop_words import STOP_WORDS
-from kargo import logger, corpus, scraping, term_extraction, evaluation
+from kargo import logger, corpus, scraping, terms, evaluation
 from pke.utils import compute_document_frequency, load_document_frequency_file
 from pke.unsupervised import TfIdf, KPMiner, YAKE
 from pke.unsupervised import SingleRank, TopicRank, PositionRank, MultipartiteRank
@@ -88,125 +88,97 @@ def create_core_nlp_documents(core_nlp_folder):
     )
 
 
+# noinspection PyTypeChecker
 def extract_terms(core_nlp_folder):
     log.info("Begin Extraction")
     n = 10
-    considered_pos = {"NOUN", "PROPN", "NUM", "ADJ", "ADP"}
     cargo_df = load_document_frequency_file(os.path.join(INTERIM_DIR, "cargo_df.tsv.gz"))
-    # PKE: Tfidf
-    log.info("Begin extraction with a PKE extractor: TF-IDF")
-    tfidf_extractor = term_extraction.PKEBasedTermsExtractor(TfIdf)
-    tfidf_selection_params = {
-        "stoplist": list(STOP_WORDS)
-    }
-    tfidf_weighting_params = {
-        "df": cargo_df
-    }
-    tfidf_extractor.extract(
-        core_nlp_folder, n,
-        selection_params=tfidf_selection_params,
-        weighting_params=tfidf_weighting_params,
-        output_file=os.path.join(EXTRACTED_DIR, "tfidf.csv")
-    )
-    # PKE: KPM
-    log.info("Begin extraction with a PKE extractor: KPMiner")
-    kpm_extractor = term_extraction.PKEBasedTermsExtractor(KPMiner)
-    kpm_selection_params = {
-        "lasf": 1,
-        "cutoff": 200,
-        "stoplist": list(STOP_WORDS)
-    }
-    kpm_weighting_params = {
-        "df": cargo_df
-    }
-    kpm_extractor.extract(
-        core_nlp_folder, n,
-        selection_params=kpm_selection_params,
-        weighting_params=kpm_weighting_params,
-        output_file=os.path.join(EXTRACTED_DIR, "kpminer.csv")
-    )
-    # PKE: YAKE (TODO: find out why index out of bound)
-    # log.info("Begin extraction with a PKE extractor: YAKE")
-    # yake_extractor = term_extraction.PKEBasedTermsExtractor(YAKE)
-    # yake_selection_params = {}
-    # yake_weighting_params = {}
-    # yake_extractor.extract(
-    #     core_nlp_folder, n,
-    #     selection_params=yake_selection_params,
-    #     weighting_params=yake_weighting_params,
-    #     output_file=os.path.join(EXTRACTED_DIR, "yake.csv")
-    # )
-    # PKE: SingleRank
-    log.info("Begin Extraction with a PKE extractor: SingleRank")
-    singlerank_extractor = term_extraction.PKEBasedTermsExtractor(SingleRank)
-    singlerank_selection_params = {
-        "pos": considered_pos
-    }
-    singlerank_weighting_params = {
-        "window": 10,
-        "pos": considered_pos
-    }
-    singlerank_extractor.extract(
-        core_nlp_folder, n,
-        selection_params=singlerank_selection_params,
-        weighting_params=singlerank_weighting_params,
-        output_file=os.path.join(EXTRACTED_DIR, "singlerank.csv")
-    )
-    # PKE: TopicRank
-    log.info("Begin Extraction with a PKE extractor: TopicRank")
-    topicrank_extractor = term_extraction.PKEBasedTermsExtractor(TopicRank)
-    topicrank_selection_params = {
-        "pos": considered_pos,
-        "stoplist": list(STOP_WORDS)
-    }
-    topicrank_weighting_params = {}
-    topicrank_extractor.extract(
-        core_nlp_folder, n,
-        selection_params=topicrank_selection_params,
-        weighting_params=topicrank_weighting_params,
-        output_file=os.path.join(EXTRACTED_DIR, "topicrank.csv")
-    )
-    # PKE: Multipartite
-    log.info("Begin Extraction with a PKE extractor: MultipartiteRank")
-    mprank_extractor = term_extraction.PKEBasedTermsExtractor(MultipartiteRank)
-    mprank_selection_params = {
-        "pos": considered_pos,
-        "stoplist": list(STOP_WORDS)
-    }
-    mprank_extractor.extract(
-        core_nlp_folder, n,
-        selection_params=mprank_selection_params,
-        weighting_params={},
-        output_file=os.path.join(EXTRACTED_DIR, "multipartite.csv")
-    )
-    # PKE: PositionRank
-    log.info("Begin Extraction with a PKE extractor: PositionRank")
-    positionrank_extractor = term_extraction.PKEBasedTermsExtractor(PositionRank)
-    positionrank_selection_params = {
+    pke_factory = {
         "grammar": r"""
-                    NBAR:
-                        {<NOUN|PROPN|NUM|ADJ>*<NOUN|PROPN>}
-
-                    NP:
-                        {<NBAR>}
-                        {<NBAR><ADP><NBAR>}
-                    """,
-        "maximum_word_number": 5
+            NBAR:
+                {<NOUN|PROPN|NUM|ADJ>*<NOUN|PROPN>}
+    
+            NP:
+                {<NBAR>}
+                {<NBAR><ADP><NBAR>}
+            """,
+        "filtering_params": {
+            "stoplist": list(STOP_WORDS)
+        },
+        "extractors": {
+            "tfidf": {
+                "instance": terms.PKEBasedTermsExtractor(TfIdf),
+                "weighting_params": {"df": cargo_df}
+            },
+            "kpm": {
+                "instance": terms.PKEBasedTermsExtractor(KPMiner),
+                "weighting_params": {"df": cargo_df}
+            },
+            "yake": {
+                "instance": terms.PKEBasedTermsExtractor(YAKE),
+                "filtering_params": {
+                    "only_alphanum": True,
+                    "strip_outer_stopwords": True
+                },
+                "weighting_params": {}
+            },
+            "singlerank": {
+                "instance": terms.PKEBasedTermsExtractor(SingleRank),
+                "weighting_params": {
+                    "window": 10,
+                    "pos": {"NOUN", "PROPN", "NUM", "ADJ", "ADP"}
+                }
+            },
+            "topicrank": {
+                "instance": terms.PKEBasedTermsExtractor(TopicRank),
+                "weighting_params": {}
+            },
+            "mprank": {
+                "instance": terms.PKEBasedTermsExtractor(MultipartiteRank),
+                "weighting_params": {}
+            },
+            "positionrank": {
+                "instance": terms.PKEBasedTermsExtractor(PositionRank),
+                "weighting_params": {}
+            }
+        }
     }
-    positionrank_extractor.extract(
-        core_nlp_folder, n,
-        selection_params=positionrank_selection_params,
-        weighting_params={},
-        output_file=os.path.join(EXTRACTED_DIR, "positionrank.csv")
-    )
+    for name in pke_factory["extractors"]:
+        log.info(f"Begin Extraction with PKE based extractor: {name}")
+        extractor = pke_factory["extractors"][name]["instance"]
+        if "filtering_params" in pke_factory["extractors"][name]:
+            filtering_params = {
+                **pke_factory["filtering_params"],
+                **pke_factory["extractors"][name]["filtering_params"]
+            }
+        else:
+            filtering_params = pke_factory["filtering_params"]
+        extractor.extract(
+            core_nlp_folder, n,
+            grammar=pke_factory["grammar"],
+            filtering_params=filtering_params,
+            weighting_params=pke_factory["extractors"][name]["weighting_params"],
+            output_file=os.path.join(EXTRACTED_DIR, f"{name}.csv")
+        )
     # EmbedRank
     log.info("Begin Extraction with EmbedRank extractor")
-    embedrank_extractor = term_extraction.EmbedRankTermsExtractor(
+    embedrank_extractor = terms.EmbedRankTermsExtractor(
         emdib_model_path="pretrain_models/torontobooks_unigrams.bin"
     )
     embedrank_extractor.extract(
         core_nlp_folder, n,
-        considered_tags=considered_pos,
+        grammar=r"""
+                NALL:
+                    {<NN|NNP|NNS|NNPS>}
+
+                NBAR:
+                    {<NALL|CD|JJ>*<NALL>}
+
+                NP:
+                    {<NBAR>}
+                    {<NBAR><IN><NBAR>}
+                """,
+        considered_tags={'NN', 'NNS', 'NNP', 'NNPS', 'JJ', 'IN', 'CD'},
         output_file=os.path.join(EXTRACTED_DIR, "embedrank_toronto_unigrams.csv")
     )
 
@@ -217,17 +189,17 @@ def evaluate_terms():
     evaluator = evaluation.Evaluator(annotated_corpus)
     extracted_terms = {
         "TF-IDF": "tfidf.csv",
-        "KPM": "kpminer.csv",
-        # "YAKE": "yake.csv",
+        "KPM": "kpm.csv",
+        "YAKE": "yake.csv",
         "SingleRank": "singlerank.csv",
         "TopicRank": "topicrank.csv",
-        "MultipartiteRank": "multipartite.csv",
+        "MultipartiteRank": "mprank.csv",
         "PositionRank": "positionrank.csv",
         "EmbedRank": "embedrank_toronto_unigrams.csv"
     }
     for method, file_name in extracted_terms.items():
-        terms = term_extraction.TermsExtractor.read_terms_from(os.path.join(EXTRACTED_DIR, file_name))
-        evaluator.add_prediction(method, terms)
+        t = terms.TermsExtractor.read_terms_from(os.path.join(EXTRACTED_DIR, file_name))
+        evaluator.add_prediction(method, t)
     today_date = date.today().strftime("%Y%m%d")
     evaluator.evaluate_and_visualize(os.path.join(PLOT_DIR, f"eval_{today_date}.html"))
 

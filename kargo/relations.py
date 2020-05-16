@@ -215,11 +215,12 @@ class RelationExtractor(object):
 
 class ClusteringRE(RelationExtractor):
 
-    def __init__(self, n_outer_tokens, generalize, window_size, closest_term_only, include_ne):
+    def __init__(self, n_outer_tokens, generalize, clusterer_params, window_size, closest_term_only, include_ne):
         super().__init__(window_size, include_ne, closest_term_only)
         self.n_outer_tokens = n_outer_tokens
         self.patterns = ["in_between"] if not n_outer_tokens else ["in_between", "prefix", "suffix"]
         self.generalize = generalize if generalize in ("word", "lemma", "pos") else "word"
+        self.clusterer_params = clusterer_params
 
     def calc_dist_matrix(self, cooccurrences):
         distance_matrix = np.zeros((len(self.patterns), len(cooccurrences), len(cooccurrences)))
@@ -243,7 +244,7 @@ class ClusteringRE(RelationExtractor):
 
     def cluster(self, cooccurrences):
         distance_matrix = self.calc_dist_matrix(cooccurrences)
-        clusterer = DBSCAN(eps=0.35, min_samples=3, metric="precomputed")
+        clusterer = DBSCAN(**self.clusterer_params)
         clusters = clusterer.fit_predict(distance_matrix)
         relations = {}
         for i, cooccurrence in enumerate(cooccurrences):
@@ -326,9 +327,15 @@ class TransferRE(RelationExtractor):
 
 
 if __name__ == "__main__":
+    dbscan_params = {
+        "eps": 0.5,
+        "min_samples": 3,
+        "metric": "precomputed"
+    }
     relator = ClusteringRE(
-        n_outer_tokens=0,
+        n_outer_tokens=3,
         generalize="lemma",
+        clusterer_params=dbscan_params,
         window_size=10,
         closest_term_only=True,
         include_ne=True
@@ -340,12 +347,17 @@ if __name__ == "__main__":
     #     closest_term_only=True,
     #     include_ne=True
     # )
-    snlp_folder = "../data/test/core_nlp_samples"
+    # snlp_folder = "../data/test/core_nlp_samples"
     # snlp_folder = "../data/processed/scnlp_lda_all/"
+    snlp_folder = "../data/processed/scnlp_xmls/"
     corpus = StanfordCoreNLPCorpus(snlp_folder)
-    # results = relator.extract(corpus, "../results/extracted_terms_all/multipartite.csv")
     results = relator.extract(
         corpus,
-        "../data/test/extracted_terms_sample/mprank.csv",
-        "../results/extracted_relations/lexical_test_3.json"
+        "../results/extracted_terms/kpm.csv",
+        "../results/extracted_relations/dbscan.json"
     )
+    # results = relator.extract(
+    #     corpus,
+    #     "../data/test/extracted_terms_sample/mprank.csv",
+    #     "../results/extracted_relations/wikicnn_0_10_TT.json"
+    # )
