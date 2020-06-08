@@ -1,8 +1,10 @@
+import html
 from collections import OrderedDict
 import json
 from csv import DictReader
 
 import opennre
+import sent2vec
 from tqdm import tqdm
 from corpus import StanfordCoreNLPCorpus
 import Levenshtein as Lev
@@ -79,16 +81,17 @@ class SentenceParser(object):
         return getattr(self.tokens[token_id], attr)
 
     # Need to update this
-    def get_entities(self):
+    def get_entities(self, exclude_list=None):
         ents = []
         ent = []
         for token_id, token in self.tokens.items():
-            if token.ner[0] in ("B", "S"):
-                ent = [token]
-            elif token.ner[0] in ("I", "E"):
-                ent.append(token)
-            if token.ner[0] in ("E", "S") or (token.ner[0] in ("B", "I") and int(token_id) == len(self.tokens)):
-                ents.append(ent)
+            if exclude_list and token.ner.split("-")[-1] not in exclude_list:
+                if token.ner[0] in ("B", "S"):
+                    ent = [token]
+                elif token.ner[0] in ("I", "E"):
+                    ent.append(token)
+                if token.ner[0] in ("E", "S") or (token.ner[0] in ("B", "I") and int(token_id) == len(self.tokens)):
+                    ents.append(ent)
         return ents
 
     # This will only return the first occurrence of a term in the sentence
@@ -160,7 +163,7 @@ class RelationExtractor(object):
     def get_terms_occurrence(self, parsed_sentence, tokenized_terms, extract_tokens, n_outer_tokens):
         sentence_terms = parsed_sentence.get_terms_exist(tokenized_terms)
         if self.include_ne:
-            sentence_terms += parsed_sentence.get_entities()
+            sentence_terms += parsed_sentence.get_entities(exclude_list=["PERSON", "DATE"])
         entities = RelationExtractor.reduce_duplicate_entities(sentence_terms)
         if len(entities) < 2: return []
         sorted_entities = sorted(entities, key=lambda e: int(e[0].token_id))
@@ -204,23 +207,40 @@ class RelationExtractor(object):
         for document in tqdm(snlp_corpus.iter_documents(), total=len(snlp_corpus), disable=True):
             doc_id = document.get("id")
             tokenized_terms = [term.split() for term in terms[doc_id]]
-            for sentence in document.sentences.sentence:
+            for sentence_id, sentence in enumerate(document.sentences.sentence):
                 parsed_sentence = SentenceParser(sentence)
                 cooccurrences = self.get_terms_occurrence(
                     parsed_sentence, tokenized_terms, extract_tokens, n_outer_tokens
                 )
-                all_cooccurrences += cooccurrences
+                all_cooccurrences.append([doc_id, sentence_id, cooccurrences])
         return all_cooccurrences
 
 
 class ClusteringRE(RelationExtractor):
 
-    def __init__(self, n_outer_tokens, generalize, clusterer_params, window_size, closest_term_only, include_ne):
+    LEVENSHTEIN = 0
+    SENT2VEC = 1
+
+    def __init__(self, dist_func, n_outer_tokens, generalize, clusterer_params,
+                 window_size, closest_term_only, include_ne, s2v_model_path):
         super().__init__(window_size, include_ne, closest_term_only)
+        self.dist_func = dist_func
         self.n_outer_tokens = n_outer_tokens
         self.patterns = ["in_between"] if not n_outer_tokens else ["in_between", "prefix", "suffix"]
         self.generalize = generalize if generalize in ("word", "lemma", "pos") else "word"
         self.clusterer_params = clusterer_params
+        if s2v_model_path:
+            self.s2v_model = sent2vec.Sent2vecModel()
+            self.s2v_model.load_model(s2v_model_path)
+
+    def calc_dist(self, p1, p2):
+        if self.dist_func == ClusteringRE.LEVENSHTEIN:
+            return 1 - Lev.seqratio(p1, p2)
+        elif self.dist_func == ClusteringRE.SENT2VEC:
+            emb1 = self.s2v_model.embed_sentence(" ".join(p1))
+            emb2 = self.s2v_model.embed_sentence(" ".join(p2))
+            cosine_sim = np.dot(emb1, emb2)/(np.linalg.norm(emb1) * np.linalg.norm(emb2))
+            return 1 - cosine_sim
 
     def calc_dist_matrix(self, cooccurrences):
         distance_matrix = np.zeros((len(self.patterns), len(cooccurrences), len(cooccurrences)))
@@ -237,7 +257,7 @@ class ClusteringRE(RelationExtractor):
                 pattern_i = generalized_patterns[i][pattern]
                 for j in range(i+1, len(generalized_patterns)):
                     pattern_j = generalized_patterns[j][pattern]
-                    dist = 1 - Lev.seqratio(pattern_i, pattern_j)
+                    dist = self.calc_dist(pattern_i, pattern_j)
                     distance_matrix[p, i, j] = distance_matrix[p, j, i] = dist
         distance_matrix = np.mean(distance_matrix, axis=0)
         return distance_matrix
@@ -279,6 +299,8 @@ class ClusteringRE(RelationExtractor):
             snlp_corpus, extracted_terms_path, extract_tokens=True, n_outer_tokens=self.n_outer_tokens
         )
         relations = self.cluster(all_cooccurrences)
+        for k in relations:
+            print(f"cluster[{k}]: {len(relations[k])} patterns")
         if output_file: RelationExtractor.write_relations_to(relations, output_file)
         return relations
 
@@ -328,17 +350,19 @@ class TransferRE(RelationExtractor):
 
 if __name__ == "__main__":
     dbscan_params = {
-        "eps": 0.5,
+        "eps": 0.3,
         "min_samples": 3,
         "metric": "precomputed"
     }
     relator = ClusteringRE(
-        n_outer_tokens=3,
+        dist_func=ClusteringRE.LEVENSHTEIN,
+        n_outer_tokens=0,
         generalize="lemma",
         clusterer_params=dbscan_params,
         window_size=10,
         closest_term_only=True,
-        include_ne=True
+        include_ne=True,
+        s2v_model_path="../pretrain_models/torontobooks_unigrams.bin"
     )
     # relator = TransferRE(
     #     model_name="wiki80_cnn_softmax",
@@ -349,13 +373,59 @@ if __name__ == "__main__":
     # )
     # snlp_folder = "../data/test/core_nlp_samples"
     # snlp_folder = "../data/processed/scnlp_lda_all/"
-    snlp_folder = "../data/processed/scnlp_xmls/"
+    snlp_folder = "../data/processed/relevant/test/"
     corpus = StanfordCoreNLPCorpus(snlp_folder)
-    results = relator.extract(
+    coocs = relator.get_all_cooccurrences(
         corpus,
-        "../results/extracted_terms/kpm.csv",
-        "../results/extracted_relations/dbscan.json"
+        "../data/processed/relevant/test_terms.csv"
     )
+    existing = {}
+    for relation_file in ("dev", "test"):
+        with open(f"../data/manual/relation_{relation_file}.json", "r") as rel_dev:
+            for line in rel_dev.readlines():
+                json_line = json.loads(line)
+                doc_id = json_line["meta"]["doc_id"]
+                sent_text = json_line["text"]
+                anno = json_line["annotations"]
+                if doc_id in existing:
+                    existing[doc_id][sent_text] = "YES" if len(anno) == 0 or anno[0]["label"] == 15 else "NO"
+                else:
+                    existing[doc_id] = {
+                        sent_text: "YES" if len(anno) == 0 or anno[0]["label"] == 15 else "NO"
+                    }
+    # all_coocs = []
+    with open("../data/interim/test_rel_toanno.json1", "w") as out_file:
+        for cooc in coocs:
+            doc_id, sent_id, cooc_list = cooc
+            for c_id, c in enumerate(cooc_list):
+                head = c["head"]
+                tail = c["tail"]
+                sentence = c["text"]
+                before = sentence[:head[0].offset_begin]
+                head_text = sentence[head[0].offset_begin:head[-1].offset_end]
+                in_between = sentence[head[-1].offset_end:tail[0].offset_begin]
+                tail_text = sentence[tail[0].offset_begin:tail[-1].offset_end]
+                after = sentence[tail[-1].offset_end:]
+                text = f"{before}__{head_text}__{in_between}__{tail_text}__{after}"
+                labels = []
+                if doc_id in existing and text in existing[doc_id]:
+                    labels.append(existing[doc_id][text])
+                row = {
+                    "text": text,
+                    "meta": {
+                        "doc_id": doc_id,
+                        "sent_id": sent_id,
+                        "cooc_no": c_id
+                    },
+                    "labels": labels
+                }
+                json.dump(html.unescape(row), out_file)
+                out_file.write("\n")
+    # results = relator.extract(
+    #     corpus,
+    #     "../results/extracted_terms/kpm.csv",
+    #     "../results/extracted_relations/dbscan.json"
+    # )
     # results = relator.extract(
     #     corpus,
     #     "../data/test/extracted_terms_sample/mprank.csv",

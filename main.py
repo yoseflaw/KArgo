@@ -7,11 +7,11 @@ from pke.unsupervised import TfIdf, KPMiner, YAKE
 from pke.unsupervised import SingleRank, TopicRank, PositionRank, MultipartiteRank
 SCRAPED_DIR = "data/scraped"
 INTERIM_DIR = "data/interim"
-PROCESSED_DIR = "data/processed"
+PROCESSED_DIR = "data/processed/news/relevant"
 MANUAL_DIR = "data/manual"
 RESULTS_DIR = "results"
-CORE_NLP_DIR = os.path.join(PROCESSED_DIR, "scnlp_xmls")
-EXTRACTED_DIR = os.path.join(RESULTS_DIR, "extracted_terms")
+CORE_NLP_DIR = os.path.join(PROCESSED_DIR, "dev")
+EXTRACTED_DIR = os.path.join(RESULTS_DIR, "extracted_terms", "dev")
 PLOT_DIR = os.path.join(RESULTS_DIR, "plots")
 log = logger.get_logger(__name__, logger.INFO)
 
@@ -71,9 +71,10 @@ def manual_term_annotation():
 
 def process_manual_annotation():
     log.info(f"Begin incorporating manual annotation to the XML, result in {PROCESSED_DIR}")
+    anno_json = corpus.AnnotationJSON(os.path.join(MANUAL_DIR, "annotation.json1"))
     manual_corpus = corpus.Corpus(
         os.path.join(INTERIM_DIR, "lda_sampling_15p.xml"),
-        annotation_file=os.path.join(MANUAL_DIR, "annotation.json1")
+        annotations=anno_json
     )
     manual_corpus.write_xml_to(os.path.join(PROCESSED_DIR, "lda_sampling_15p.annotated.xml"))
 
@@ -82,16 +83,16 @@ def create_core_nlp_documents(core_nlp_folder):
     log.info(f"Begin preparing Core NLP Documents to {core_nlp_folder}")
     annotated_corpus = corpus.Corpus(os.path.join(PROCESSED_DIR, "lda_sampling_15p.annotated.xml"))
     annotated_corpus.write_to_core_nlp_xmls(core_nlp_folder)
-    compute_document_frequency(
-        core_nlp_folder, os.path.join(INTERIM_DIR, "cargo_df.tsv.gz"),
-        stoplist=list(STOP_WORDS)
-    )
 
 
 # noinspection PyTypeChecker
 def extract_terms(core_nlp_folder):
+    compute_document_frequency(
+        core_nlp_folder, os.path.join(INTERIM_DIR, "cargo_df.tsv.gz"),
+        stoplist=list(STOP_WORDS)
+    )
     log.info("Begin Extraction")
-    n = 10
+    n = 15
     cargo_df = load_document_frequency_file(os.path.join(INTERIM_DIR, "cargo_df.tsv.gz"))
     pke_factory = {
         "grammar": r"""
@@ -184,7 +185,7 @@ def extract_terms(core_nlp_folder):
 
 
 def evaluate_terms():
-    annotated_corpus = corpus.Corpus(os.path.join(PROCESSED_DIR, "lda_sampling_15p.annotated.xml"))
+    annotated_corpus = corpus.Corpus(os.path.join(PROCESSED_DIR, "dev.xml"))
     log.info("Begin evaluation")
     evaluator = evaluation.Evaluator(annotated_corpus)
     extracted_terms = {
@@ -205,10 +206,10 @@ def evaluate_terms():
 
 
 if __name__ == "__main__":
-    scraping_news_sites()
-    combine_filter_sample_corpus()
-    manual_term_annotation()
-    process_manual_annotation()
-    create_core_nlp_documents(CORE_NLP_DIR)
+    # scraping_news_sites()
+    # combine_filter_sample_corpus()
+    # manual_term_annotation()
+    # process_manual_annotation()
+    # create_core_nlp_documents(CORE_NLP_DIR)
     extract_terms(CORE_NLP_DIR)
     evaluate_terms()

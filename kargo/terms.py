@@ -22,14 +22,13 @@ class TermsExtractor(object):
 
     @staticmethod
     def write_terms_to(all_terms, output_file):
-        all_terms_reformat = []
         with open(output_file, "w") as csv_output:
             fieldnames = ["document_id", "terms"]
             csv_writer = DictWriter(csv_output, fieldnames)
             csv_writer.writeheader()
             for document_id in all_terms:
                 csv_writer.writerow({"document_id": document_id, "terms": "|".join(all_terms[document_id])})
-        return all_terms_reformat
+        return True
 
     @staticmethod
     def read_terms_from(input_file):
@@ -93,6 +92,7 @@ class PKEBasedTermsExtractor(TermsExtractor):
             only_alphanum,
             pos_blacklist
         )
+        _stoplist = stoplist if stoplist else []
         for k in list(extractor.candidates):
             v = extractor.candidates[k]
             if offset_cutoff is not None and v.offsets[0] > offset_cutoff:
@@ -100,10 +100,11 @@ class PKEBasedTermsExtractor(TermsExtractor):
             elif min_frequency is not None and len(v.surface_forms) < min_frequency:
                 del extractor.candidates[k]
             # for YAKE
-            elif strip_outer_stopwords and v.surface_forms[0][0].lower() in stoplist or v.surface_forms[0][
-                -1].lower() in stoplist or len(
-                    v.surface_forms[0][0]) < 3 or len(
-                    v.surface_forms[0][-1]) < 3:
+            elif strip_outer_stopwords \
+                    and v.surface_forms[0][0].lower() in _stoplist \
+                    or v.surface_forms[0][-1].lower() in _stoplist \
+                    or len(v.surface_forms[0][0]) < 3 \
+                    or len(v.surface_forms[0][-1]) < 3:
                 del extractor.candidates[k]
 
     def extract(self, core_nlp_folder, n_term, grammar, filtering_params, weighting_params, output_file=None):
@@ -176,7 +177,7 @@ class EmbedRankTermsExtractor(TermsExtractor):
         return all_terms
 
 
-if __name__ == "__main__":
+def run_trial():
     n = 10
     snlp_folder = "../data/test/core_nlp_samples"
     compute_document_frequency(
@@ -185,14 +186,14 @@ if __name__ == "__main__":
     )
     cargo_df = load_document_frequency_file("../data/test/interim/test_cargo_df.tsv.gz")
     pke_factory = {
-        "grammar": r"""
-            NBAR:
-                {<NOUN|PROPN|NUM|ADJ>*<NOUN|PROPN>}
-    
-            NP:
-                {<NBAR>}
-                {<NBAR><ADP><NBAR>}
-            """,
+        "grammar":  r"""
+                NBAR:
+                    {<NOUN|PROPN|NUM|ADJ>*<NOUN|PROPN>}
+
+                NP:
+                    {<NBAR>}
+                    {<NBAR><ADP><NBAR>}
+                """,
         "filtering_params": {
             "stoplist": list(STOP_WORDS)
         },
@@ -249,16 +250,20 @@ if __name__ == "__main__":
     embedrank_terms = embedrank_extractor.extract(
         snlp_folder, n,
         grammar=r"""
-            NALL:
-                {<NN|NNP|NNS|NNPS>}
+                NALL:
+                    {<NN|NNP|NNS|NNPS>}
 
-            NBAR:
-                {<NALL|CD|JJ>*<NALL>}
+                NBAR:
+                    {<NALL|CD|JJ>*<NALL>}
 
-            NP:
-                {<NBAR>}
-                {<NBAR><IN><NBAR>}
-            """,
+                NP:
+                    {<NBAR>}
+                    {<NBAR><IN><NBAR>}
+                """,
         considered_tags={'NN', 'NNS', 'NNP', 'NNPS', 'JJ', 'IN', 'CD'},
         output_file="../data/test/extracted_terms_sample/embedrank.csv"
     )
+
+
+if __name__ == "__main__":
+    run_trial()

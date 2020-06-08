@@ -1,13 +1,17 @@
+from csv import DictWriter, DictReader
 from hashlib import md5
 import os
 import random
 import json
+from collections import defaultdict
 import html
 from bisect import bisect, insort
 from tqdm import tqdm
 from lxml.objectify import Element
 from lxml import etree, objectify
 import stanza
+from spacy.lang.en.stop_words import STOP_WORDS
+import nltk
 from kargo import logger
 log = logger.get_logger(__name__, logger.INFO)
 
@@ -40,15 +44,48 @@ class XMLBase(object):
             xml_out.write(self.get_xml())
 
 
+class AnnotationJSON(object):
+
+    def __init__(self, annotation_file):
+        self.documents = {}
+        self.irrelevants = []
+        with open(annotation_file, "r") as fin:
+            anns = fin.readlines()
+        for ann in anns:
+            doc = json.loads(ann)
+            title = doc["text"].split("|")[0]
+            text = doc["text"]
+            if "meta" in doc and "doc_id" in doc["meta"]:
+                doc_id = doc["meta"]["doc_id"]
+            else:
+                doc_id = md5(title.encode("utf-8")).hexdigest()[-6:]
+            has_irrelevant = False
+            annotation_mapping = {}
+            for tag in doc["labels"]:
+                begin, end, term_type = tag
+                if term_type == "IRRELEVANT":
+                    has_irrelevant = True
+                    break
+                term = text[begin:end]
+                if term in annotation_mapping:
+                    annotation_mapping[term].append((begin, end))
+                else:
+                    annotation_mapping[term] = [(begin, end)]
+            if has_irrelevant:
+                self.irrelevants.append(doc_id)
+            else:
+                self.documents[doc_id] = annotation_mapping
+
+
 class Corpus(XMLBase):
     annotation_regex = r"\[\[(.+?)\]\]"
 
-    def __init__(self, xml_input=None, annotation_file=None):
+    def __init__(self, xml_input=None, annotations=None):
         super().__init__("corpus", "document")
         self.corpus = Element("corpus")
         self.url_indices = []
         self.has_terms_locations = False
-        self.annotations = self.process_json_annotation(annotation_file) if annotation_file else None
+        self.annotations = annotations.documents if annotations else None
         if xml_input:
             if xml_input and not os.path.exists(xml_input):
                 raise FileNotFoundError(f"{xml_input} not found. Check the path again.")
@@ -110,6 +147,12 @@ class Corpus(XMLBase):
         self.url_indices.append(url)
 
     def add_document_from_element(self, document_elmt):
+        # construct terms
+        terms_list = {}
+        if document_elmt.terms.countchildren() > 0:
+            for term in document_elmt.terms.term:
+                if term.locations.countchildren() > 0:
+                    terms_list[term.word.text] = [(loc.begin.text, loc.end.text) for loc in term.locations.location]
         self.add_document(
             document_elmt.url.text,
             document_elmt.title.text,
@@ -120,7 +163,7 @@ class Corpus(XMLBase):
             document_elmt.author.text,
             [topic.text for topic in document_elmt.topics.topic] if document_elmt.topics.countchildren() > 0 else None,
             [link.text for link in document_elmt.links.link] if document_elmt.links.countchildren() > 0 else None,
-            [term.text for term in document_elmt.terms.term] if document_elmt.terms.countchildren() > 0 else None,
+            terms_list if len(terms_list) > 0 else None,
             document_elmt.document_id,
         )
 
@@ -184,6 +227,9 @@ class Corpus(XMLBase):
             for xml_file in xml_files:
                 self.read_from_xml(os.path.join(root_folder, in_folder, xml_file))
 
+    def get_document_ids(self):
+        return [document.document_id for document in self.iter_documents()]
+
     def get_sample(self, n, excluded_ids=None):
         sample_corpus = Corpus()
         indices = list(range(len(self)))
@@ -209,6 +255,13 @@ class Corpus(XMLBase):
             existing_ids.append(current_id)
         return self.get_sample(n, existing_ids)
 
+    def get_documents_by_ids(self, ids):
+        subset_corpus = Corpus()
+        for document in self:
+            if document.document_id in ids:
+                subset_corpus.add_document_from_element(document)
+        return subset_corpus
+
     def get_documents_by_urls(self, urls):
         subset_corpus = Corpus()
         for document in self:
@@ -216,54 +269,65 @@ class Corpus(XMLBase):
                 subset_corpus.add_document_from_element(document)
         return subset_corpus
 
-    def process_json_annotation(self, annotation_file):
-        with open(annotation_file, "r") as f_anno:
-            annotations = f_anno.readlines()
-        annotations_dict = {}
-        for annotation in annotations:
-            doc = json.loads(annotation)
-            title = doc["text"].split("|")[0]
-            text = doc["text"]
-            doc_id = md5(title.encode("utf-8")).hexdigest()[-6:]
-            has_irrelevant = False
-            annotation_mapping = {}
-            for tag in doc["labels"]:
-                begin, end, term_type = tag
-                if term_type == "IRRELEVANT":
-                    has_irrelevant = True
-                    break
-                term = text[begin:end]
-                if term in annotation_mapping:
-                    annotation_mapping[term].append((begin, end))
-                else:
-                    annotation_mapping[term] = [(begin, end)]
-            if not has_irrelevant:
-                annotations_dict[doc_id] = annotation_mapping
-        return annotations_dict
+    def get_annotated_terms_as_csv(self, csv_path):
+        with open(csv_path, "w") as csv_file:
+            fieldnames = ["document_id", "terms"]
+            csv_writer = DictWriter(csv_file, fieldnames)
+            csv_writer.writeheader()
+            for doc in self.iter_documents():
+                document_id = doc.document_id.text
+                all_terms = [term.word.text.lower() for term in doc.terms.term]
+                csv_writer.writerow({"document_id": document_id, "terms": "|".join(all_terms)})
+        return True
+
+    def train_test_split(self, test_size, random_seed=1337):
+        dev_c = Corpus()
+        test_c = Corpus()
+        n = len(self) * test_size
+        indices = list(range(len(self)))
+        random.seed(random_seed)
+        random.shuffle(indices)
+        i = 0
+        while i < len(indices):
+            document = self[indices[i]]
+            if i < n:
+                dev_c.add_document_from_element(document)
+            else:
+                test_c.add_document_from_element(document)
+            i += 1
+        return dev_c, test_c
 
     def write_to_core_nlp_xmls(self, output_folder):
-        term_locs = []
-        term_state = ["O", "B", "I"]
-        stanza_nlp_w_ssplit = stanza.Pipeline(
+        # term_locs = []
+        # term_state = ["O", "B", "I"]
+        # stanza_nlp_w_ssplit = stanza.Pipeline(
+        #     "en",
+        #     processors={"tokenize": "gum", "ner": "default", "lemma": "gum", "pos": "gum", "depparse": "gum"},
+        #     verbose=False
+        # )
+        # stanza_nlp_no_ssplit = stanza.Pipeline(
+        #     "en",
+        #     processors={"tokenize": "gum", "ner": "default", "lemma": "gum", "pos": "gum", "depparse": "gum"},
+        #     verbose=False,
+        #     tokenize_no_ssplit=True
+        # )
+        stanza_nlp = stanza.Pipeline(
             "en",
-            processors={"tokenize": "lines", "ner": "default", "lemma": "lines", "pos": "gum", "depparse": "lines"},
-            verbose=False
-        )
-        stanza_nlp_no_ssplit = stanza.Pipeline(
-            "en",
-            processors={"tokenize": "lines", "ner": "default", "lemma": "lines", "pos": "gum", "depparse": "lines"},
+            processors={"tokenize": "gum", "ner": "default", "lemma": "gum", "pos": "gum", "depparse": "gum"},
             verbose=False,
             tokenize_no_ssplit=True
         )
 
-        def annotate_sentence(sentences, no_ssplit):
-            annotated_text = stanza_nlp_no_ssplit(sentences) if no_ssplit else stanza_nlp_w_ssplit(sentences)
+        # assumed sentence is split
+        def annotate_sentence(sentence):
+            # annotated_text = stanza_nlp_no_ssplit(sentences) if no_ssplit else stanza_nlp_w_ssplit(sentences)
+            annotated_text = stanza_nlp(sentence)
             annotated_sentences = []
             head_dict = {0: "root"}
             for sentence in annotated_text.sentences:
                 annotated_sentence = []
                 for token in sentence.tokens:
-                    if len(token.words) > 1: print(token)
+                    if len(token.words) > 1: log.info(token)
                     else:
                         word = token.words[0]
                         misc = dict(token_misc.split("=") for token_misc in word.misc.split("|"))
@@ -300,13 +364,16 @@ class Corpus(XMLBase):
                             insort(term_locs, int(location.begin.text)-0.5)
                             insort(term_locs, int(location.begin.text)+0.5)
                             insort(term_locs, int(location.end.text))
-                annotated_title = annotate_sentence(title, no_ssplit=True)
+                annotated_title = annotate_sentence(title)
                 buffer_offset += len(title) + 1
                 annotated_content = []
                 for p in document.content.p:
                     if len(p.text.strip()) > 0:
-                        annotated_content += annotate_sentence(p.text, no_ssplit=False)
-                        buffer_offset += len(p.text) + 1
+                        text = p.text.strip()
+                        p_sents = nltk.tokenize.sent_tokenize(text)
+                        for p_sent in p_sents:
+                            annotated_content += annotate_sentence(p_sent)
+                            buffer_offset += len(p_sent) + 1
                 core_nlp_document = StanfordCoreNLPDocument()
                 core_nlp_document.from_sentences(annotated_title, annotated_content)
                 core_nlp_document.write_xml_to(os.path.join(output_folder, f"{document_id}.xml"))
@@ -320,10 +387,14 @@ class Corpus(XMLBase):
                 #     for term in document.terms.term:
                 #         for location in term.locations.location:
                 #             labels.append([int(location.begin.text), int(location.end.text), "UNK"])
+                doc_id = document.document_id.text
                 text = {
                     "text": "|".join(
                         [document.title.text] + [p.text for p in document.content.p]
                     ),
+                    "meta": {
+                        "doc_id": doc_id
+                    }
                 }
                 json.dump(html.unescape(text), out_file)
                 out_file.write("\n")
@@ -347,6 +418,74 @@ class StanfordCoreNLPCorpus(XMLBase):
             doc = doc.root.document
             doc.set("id", filename.split(".")[0])
             self.root.append(doc)
+
+    def get_summary(self):
+        doc_stats = {}
+        vocab_stats = {
+            "vocabs": defaultdict(int),
+            "verbs": defaultdict(int),
+            "nouns": defaultdict(int),
+            "adjs": defaultdict(int),
+            "ORG": defaultdict(int),
+            "DATE": defaultdict(int),
+            "PERSON": defaultdict(int),
+            "GPE": defaultdict(int),
+            "CARDINAL": defaultdict(int),
+            "FAC": defaultdict(int)
+        }
+        for doc in self.iter_documents():
+            num_sentences = doc.sentences.countchildren()
+            num_sentences_w_ne = 0
+            num_tokens = 0
+            num_nouns = 0
+            num_verbs = 0
+            num_adjs = 0
+            num_ner = 0
+            unique_lemma = []
+            ners = {}
+            for sentence in doc.sentences.sentence:
+                contain_ne = False
+                for token in sentence.tokens.token:
+                    num_tokens += 1
+                    lemma = token.lemma.text
+                    if lemma not in unique_lemma:
+                        unique_lemma.append(lemma)
+                    vocab_stats["vocabs"][lemma] += 1
+                    if token.POS.text[0] == "N":
+                        num_nouns += 1
+                        vocab_stats["nouns"][lemma] += 1
+                    if token.POS.text[0] == "V":
+                        num_verbs += 1
+                        vocab_stats["verbs"][lemma] += 1
+                    if token.POS.text[0] == "J":
+                        num_adjs += 1
+                        vocab_stats["adjs"][lemma] += 1
+                    if token.ner.text != "O":
+                        num_ner += 1
+                        if not contain_ne:
+                            num_sentences_w_ne += 1
+                            contain_ne = True
+                        ner_type = token.ner.text.split("-")[1]
+                        if ner_type not in ners:
+                            ners[ner_type] = 1
+                        else:
+                            ners[ner_type] += 1
+                        if ner_type in vocab_stats:
+                            word = token.word.text
+                            vocab_stats[ner_type][word] += 1
+            doc_stats[doc.get("id")] = {
+                "#sents": num_sentences,
+                "#sents_w_ne": num_sentences_w_ne,
+                "#toks": num_tokens,
+                "#nouns": num_nouns,
+                "#verbs": num_verbs,
+                "#adjs": num_adjs,
+                "#ner": num_ner,
+                "unique_lemma": len(unique_lemma)
+            }
+            for ne in ners:
+                doc_stats[doc.get("id")][f"#ne_{ne}"] = ners[ne]
+        return doc_stats, vocab_stats
 
 
 class StanfordCoreNLPDocument(XMLBase):
@@ -415,19 +554,210 @@ class StanfordCoreNLPDocument(XMLBase):
         return sentences
 
 
-if __name__ == "__main__":
-    corpus = Corpus("../data/interim/lda_sampling_15p.xml")
-    # corpus.write_to_core_nlp_xmls("../data/processed/scnlp_lda_all")
-    # n_sample = 10
-    # sampled_corpus = corpus.get_sample(n_sample)
-    # sampled_corpus.write_xml_to("../data/test/samples_news_clean_random.xml")
-    # clean_corpus = Corpus(
-    #     "../data/processed/lda_sampling_15p.xml",
-    #     annotation_file="../data/manual/backup-20200426.json1"
-    # )
-    # clean_corpus.write_xml_to("../data/processed/lda_sampling_15p.annotated.xml")
-    # clean_corpus.write_to_core_nlp_xmls("../data/processed/scnlp_xmls/")
-    # corpus = StanfordCoreNLPCorpus("../data/test/core_nlp_samples")
+def doc_stats():
+    # DOCUMENT STATISTICS
+    import string
+    xml_folders = [
+        ("Train Set", "../data/processed/news/relevant/train/"),
+        ("Dev Set", "../data/processed/news/relevant/dev/"),
+        ("Test Set", "../data/processed/news/relevant/test/"),
+        ("Online Docs", "../data/processed/online_docs/snlp/")
+    ]
+    corpus_stats = {}
+    for xml_name, xml_folder in xml_folders:
+        corpus_stats[xml_name] = {}
+        corpus = StanfordCoreNLPCorpus(xml_folder)
+        corpus_stats[xml_name] = {
+            "length": len(corpus)
+        }
+        corpus_summary, vocab_summary = corpus.get_summary()
+        for doc_id in corpus_summary:
+            for key in corpus_summary[doc_id]:
+                if key not in corpus_stats[xml_name]:
+                    corpus_stats[xml_name][key] = corpus_summary[doc_id][key]
+                else:
+                    corpus_stats[xml_name][key] += corpus_summary[doc_id][key]
+        # corpus_stats[xml_folder]["totals"] = summary_total
+        # corpus_stats[xml_folder]["tokens"] = {}
+        # for key in vocab_summary:
+        #     sorted_vocab = [
+        #         (k, v) for k, v in sorted(vocab_summary[key].items(), reverse=True, key=lambda item: item[1])
+        #         if k not in list(STOP_WORDS) and k not in string.punctuation
+        #     ]
+        #     corpus_stats[xml_folder]["tokens"][key] = sorted_vocab[:20]
+    # TERMS STATISTICS
+    terms_csvs = [
+        ("Dev Set", "../data/processed/news/relevant/dev_terms.csv"),
+        ("Test Set", "../data/processed/news/relevant/test_terms.csv"),
+        ("Online Docs", "../data/processed/online_docs/online_docs_terms.csv")
+    ]
+    terms_stats = {}
+    for csv_name, csv_filepath in terms_csvs:
+        stats = {
+            "terms_p_document": [],
+            "words_p_terms": [],
+        }
+        with open(csv_filepath, "r") as f:
+            reader = DictReader(f)
+            for row in reader:
+                terms = row["terms"].split("|")
+                stats["terms_p_document"].append(len(terms))
+                for term in terms:
+                    stats["words_p_terms"].append(len([t for t in term.split(" ") if len(t) > 0]))
+        terms_stats[csv_name] = stats
+    with open("../results/stats/stats-table.ltx", "w") as f:
+        # header
+        f.write(" & ".join([" "] + ["\\textbf{" + c + "}" for c in corpus_stats]) + "\\\\ \\hline\n")
+        f.write(" & ".join(["Total documents"] + [str(corpus_stats[c]["length"]) for c in corpus_stats]) + "\\\\\n")
+        f.write(" & ".join(["Total sentences"] + [str(corpus_stats[c]["#sents"]) for c in corpus_stats]) + "\\\\\n")
+        f.write(" & ".join(
+            ["Total sentences w/NE"]
+            + [str(corpus_stats[c]["#sents_w_ne"]) for c in corpus_stats]) + "\\\\\n"
+        )
+        f.write(" & ".join(["Total tokens"] + [str(corpus_stats[c]["#toks"]) for c in corpus_stats]) + "\\\\\n")
+        f.write(" & ".join(["Total nouns"] + [str(corpus_stats[c]["#nouns"]) for c in corpus_stats]) + "\\\\\n")
+        f.write(" & ".join(["Total verbs"] + [str(corpus_stats[c]["#verbs"]) for c in corpus_stats]) + "\\\\\n")
+        f.write(" & ".join(["Total adjectives"] + [str(corpus_stats[c]["#adjs"]) for c in corpus_stats]) + "\\\\\n")
+        f.write(
+            " & ".join(
+                ["Total terms", "-"] + [str(sum(terms_stats[c]["terms_p_document"])) for c in terms_stats]
+            ) + "\\\\\n"
+        )
+        f.write(" & ".join(["Unique Lemma"] + [str(corpus_stats[c]["unique_lemma"]) for c in corpus_stats]) + "\\\\\n")
+        f.write(" & ".join(
+            ["Unique Lemma Ratio"]
+            + ["{:.2f}".format(corpus_stats[c]["unique_lemma"] / corpus_stats[c]["#toks"]) for c in corpus_stats]
+        ) + "\\\\ \\hline\n")
+        f.write(" & ".join(
+            ["Sentences per document"]
+            + ["{:.2f}".format(corpus_stats[c]["#sents"] / corpus_stats[c]["length"]) for c in corpus_stats]
+        ) + "\\\\\n")
+        f.write(
+            " & ".join(
+                ["Terms per document", "-"] + ["{:.2f}".format(
+                    sum(terms_stats[c]["terms_p_document"]) / len(terms_stats[c]["terms_p_document"])
+                ) for c in terms_stats]
+            ) + "\\\\\n"
+        )
+        f.write(" & ".join(
+            ["Tokens per sentence"]
+            + ["{:.2f}".format(corpus_stats[c]["#toks"] / corpus_stats[c]["#sents"]) for c in corpus_stats]
+        ) + "\\\\\n")
+        f.write(" & ".join(
+            ["Nouns per sentence"]
+            + ["{:.2f}".format(corpus_stats[c]["#nouns"] / corpus_stats[c]["#sents"]) for c in corpus_stats]
+        ) + "\\\\\n")
+        f.write(" & ".join(
+            ["Verbs per sentence"]
+            + ["{:.2f}".format(corpus_stats[c]["#verbs"] / corpus_stats[c]["#sents"]) for c in corpus_stats]
+        ) + "\\\\\n")
+        f.write(" & ".join(
+            ["Adjectives per sentence"]
+            + ["{:.2f}".format(corpus_stats[c]["#adjs"] / corpus_stats[c]["#sents"]) for c in corpus_stats]
+        ) + "\\\\\n")
+        f.write(
+            " & ".join(
+                ["Tokens per terms", "-"] + ["{:.2f}".format(
+                    sum(terms_stats[c]["words_p_terms"]) / len(terms_stats[c]["words_p_terms"])
+                ) for c in terms_stats]
+            ) + "\\\\\n"
+        )
+
+    with open("../results/stats/ner-table.ltx", "w") as f:
+        f.write(" & ".join([" "] + ["\\textbf{" + c + "}" for c in corpus_stats]) + "\\\\ \\hline\n")
+        sum_set = {c: 0 for c in corpus_stats}
+        for ne in ["ORG", "DATE", "PERSON", "GPE", "CARDINAL", "FAC"]:
+            f.write(
+                " & ".join(
+                    [ne] + ["{:.1f}\\%".format(
+                        corpus_stats[c][f"#ne_{ne}"] * 100 / corpus_stats[c]["#ner"]
+                    ) for c in corpus_stats]
+                ) + "\\\\\n"
+            )
+            for c in corpus_stats:
+                sum_set[c] += corpus_stats[c][f"#ne_{ne}"]
+        f.write(
+            " & ".join(
+                ["Others"]
+                + ["{:.1f}\\%".format(
+                    (corpus_stats[c]["#ner"] - sum_set[c]) * 100 / corpus_stats[c]["#ner"]
+                ) for c in corpus_stats]
+            ) + "\\\\\n"
+        )
+
+
+def train_test_split():
+    # TRAIN/DEV/TEST SPLIT
+    corpus_all = Corpus("../data/interim/all-v2.xml")
+    anno_json = AnnotationJSON("../data/manual/labels/annotation.json1")
+    # irrelevant
+    log.info("Start processing irrelevant corpus")
+    irrel_corpus = corpus_all.get_documents_by_ids(anno_json.irrelevants)
+    irrel_train_corpus, irrel_dev_test_corpus = irrel_corpus.train_test_split(test_size=0.5)
+    irrel_dev_corpus, irrel_test_corpus = irrel_dev_test_corpus.train_test_split(test_size=0.5)
+    irrel_train_corpus.write_xml_to("../data/processed/irrelevant/train.xml")
+    irrel_train_corpus.write_to_core_nlp_xmls("../data/processed/irrelevant/train/")
+    irrel_dev_corpus.write_xml_to("../data/processed/irrelevant/dev.xml")
+    irrel_dev_corpus.write_to_core_nlp_xmls("../data/processed/irrelevant/dev/")
+    irrel_test_corpus.write_xml_to("../data/processed/irrelevant/test.xml")
+    irrel_test_corpus.write_to_core_nlp_xmls("../data/processed/irrelevant/test/")
+    # relevant
+    log.info("Start processing relevant corpus")
+    corpus_anno = Corpus("../data/interim/all-v2.xml", annotations=anno_json)
+    corpus_ref = Corpus("../data/interim/lda_sampling_10p.xml")
+    # training set
+    excluded_ids = anno_json.irrelevants + corpus_anno.get_document_ids()
+    rel_train_corpus = corpus_ref.get_sample(len(corpus_ref), excluded_ids=excluded_ids)
+    rel_train_corpus.write_xml_to("../data/processed/relevant/train.xml")
+    rel_train_corpus.write_to_core_nlp_xmls("../data/processed/relevant/train/")
+    # dev/test set
+    rel_dev_corpus, rel_test_corpus = corpus_anno.train_test_split(test_size=0.5)
+    rel_dev_corpus.write_xml_to("../data/processed/relevant/dev.xml")
+    rel_dev_corpus.write_to_core_nlp_xmls("../data/processed/relevant/dev")
+    rel_test_corpus.write_xml_to("../data/processed/relevant/test.xml")
+    rel_test_corpus.write_to_core_nlp_xmls("../data/processed/relevant/test")
+    rel_test_corpus = Corpus("../data/processed/relevant/test.xml")
+    rel_test_corpus.write_to_core_nlp_xmls("../data/processed/relevant/test")
+
+
+def get_term_csv():
+    # Get dev/test terms in CSV
+    dev_rel_corpus = Corpus("../data/processed/news/relevant/dev.xml")
+    test_rel_corpus = Corpus("../data/processed/news/relevant/test.xml")
+    oldoc_corpus = Corpus("../data/processed/online_docs/online_docs.xml")
+    dev_rel_corpus.get_annotated_terms_as_csv("../data/processed/news/relevant/dev_terms.csv")
+    test_rel_corpus.get_annotated_terms_as_csv("../data/processed/news/relevant/test_terms.csv")
+    oldoc_corpus.get_annotated_terms_as_csv("../data/processed/online_docs/online_docs_terms.csv")
+
+
+def get_more_samples():
+    corpus = StanfordCoreNLPCorpus("../data/test/core_nlp_samples")
     # corpus.write_xml_to("../data/interim/delete_me1.xml")
-    more_sample = corpus.get_more_sample(50, "../data/manual/backup-20200511.json1")
-    more_sample.write_to_jsonl("../data/processed/more_sample_50_2_lda15p.json1")
+    # more_sample = corpus.get_more_sample(50, "../data/manual/backup-20200511.json1")
+    # more_sample.write_to_jsonl("../data/processed/more_sample_50_2_lda15p.json1")
+
+
+def process_html_excerpt():
+    # corpus = Corpus("../data/interim/online_docs.xml")
+    # corpus.write_xml_to("../data/interim/online_docs.2.xml")
+    # corpus.write_to_jsonl("../data/manual/online_docs.json")
+    anno_json = AnnotationJSON("../data/manual/online_docs.json1")
+    corpus = Corpus(
+        "../data/processed/online_docs/online_docs.xml",
+        annotations=anno_json
+    )
+    corpus.write_xml_to("../data/interim/online_docs_annotated.xml")
+    # corpus = Corpus("../data/interim/online_docs_annotated.xml")
+    # corpus.write_to_core_nlp_xmls("../data/processed/online_docs/")
+
+
+def check_duplicate_dev_test():
+    dev_list = set([filename for filename in os.listdir("../data/processed/news/relevant/dev/")])
+    test_list = set([filename for filename in os.listdir("../data/processed/news/relevant/test/")])
+    print(f"DEV unique ids: {len(dev_list)}")
+    print(f"TEST unique ids: {len(test_list)}")
+    print(f"Duplicate: {dev_list.intersection(test_list)}")
+
+
+if __name__ == "__main__":
+    doc_stats()
