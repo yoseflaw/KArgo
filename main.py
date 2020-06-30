@@ -7,10 +7,11 @@ from pke.unsupervised import TfIdf, KPMiner, YAKE
 from pke.unsupervised import SingleRank, TopicRank, PositionRank, MultipartiteRank
 SCRAPED_DIR = "data/scraped"
 INTERIM_DIR = "data/interim"
-PROCESSED_DIR = "data/processed/news/relevant"
-MANUAL_DIR = "data/manual"
+PROCESSED_DIR = "data/processed"
+MANUAL_DIR = "data/annotations"
 RESULTS_DIR = "results"
-CORE_NLP_DIR = os.path.join(PROCESSED_DIR, "dev")
+RELEVANT_DIR = os.path.join(PROCESSED_DIR, "news", "relevant")
+CORE_NLP_DIR = os.path.join(RELEVANT_DIR, "dev")
 EXTRACTED_DIR = os.path.join(RESULTS_DIR, "extracted_terms", "dev")
 PLOT_DIR = os.path.join(RESULTS_DIR, "plots")
 log = logger.get_logger(__name__, logger.INFO)
@@ -50,7 +51,7 @@ def scraping_news_sites():
     stat_times_spider.start(1, 2)
 
 
-def combine_filter_sample_corpus():
+def preprocess_corpus():
     log.info(f"Begin combining from {SCRAPED_DIR}")
     combined_corpus = corpus.Corpus(SCRAPED_DIR)
     log.info("Begin filtering empty documents")
@@ -64,16 +65,16 @@ def combine_filter_sample_corpus():
 
 def manual_term_annotation():
     log.info(f"Manual annotation assumed to be done with doccano, export results to {MANUAL_DIR}")
-    # currently done manually to output of combine_filter_sample_corpus
+    # currently done manually to output of preprocess_corpus
     # assumed result in MANUAL_DIR
     pass
 
 
 def process_manual_annotation():
-    log.info(f"Begin incorporating manual annotation to the XML, result in {PROCESSED_DIR}")
-    anno_json = corpus.AnnotationJSON(os.path.join(MANUAL_DIR, "annotation.json1"))
+    log.info(f"Begin incorporating manual annotation to the XML, result in {RELEVANT_DIR}")
+    anno_json = corpus.TermLabels(os.path.join(MANUAL_DIR, "terms", "news.jsonl"))
     manual_corpus = corpus.Corpus(
-        os.path.join(INTERIM_DIR, "lda_sampling_15p.xml"),
+        os.path.join(PROCESSED_DIR, "lda_sampling_15p.xml"),
         annotations=anno_json
     )
     manual_corpus.write_xml_to(os.path.join(PROCESSED_DIR, "lda_sampling_15p.annotated.xml"))
@@ -96,13 +97,9 @@ def extract_terms(core_nlp_folder):
     cargo_df = load_document_frequency_file(os.path.join(INTERIM_DIR, "cargo_df.tsv.gz"))
     pke_factory = {
         "grammar": r"""
-            NBAR:
-                {<NOUN|PROPN|NUM|ADJ>*<NOUN|PROPN>}
-    
-            NP:
-                {<NBAR>}
-                {<NBAR><ADP><NBAR>}
-            """,
+        NP:
+            {<NOUN|PROPN|NUM|ADJ>*<NOUN|PROPN>}
+        """,
         "filtering_params": {
             "stoplist": list(STOP_WORDS)
         },
@@ -127,7 +124,7 @@ def extract_terms(core_nlp_folder):
                 "instance": terms.PKEBasedTermsExtractor(SingleRank),
                 "weighting_params": {
                     "window": 10,
-                    "pos": {"NOUN", "PROPN", "NUM", "ADJ", "ADP"}
+                    "pos": {"NOUN", "PROPN", "NUM", "ADJ"}
                 }
             },
             "topicrank": {
@@ -159,7 +156,8 @@ def extract_terms(core_nlp_folder):
             grammar=pke_factory["grammar"],
             filtering_params=filtering_params,
             weighting_params=pke_factory["extractors"][name]["weighting_params"],
-            output_file=os.path.join(EXTRACTED_DIR, f"{name}.csv")
+            output_file=os.path.join(EXTRACTED_DIR, f"{name}.csv"),
+            auto_term_file=f"data/annotations/automatic/terms/{name}.jsonl"
         )
     # EmbedRank
     log.info("Begin Extraction with EmbedRank extractor")
@@ -169,23 +167,19 @@ def extract_terms(core_nlp_folder):
     embedrank_extractor.extract(
         core_nlp_folder, n,
         grammar=r"""
-                NALL:
-                    {<NN|NNP|NNS|NNPS>}
+            NALL:
+                {<NN|NNP|NNS|NNPS>}
 
-                NBAR:
-                    {<NALL|CD|JJ>*<NALL>}
-
-                NP:
-                    {<NBAR>}
-                    {<NBAR><IN><NBAR>}
-                """,
-        considered_tags={'NN', 'NNS', 'NNP', 'NNPS', 'JJ', 'IN', 'CD'},
-        output_file=os.path.join(EXTRACTED_DIR, "embedrank_toronto_unigrams.csv")
+            NP:
+                {<NALL|CD|JJ>*<NALL>}
+            """,
+        considered_tags={'NN', 'NNS', 'NNP', 'NNPS', 'JJ', 'CD'},
+        output_file=os.path.join(EXTRACTED_DIR, "torontobooks_unigrams.csv")
     )
 
 
 def evaluate_terms():
-    annotated_corpus = corpus.Corpus(os.path.join(PROCESSED_DIR, "dev.xml"))
+    annotated_corpus = corpus.Corpus(os.path.join(RELEVANT_DIR, "dev.xml"))
     log.info("Begin evaluation")
     evaluator = evaluation.Evaluator(annotated_corpus)
     extracted_terms = {
@@ -196,7 +190,7 @@ def evaluate_terms():
         "TopicRank": "topicrank.csv",
         "MultipartiteRank": "mprank.csv",
         "PositionRank": "positionrank.csv",
-        "EmbedRank": "embedrank_toronto_unigrams.csv"
+        "EmbedRank": "embedrank_wiki_unigrams.csv"
     }
     for method, file_name in extracted_terms.items():
         t = terms.TermsExtractor.read_terms_from(os.path.join(EXTRACTED_DIR, file_name))
@@ -206,10 +200,10 @@ def evaluate_terms():
 
 
 if __name__ == "__main__":
-    # scraping_news_sites()
-    # combine_filter_sample_corpus()
+    scraping_news_sites()
+    preprocess_corpus()
     # manual_term_annotation()
     # process_manual_annotation()
     # create_core_nlp_documents(CORE_NLP_DIR)
-    extract_terms(CORE_NLP_DIR)
-    evaluate_terms()
+    # extract_terms(CORE_NLP_DIR)
+    # evaluate_terms()

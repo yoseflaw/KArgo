@@ -94,7 +94,7 @@ class AirCargoWeekSpider(Spider):
             title = news_soup.find("h1", class_="entry-title").text
             categories = news_soup.find("div", class_="td-crumb-container").find_all("span")[1].find("a").text
             author = news_soup.find("div", class_="td-post-author-name").find("a").text
-            published_time = news_soup.find("meta", attrs={"property": "article:published_time"})["content"]
+            published_time = news_soup.find("meta", attrs={"itemprop": "datePublished"})["content"]
             paragraphs = news_soup.find("div", class_="td-post-content").find_all("p")
             content = [paragraph.text.strip() for paragraph in paragraphs if len(paragraph.text.strip()) > 0]
             # get news tags

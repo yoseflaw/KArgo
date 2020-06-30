@@ -1,433 +1,1 @@
-import html
-from collections import OrderedDict
-import json
-from csv import DictReader
-
-import opennre
-import sent2vec
-from tqdm import tqdm
-from corpus import StanfordCoreNLPCorpus
-import Levenshtein as Lev
-import numpy as np
-from sklearn.cluster import DBSCAN
-
-
-class Token(object):
-
-    def __init__(self, token_id, word, lemma, offset_begin, offset_end, pos, deprel, head_id, head_text, ner):
-        self.token_id = token_id
-        self.word = word
-        self.lemma = lemma
-        self.offset_begin = offset_begin
-        self.offset_end = offset_end
-        self.pos = pos
-        self.deprel = deprel
-        self.head_id = head_id
-        self.head_text = head_text
-        self.ner = ner
-
-    def __str__(self):
-        return self.word
-
-    def __repr__(self):
-        return f"Token('{self.token_id}', '{self.word}', '{self.pos}', '{self.ner}')"
-
-
-class SentenceParser(object):
-    valid_attrs = [
-        "id", "word", "lemma", "offset_begin", "offset_end", "pos", "deprel", "head_id", "head_text", "ner"
-    ]
-
-    def __init__(self, sentence):
-        self.sentence = sentence
-        self.sentence_offset = None
-        self.tokens = OrderedDict()
-        for token in sentence.tokens.token:
-            if token.get("id") == "1":
-                self.sentence_offset = int(token.CharacterOffsetBegin.text)
-            token_map = {
-                "token_id": token.get("id"),
-                "word": token.word.text.lower(),
-                "lemma": token.lemma.text,
-                "offset_begin": int(token.CharacterOffsetBegin.text) - self.sentence_offset,
-                "offset_end": int(token.CharacterOffsetEnd.text) - self.sentence_offset,
-                "pos": token.POS.text,
-                "deprel": token.deprel.text,
-                "head_id": token.deprel_head_id.text,
-                "head_text": token.deprel_head_text.text.lower(),
-                "ner": token.ner.text
-            }
-            self.tokens[token.get("id")] = Token(**token_map)
-
-    def __str__(self):
-        str_rep = []
-        current_offset = 0
-        for token_id, token in self.tokens.items():
-            while current_offset < token.offset_begin:
-                str_rep.append(" ")
-                current_offset += 1
-            str_rep.append(token.word)
-            current_offset = token.offset_end
-        return "".join(str_rep)
-
-    def get_list(self, attr):
-        attr_list = []
-        for token_id, token in self.tokens.items():
-            attr_list.append(getattr(token, attr))
-        return attr_list
-
-    def get_token_attr(self, token_id, attr):
-        if attr not in self.valid_attrs: return None
-        return getattr(self.tokens[token_id], attr)
-
-    # Need to update this
-    def get_entities(self, exclude_list=None):
-        ents = []
-        ent = []
-        for token_id, token in self.tokens.items():
-            if exclude_list and token.ner.split("-")[-1] not in exclude_list:
-                if token.ner[0] in ("B", "S"):
-                    ent = [token]
-                elif token.ner[0] in ("I", "E"):
-                    ent.append(token)
-                if token.ner[0] in ("E", "S") or (token.ner[0] in ("B", "I") and int(token_id) == len(self.tokens)):
-                    ents.append(ent)
-        return ents
-
-    # This will only return the first occurrence of a term in the sentence
-    def is_term_exist(self, term_words):
-        sentence_words = self.get_list("word")
-        for i in range(len(sentence_words)-len(term_words)):
-            if sentence_words[i:i+len(term_words)] == term_words:
-                term_tokens = []
-                for j in range(i, i+len(term_words)):
-                    term_tokens.append(self.tokens[str(j+1)])
-                return term_tokens
-        return None
-
-    def get_terms_exist(self, terms_words):
-        exist = []
-        for term_words in terms_words:
-            tokens = self.is_term_exist(term_words)
-            if tokens: exist.append(tokens)
-        return exist
-
-    def get_tokens_subset(self, begin_id, begin_end):
-        subset_tokens = []
-        for i in range(begin_id, begin_end):
-            subset_tokens.append(self.tokens[str(i)])
-        return subset_tokens
-
-
-class RelationExtractor(object):
-
-    def __init__(self, window_size, include_ne, closest_term_only):
-        self.window_size = window_size
-        self.include_ne = include_ne
-        self.closest_term_only = closest_term_only
-
-    @staticmethod
-    def read_extracted_terms(extracted_terms_path):
-        terms = {}
-        with open(extracted_terms_path, "r") as f:
-            reader = DictReader(f)
-            for row in reader:
-                terms[row["document_id"]] = row["terms"].split("|")
-        return terms
-
-    @staticmethod
-    def reduce_duplicate_entities(entity_tokens):
-        unique_entities = []
-        for i in range(len(entity_tokens)):
-            ent1 = entity_tokens[i]
-            ent1_set = set(range(
-                int(ent1[0].token_id), int(ent1[-1].token_id)+1
-            ))
-            found = False
-            for j in range(len(unique_entities)):
-                ent2 = unique_entities[j]
-                ent2_set = set(range(
-                    int(ent2[0].token_id), int(ent2[-1].token_id)+1
-                ))
-                found = len(ent1_set & ent2_set) > 0
-                if found: break
-            if not found:
-                unique_entities.append(ent1)
-        return unique_entities
-
-    @staticmethod
-    def write_relations_to(relations, output_file):
-        with open(output_file, "w") as fout:
-            json.dump(relations, fout, indent=2)
-
-    def get_terms_occurrence(self, parsed_sentence, tokenized_terms, extract_tokens, n_outer_tokens):
-        sentence_terms = parsed_sentence.get_terms_exist(tokenized_terms)
-        if self.include_ne:
-            sentence_terms += parsed_sentence.get_entities(exclude_list=["PERSON", "DATE"])
-        entities = RelationExtractor.reduce_duplicate_entities(sentence_terms)
-        if len(entities) < 2: return []
-        sorted_entities = sorted(entities, key=lambda e: int(e[0].token_id))
-        cooccurs = []
-        for i in range(len(sorted_entities)):
-            head_tokens = sorted_entities[i]
-            head_end = int(head_tokens[-1].token_id)
-            considered_tail = min(i+2, len(sorted_entities)) if self.closest_term_only else len(sorted_entities)
-            for j in range(i+1, considered_tail):
-                tail_tokens = sorted_entities[j]
-                tail_begin = int(tail_tokens[0].token_id)
-                if tail_begin - head_end <= self.window_size:
-                    cooccur = {
-                        "text": str(parsed_sentence),
-                        "head": head_tokens,
-                        "tail": tail_tokens,
-                    }
-                    if extract_tokens:
-                        cooccur.update({
-                            "in_between": parsed_sentence.get_tokens_subset(head_end + 1, tail_begin)
-                        })
-                        if n_outer_tokens:
-                            head_begin = int(head_tokens[0].token_id)
-                            tail_end = int(tail_tokens[-1].token_id)
-                            cooccur.update({
-                                "prefix": parsed_sentence.get_tokens_subset(
-                                    max(1, head_begin - n_outer_tokens),
-                                    head_begin
-                                ),
-                                "suffix": parsed_sentence.get_tokens_subset(
-                                    tail_end+1,
-                                    min(len(parsed_sentence.tokens), tail_end + 1 + n_outer_tokens)
-                                )
-                            })
-                    cooccurs.append(cooccur)
-        return cooccurs
-
-    def get_all_cooccurrences(self, snlp_corpus, extracted_terms_path, extract_tokens=False, n_outer_tokens=0):
-        all_cooccurrences = []
-        terms = RelationExtractor.read_extracted_terms(extracted_terms_path)
-        for document in tqdm(snlp_corpus.iter_documents(), total=len(snlp_corpus), disable=True):
-            doc_id = document.get("id")
-            tokenized_terms = [term.split() for term in terms[doc_id]]
-            for sentence_id, sentence in enumerate(document.sentences.sentence):
-                parsed_sentence = SentenceParser(sentence)
-                cooccurrences = self.get_terms_occurrence(
-                    parsed_sentence, tokenized_terms, extract_tokens, n_outer_tokens
-                )
-                all_cooccurrences.append([doc_id, sentence_id, cooccurrences])
-        return all_cooccurrences
-
-
-class ClusteringRE(RelationExtractor):
-
-    LEVENSHTEIN = 0
-    SENT2VEC = 1
-
-    def __init__(self, dist_func, n_outer_tokens, generalize, clusterer_params,
-                 window_size, closest_term_only, include_ne, s2v_model_path):
-        super().__init__(window_size, include_ne, closest_term_only)
-        self.dist_func = dist_func
-        self.n_outer_tokens = n_outer_tokens
-        self.patterns = ["in_between"] if not n_outer_tokens else ["in_between", "prefix", "suffix"]
-        self.generalize = generalize if generalize in ("word", "lemma", "pos") else "word"
-        self.clusterer_params = clusterer_params
-        if s2v_model_path:
-            self.s2v_model = sent2vec.Sent2vecModel()
-            self.s2v_model.load_model(s2v_model_path)
-
-    def calc_dist(self, p1, p2):
-        if self.dist_func == ClusteringRE.LEVENSHTEIN:
-            return 1 - Lev.seqratio(p1, p2)
-        elif self.dist_func == ClusteringRE.SENT2VEC:
-            emb1 = self.s2v_model.embed_sentence(" ".join(p1))
-            emb2 = self.s2v_model.embed_sentence(" ".join(p2))
-            cosine_sim = np.dot(emb1, emb2)/(np.linalg.norm(emb1) * np.linalg.norm(emb2))
-            return 1 - cosine_sim
-
-    def calc_dist_matrix(self, cooccurrences):
-        distance_matrix = np.zeros((len(self.patterns), len(cooccurrences), len(cooccurrences)))
-        generalized_patterns = []
-        for i in range(len(cooccurrences)):
-            generalized_pattern = {}
-            for pattern in self.patterns:
-                generalized_pattern[pattern] = [
-                    getattr(token, self.generalize) for token in cooccurrences[i][pattern]
-                ]
-            generalized_patterns.append(generalized_pattern)
-        for p, pattern in enumerate(self.patterns):
-            for i in tqdm(range(len(generalized_patterns))):
-                pattern_i = generalized_patterns[i][pattern]
-                for j in range(i+1, len(generalized_patterns)):
-                    pattern_j = generalized_patterns[j][pattern]
-                    dist = self.calc_dist(pattern_i, pattern_j)
-                    distance_matrix[p, i, j] = distance_matrix[p, j, i] = dist
-        distance_matrix = np.mean(distance_matrix, axis=0)
-        return distance_matrix
-
-    def cluster(self, cooccurrences):
-        distance_matrix = self.calc_dist_matrix(cooccurrences)
-        clusterer = DBSCAN(**self.clusterer_params)
-        clusters = clusterer.fit_predict(distance_matrix)
-        relations = {}
-        for i, cooccurrence in enumerate(cooccurrences):
-            cluster_id = str(clusters[i])
-            rel_elmt = {
-                "text": cooccurrence["text"],
-                "head_words": cooccurrence["text"][
-                              cooccurrence["head"][0].offset_begin:
-                              cooccurrence["head"][-1].offset_end
-                              ],
-                "tail_words": cooccurrence["text"][
-                              cooccurrence["tail"][0].offset_begin:
-                              cooccurrence["tail"][-1].offset_end
-                              ]
-            }
-            for pattern in self.patterns:
-                if len(cooccurrence[pattern]) > 0:
-                    rel_elmt[f"{pattern}_words"] = cooccurrence["text"][
-                                                   cooccurrence[pattern][0].offset_begin:
-                                                   cooccurrence[pattern][-1].offset_end
-                                                   ]
-                else:
-                    rel_elmt[f"{pattern}_words"] = ""
-            if cluster_id in relations:
-                relations[cluster_id].append(rel_elmt)
-            else:
-                relations[cluster_id] = [rel_elmt]
-        return relations
-
-    def extract(self, snlp_corpus, extracted_terms_path, output_file):
-        all_cooccurrences = self.get_all_cooccurrences(
-            snlp_corpus, extracted_terms_path, extract_tokens=True, n_outer_tokens=self.n_outer_tokens
-        )
-        relations = self.cluster(all_cooccurrences)
-        for k in relations:
-            print(f"cluster[{k}]: {len(relations[k])} patterns")
-        if output_file: RelationExtractor.write_relations_to(relations, output_file)
-        return relations
-
-
-class TransferRE(RelationExtractor):
-
-    def __init__(self, model_name, prob_threshold, window_size, include_ne, closest_term_only):
-        super().__init__(window_size, include_ne, closest_term_only)
-        self.model = opennre.get_model(model_name)
-        self.prob_threshold = prob_threshold
-
-    def infer(self, cooccurrences):
-        relations = {}
-        for cooccurrence in cooccurrences:
-            relation, prob = self.model.infer({
-                "text": cooccurrence["text"],
-                "h": {
-                    "pos": (cooccurrence["head"][0].offset_begin, cooccurrence["head"][-1].offset_end)
-                },
-                "t": {
-                    "pos": (cooccurrence["tail"][0].offset_begin, cooccurrence["tail"][-1].offset_end)
-                }
-            })
-            if prob >= self.prob_threshold:
-                rel_elmt = {
-                    "text": cooccurrence["text"],
-                    "head_words": cooccurrence["text"][
-                                  cooccurrence["head"][0].offset_begin:cooccurrence["head"][-1].offset_end],
-                    "tail_words": cooccurrence["text"][
-                                  cooccurrence["tail"][0].offset_begin:cooccurrence["tail"][-1].offset_end],
-                    "prob": prob
-                }
-                if relation in relations:
-                    relations[relation].append(rel_elmt)
-                else:
-                    relations[relation] = [rel_elmt]
-        return relations
-
-    def extract(self, snlp_corpus, extracted_terms_path, output_file=None):
-        all_cooccurrences = self.get_all_cooccurrences(
-            snlp_corpus, extracted_terms_path, extract_tokens=False, n_outer_tokens=0
-        )
-        relations = self.infer(all_cooccurrences)
-        if output_file: RelationExtractor.write_relations_to(relations, output_file)
-        return relations
-
-
-if __name__ == "__main__":
-    dbscan_params = {
-        "eps": 0.3,
-        "min_samples": 3,
-        "metric": "precomputed"
-    }
-    relator = ClusteringRE(
-        dist_func=ClusteringRE.LEVENSHTEIN,
-        n_outer_tokens=0,
-        generalize="lemma",
-        clusterer_params=dbscan_params,
-        window_size=10,
-        closest_term_only=True,
-        include_ne=True,
-        s2v_model_path="../pretrain_models/torontobooks_unigrams.bin"
-    )
-    # relator = TransferRE(
-    #     model_name="wiki80_cnn_softmax",
-    #     prob_threshold=0,
-    #     window_size=10,
-    #     closest_term_only=True,
-    #     include_ne=True
-    # )
-    # snlp_folder = "../data/test/core_nlp_samples"
-    # snlp_folder = "../data/processed/scnlp_lda_all/"
-    snlp_folder = "../data/processed/relevant/test/"
-    corpus = StanfordCoreNLPCorpus(snlp_folder)
-    coocs = relator.get_all_cooccurrences(
-        corpus,
-        "../data/processed/relevant/test_terms.csv"
-    )
-    existing = {}
-    for relation_file in ("dev", "test"):
-        with open(f"../data/manual/relation_{relation_file}.json", "r") as rel_dev:
-            for line in rel_dev.readlines():
-                json_line = json.loads(line)
-                doc_id = json_line["meta"]["doc_id"]
-                sent_text = json_line["text"]
-                anno = json_line["annotations"]
-                if doc_id in existing:
-                    existing[doc_id][sent_text] = "YES" if len(anno) == 0 or anno[0]["label"] == 15 else "NO"
-                else:
-                    existing[doc_id] = {
-                        sent_text: "YES" if len(anno) == 0 or anno[0]["label"] == 15 else "NO"
-                    }
-    # all_coocs = []
-    with open("../data/interim/test_rel_toanno.json1", "w") as out_file:
-        for cooc in coocs:
-            doc_id, sent_id, cooc_list = cooc
-            for c_id, c in enumerate(cooc_list):
-                head = c["head"]
-                tail = c["tail"]
-                sentence = c["text"]
-                before = sentence[:head[0].offset_begin]
-                head_text = sentence[head[0].offset_begin:head[-1].offset_end]
-                in_between = sentence[head[-1].offset_end:tail[0].offset_begin]
-                tail_text = sentence[tail[0].offset_begin:tail[-1].offset_end]
-                after = sentence[tail[-1].offset_end:]
-                text = f"{before}__{head_text}__{in_between}__{tail_text}__{after}"
-                labels = []
-                if doc_id in existing and text in existing[doc_id]:
-                    labels.append(existing[doc_id][text])
-                row = {
-                    "text": text,
-                    "meta": {
-                        "doc_id": doc_id,
-                        "sent_id": sent_id,
-                        "cooc_no": c_id
-                    },
-                    "labels": labels
-                }
-                json.dump(html.unescape(row), out_file)
-                out_file.write("\n")
-    # results = relator.extract(
-    #     corpus,
-    #     "../results/extracted_terms/kpm.csv",
-    #     "../results/extracted_relations/dbscan.json"
-    # )
-    # results = relator.extract(
-    #     corpus,
-    #     "../data/test/extracted_terms_sample/mprank.csv",
-    #     "../results/extracted_relations/wikicnn_0_10_TT.json"
-    # )
+import htmlimport jsonfrom csv import DictReaderfrom enum import IntEnumimport opennreimport sent2vecfrom tqdm import tqdmfrom corpus import StanfordCoreNLPCorpus, SentenceParserimport Levenshtein as Levimport numpy as npfrom sklearn.cluster import DBSCANfrom sklearn.metrics import classification_reportfrom pprint import pprintclass RelationLabel(IntEnum):    NO = 0    YES = 1class RelationExtractor(object):    def __init__(self, window_size, include_ne, closest_term_only):        self.window_size = window_size        self.include_ne = include_ne        self.closest_term_only = closest_term_only    @staticmethod    def read_extracted_terms(extracted_terms_path):        terms = {}        with open(extracted_terms_path, "r") as f:            reader = DictReader(f)            for row in reader:                terms[row["document_id"]] = row["terms"].split("|")        return terms    @staticmethod    def reduce_duplicate_entities(entity_tokens):        unique_entities = []        for i in range(len(entity_tokens)):            ent1 = entity_tokens[i]            ent1_set = set(range(                int(ent1[0].token_id), int(ent1[-1].token_id)+1            ))            found = False            for j in range(len(unique_entities)):                ent2 = unique_entities[j]                ent2_set = set(range(                    int(ent2[0].token_id), int(ent2[-1].token_id)+1                ))                found = len(ent1_set & ent2_set) > 0                if found: break            if not found:                unique_entities.append(ent1)        return unique_entities    @staticmethod    def write_relations_to(relations, output_file):        with open(output_file, "w") as fout:            json.dump(relations, fout, indent=2)    @staticmethod    def convert_anno_json_to_labels(annotation_file, no_label, output_file):        labels = {}        with open(annotation_file, "r") as f:            rows = f.readlines()        for row in rows:            row_dict = json.loads(row)            _, head, _, tail, _ = row_dict["text"].split("__")            doc_id = row_dict["meta"]["doc_id"]            sentence_id = row_dict["meta"]["sent_id"]            # label = "NO" if row_dict["annotations"] and row_dict["annotations"][0]["label"] == no_label else "YES"            label = 0 if row_dict["annotations"] and row_dict["annotations"][0]["label"] == no_label else 1            if doc_id not in labels:                labels[doc_id] = {}            if sentence_id not in labels[doc_id]:                labels[doc_id][sentence_id] = {}            labels[doc_id][sentence_id][f"{head}|{tail}"] = label            # labels[doc_id][sentence_id].append({            #     "head": head,            #     "tail": tail,            #     "label": label            # })            with open(output_file, "w") as f:                json.dump(labels, f, indent=2)        return labels    @staticmethod    def classify(extracted_labels, ref_labels_file, output_file=None, reweight=False):        with open(ref_labels_file, "r") as f:            ref_labels = json.load(f)        num_clusters = len(set([extracted["cluster"] for extracted in extracted_labels]))        cluster_pop = np.zeros((num_clusters, len(RelationLabel)))        classify_extracted = []        for extracted in extracted_labels:            cluster = extracted["cluster"] + 1            doc_id = extracted["doc_id"]            sent_id = str(extracted["sent_id"])            head_tail = f"{extracted['head']}|{extracted['tail']}"            if doc_id in ref_labels and sent_id in ref_labels[doc_id] and head_tail in ref_labels[doc_id][sent_id]:                dev_label = ref_labels[doc_id][sent_id][head_tail]                cluster_pop[cluster][dev_label] += 1            else:                classify_extracted.append(extracted)        if reweight:            pop_arr = np.sum(cluster_pop, axis=0)            prop = pop_arr[1] / pop_arr[0]            cluster_pop_rw = cluster_pop.copy()            cluster_pop_rw[:, 0] = cluster_pop_rw[:, 0] * prop            cluster_label = [int(c[1] >= c[0]) for c in cluster_pop_rw.tolist()]            # cluster_label = np.argmax(cluster_pop_rw, axis=1)        else:            cluster_label = [int(c[1] >= c[0]) for c in cluster_pop.tolist()]            # cluster_label = np.argmax(cluster_pop, axis=1)        new_relation_labels = {}        for extracted in classify_extracted:            cluster = extracted["cluster"] + 1            doc_id = extracted["doc_id"]            sent_id = str(extracted["sent_id"])            head_tail = f"{extracted['head']}|{extracted['tail']}".lower()            if doc_id not in new_relation_labels:                new_relation_labels[doc_id] = {}            if sent_id not in new_relation_labels[doc_id]:                new_relation_labels[doc_id][sent_id] = {}            # new_relation_labels[doc_id][sent_id][head_tail] = RelationLabel(cluster_label[cluster]).name            new_relation_labels[doc_id][sent_id][head_tail] = int(cluster_label[cluster])        if output_file:            with open(output_file, "w") as f:                json.dump(new_relation_labels, f, indent=2)        return new_relation_labels    @staticmethod    def evaluate(extracted_labels, labels_file, test_report, reweight=False):        with open(labels_file, "r") as f:            true_labels = json.load(f)        dev_labels = true_labels["dev"]        test_labels = true_labels["test"]        num_clusters = len(set([extracted["cluster"] for extracted in extracted_labels]))        cluster_pop = np.zeros((num_clusters, len(RelationLabel)))        train_pop = [0 for _ in range(num_clusters)]        dev_eval = {"y_true": [], "y_pred": []}        test_eval = {"y_true": [], "y_pred": []}        for extracted in extracted_labels:            cluster = extracted["cluster"] + 1            doc_id = extracted["doc_id"]            sent_id = str(extracted["sent_id"])            head = extracted["head"]            tail = extracted["tail"]            head_tail = f"{head}|{tail}"            if doc_id in dev_labels and sent_id in dev_labels[doc_id] and head_tail in dev_labels[doc_id][sent_id]:                dev_label = dev_labels[doc_id][sent_id][head_tail]                cluster_pop[cluster][RelationLabel[dev_label]] += 1                dev_eval["y_true"].append(RelationLabel[dev_label].value)                dev_eval["y_pred"].append(cluster)            elif doc_id in test_labels and sent_id in test_labels[doc_id] and head_tail in test_labels[doc_id][sent_id]:                test_label = test_labels[doc_id][sent_id][head_tail]                test_eval["y_true"].append(RelationLabel[test_label].value)                test_eval["y_pred"].append(cluster)            else:                train_pop[cluster] += 1            # else:            #     print(doc_id, sent_id, head_tail, "NONE")        pprint(cluster_pop)        print(train_pop)        if reweight:            pop_arr = np.sum(cluster_pop, axis=0)            prop = pop_arr[1] / pop_arr[0]            cluster_pop_rw = cluster_pop.copy()            cluster_pop_rw[:, 0] = cluster_pop_rw[:, 0] * prop            cluster_label = [int(c[1] >= c[0]) for c in cluster_pop_rw.tolist()]            # cluster_label = np.argmax(cluster_pop_rw, axis=1)        else:            cluster_label = [int(c[1] >= c[0]) for c in cluster_pop.tolist()]            # cluster_label = np.argmax(cluster_pop, axis=1)        print(cluster_label)        dev_eval["y_pred"] = [cluster_label[cluster] for cluster in dev_eval["y_pred"]]        test_eval["y_pred"] = [cluster_label[cluster] for cluster in test_eval["y_pred"]]        print(f"Num Clusters: {num_clusters}")        print(classification_report(            **dev_eval,            labels=[r.value for r in RelationLabel],            target_names=[r.name for r in RelationLabel],            digits=4)        )        if test_report:            print(classification_report(                **test_eval,                labels=[r.value for r in RelationLabel],                target_names=[r.name for r in RelationLabel],                digits=4)            )        return cluster_label    def get_terms_occurrence(self, parsed_sentence, tokenized_terms, extract_tokens, n_outer_tokens):        sentence_terms = parsed_sentence.get_terms_exist(tokenized_terms)        if self.include_ne:            sentence_terms += parsed_sentence.get_named_entities(exclude_list=["PERSON", "DATE"])        entities = RelationExtractor.reduce_duplicate_entities(sentence_terms)        if len(entities) < 2: return []        sorted_entities = sorted(entities, key=lambda e: int(e[0].token_id))        cooccurs = []        prev_head_end = 1        for i in range(len(sorted_entities)):            head_tokens = sorted_entities[i]            head_end = int(head_tokens[-1].token_id)            if self.closest_term_only:                considered_tail = min(i+2, len(sorted_entities))            else:                considered_tail = len(sorted_entities)            for j in range(i+1, considered_tail):                tail_tokens = sorted_entities[j]                tail_begin = int(tail_tokens[0].token_id)                if tail_begin - head_end <= self.window_size:                    cooccur = {                        "text": str(parsed_sentence),                        "head": head_tokens,                        "tail": tail_tokens,                    }                    if extract_tokens:                        cooccur.update({                            "in_between": parsed_sentence.get_tokens_subset(head_end + 1, tail_begin)                        })                        if n_outer_tokens:                            head_begin = int(head_tokens[0].token_id)                            tail_end = int(tail_tokens[-1].token_id)                            next_head_begin = int(sorted_entities[j+1][0].token_id) \                                if j < len(sorted_entities) - 1 else len(parsed_sentence.tokens) + 1                            cooccur.update({                                "prefix": parsed_sentence.get_tokens_subset(                                    max(prev_head_end, head_begin - n_outer_tokens),                                    head_begin                                ),                                "suffix": parsed_sentence.get_tokens_subset(                                    tail_end+1,                                    min(next_head_begin, tail_end + 1 + n_outer_tokens)                                )                            })                    cooccurs.append(cooccur)            if self.closest_term_only:                prev_head_end = int(head_tokens[-1].token_id) + 1        return cooccurs    def get_all_cooccurrences(self, snlp_corpus, extracted_terms_path, extract_tokens=False, n_outer_tokens=0):        all_cooccurrences = []        terms = RelationExtractor.read_extracted_terms(extracted_terms_path)        for document in tqdm(snlp_corpus.iter_documents(), total=len(snlp_corpus), disable=True):            doc_id = document.get("id")            tokenized_terms = [term.split() for term in terms[doc_id]]            for sentence_id, sentence in enumerate(document.sentences.sentence):                parsed_sentence = SentenceParser(sentence)                cooccurrences = self.get_terms_occurrence(                    parsed_sentence, tokenized_terms, extract_tokens, n_outer_tokens                )                all_cooccurrences.append([doc_id, sentence_id, cooccurrences])        return all_cooccurrencesclass ClusteringRE(RelationExtractor):    LEVENSHTEIN = 0    SENT2VEC = 1    def __init__(self, dist_func, n_outer_tokens, generalize, clusterer_params,                 window_size, closest_term_only, include_ne, s2v_model_path):        super().__init__(window_size, include_ne, closest_term_only)        self.dist_func = dist_func        self.n_outer_tokens = n_outer_tokens        self.patterns = ["in_between"] if not n_outer_tokens else ["in_between", "prefix", "suffix"]        self.generalize = generalize if generalize in ("word", "lemma", "pos") else "word"        self.clusterer_params = clusterer_params        self.clusterer = DBSCAN(**self.clusterer_params)        if dist_func == ClusteringRE.SENT2VEC and s2v_model_path:            self.s2v_model = sent2vec.Sent2vecModel()            self.s2v_model.load_model(s2v_model_path)    def calc_dist(self, p1, p2):        if self.dist_func == ClusteringRE.LEVENSHTEIN:            return 1 - Lev.seqratio(p1, p2)        elif self.dist_func == ClusteringRE.SENT2VEC:            emb1 = self.s2v_model.embed_sentence(" ".join(p1))            emb2 = self.s2v_model.embed_sentence(" ".join(p2))            cosine_sim = np.dot(emb1, emb2)/(np.linalg.norm(emb1) * np.linalg.norm(emb2))            return 1 - cosine_sim    def calc_dist_matrix(self, cooccurrences):        distance_matrix = np.zeros((len(self.patterns), len(cooccurrences), len(cooccurrences)))        generalized_patterns = []        for i in range(len(cooccurrences)):            generalized_pattern = {}            for pattern in self.patterns:                generalized_pattern[pattern] = [                    getattr(token, self.generalize) for token in cooccurrences[i][pattern]                ]            generalized_patterns.append(generalized_pattern)        for p, pattern in enumerate(self.patterns):            for i in tqdm(range(len(generalized_patterns))):                pattern_i = generalized_patterns[i][pattern]                for j in range(i+1, len(generalized_patterns)):                    pattern_j = generalized_patterns[j][pattern]                    dist = self.calc_dist(pattern_i, pattern_j)                    distance_matrix[p, i, j] = distance_matrix[p, j, i] = dist        distance_matrix = np.mean(distance_matrix, axis=0)        return distance_matrix    def cluster(self, coocs, meta, output_file=None):        distance_matrix = self.calc_dist_matrix(coocs)        clusters = self.clusterer.fit_predict(distance_matrix)        cluster_meta = meta.copy()        for i in range(len(meta)):            cluster_meta[i]["cluster"] = clusters[i]        if output_file:            relations = {}            for i, cooccurrence in enumerate(coocs):                cluster_id = str(clusters[i])                rel_elmt = {                    "text": cooccurrence["text"],                    "head_words": cooccurrence["text"][                                  cooccurrence["head"][0].offset_begin:                                  cooccurrence["head"][-1].offset_end                                  ],                    "tail_words": cooccurrence["text"][                                  cooccurrence["tail"][0].offset_begin:                                  cooccurrence["tail"][-1].offset_end                                  ]                }                for pattern in self.patterns:                    if len(cooccurrence[pattern]) > 0:                        rel_elmt[f"{pattern}_words"] = cooccurrence["text"][                                                       cooccurrence[pattern][0].offset_begin:                                                       cooccurrence[pattern][-1].offset_end                                                       ]                    else:                        rel_elmt[f"{pattern}_words"] = ""                if cluster_id in relations:                    relations[cluster_id].append(rel_elmt)                else:                    relations[cluster_id] = [rel_elmt]            RelationExtractor.write_relations_to(relations, output_file)        return cluster_meta    def extract(self, snlp_corpus, extracted_terms_path):        all_cooccurrences = self.get_all_cooccurrences(            snlp_corpus, extracted_terms_path, extract_tokens=True, n_outer_tokens=self.n_outer_tokens        )        coocs_meta = []        coocs = []        for sentence in all_cooccurrences:            coocs += sentence[2]            for cooc in sentence[2]:                text = cooc["text"]                head = text[cooc["head"][0].offset_begin:cooc["head"][-1].offset_end]                tail = text[cooc["tail"][0].offset_begin:cooc["tail"][-1].offset_end]                coocs_meta.append({                    "doc_id": sentence[0],                    "sent_id": sentence[1],                    "head": head,                    "tail": tail                })        return coocs, coocs_metaclass TransferRE(RelationExtractor):    def __init__(self, model_name, prob_threshold, window_size, include_ne, closest_term_only):        super().__init__(window_size, include_ne, closest_term_only)        self.model = opennre.get_model(model_name)        self.prob_threshold = prob_threshold    def infer(self, cooccurrences):        relations = {}        for cooccurrence in cooccurrences:            relation, prob = self.model.infer({                "text": cooccurrence["text"],                "h": {                    "pos": (cooccurrence["head"][0].offset_begin, cooccurrence["head"][-1].offset_end)                },                "t": {                    "pos": (cooccurrence["tail"][0].offset_begin, cooccurrence["tail"][-1].offset_end)                }            })            if prob >= self.prob_threshold:                rel_elmt = {                    "text": cooccurrence["text"],                    "head_words": cooccurrence["text"][                                  cooccurrence["head"][0].offset_begin:cooccurrence["head"][-1].offset_end],                    "tail_words": cooccurrence["text"][                                  cooccurrence["tail"][0].offset_begin:cooccurrence["tail"][-1].offset_end],                    "prob": prob                }                if relation in relations:                    relations[relation].append(rel_elmt)                else:                    relations[relation] = [rel_elmt]        return relations    def extract(self, snlp_corpus, extracted_terms_path, output_file=None):        all_cooccurrences = self.get_all_cooccurrences(            snlp_corpus, extracted_terms_path, extract_tokens=False, n_outer_tokens=0        )        relations = self.infer(all_cooccurrences)        if output_file: RelationExtractor.write_relations_to(relations, output_file)        return relationsdef get_relations_to_anno():    dbscan_params = {        "eps": 0.325,        "min_samples": 3,        "metric": "precomputed"    }    relator = ClusteringRE(        dist_func=ClusteringRE.LEVENSHTEIN,        n_outer_tokens=0,        generalize="lemma",        clusterer_params=dbscan_params,        window_size=10,        closest_term_only=True,        include_ne=True,        s2v_model_path="../pretrain_models/wiki_unigrams.bin"    )    # snlp_folder = "../data/test/core_nlp_samples"    # snlp_folder = "../data/processed/scnlp_lda_all/"    # snlp_folder = "../data/processed/relevant/test/"    snlp_folder = "../data/processed/online_docs/snlp/"    corpus = StanfordCoreNLPCorpus(snlp_folder)    coocs = relator.get_all_cooccurrences(        corpus,        "../data/processed/online_docs/online_docs_terms.csv"    )    # existing = {}    # for relation_file in ("dev", "test"):    #     with open(f"../data/manual/relation_{relation_file}.json", "r") as rel_dev:    #         for line in rel_dev.readlines():    #             json_line = json.loads(line)    #             doc_id = json_line["meta"]["doc_id"]    #             sent_text = json_line["text"]    #             anno = json_line["annotations"]    #             if doc_id in existing:    #                 existing[doc_id][sent_text] = "YES" if len(anno) == 0 or anno[0]["label"] == 15 else "NO"    #             else:    #                 existing[doc_id] = {    #                     sent_text: "YES" if len(anno) == 0 or anno[0]["label"] == 15 else "NO"    #                 }    # all_coocs = []    with open("../data/interim/online_rel_toanno.jsonl", "w") as out_file:        for cooc in coocs:            doc_id, sent_id, cooc_list = cooc            for c_id, c in enumerate(cooc_list):                head = c["head"]                tail = c["tail"]                sentence = c["text"]                before = sentence[:head[0].offset_begin]                head_text = sentence[head[0].offset_begin:head[-1].offset_end]                in_between = sentence[head[-1].offset_end:tail[0].offset_begin]                tail_text = sentence[tail[0].offset_begin:tail[-1].offset_end]                after = sentence[tail[-1].offset_end:]                text = f"{before}__{head_text}__{in_between}__{tail_text}__{after}"                labels = []                # if doc_id in existing and text in existing[doc_id]:                #     labels.append(existing[doc_id][text])                row = {                    "text": text,                    "meta": {                        "doc_id": doc_id,                        "sent_id": sent_id,                        "cooc_no": c_id                    },                    "labels": labels                }                json.dump(html.unescape(row), out_file)                out_file.write("\n")def prepare_anno_to_labels():    RelationExtractor.convert_anno_json_to_labels(        annotation_file="../data/annotations/relations/online_20200626.json",        no_label=32,        output_file="../data/annotations/relations/online_labels.json"    )def extract_relations():    dbscan_params = {        "eps": 0.325,        "min_samples": 75,        "metric": "precomputed"    }    relator = ClusteringRE(        dist_func=ClusteringRE.LEVENSHTEIN,        n_outer_tokens=0,        generalize="word",        clusterer_params=dbscan_params,        window_size=10,        closest_term_only=True,        include_ne=True,        s2v_model_path="../pretrain_models/torontobooks_unigrams.bin"    )    train_corpus = StanfordCoreNLPCorpus(f"../data/processed/news/relevant/train/kpm/")    train_coocs, train_meta = relator.extract(train_corpus, f"../results/extracted_terms/train/kpm.csv")    dev_corpus = StanfordCoreNLPCorpus("../data/processed/news/relevant/dev/")    dev_coocs, dev_meta = relator.extract(dev_corpus, "../data/processed/news/relevant/dev_terms.csv")    test_corpus = StanfordCoreNLPCorpus("../data/processed/news/relevant/test/")    test_coocs, test_meta = relator.extract(dev_corpus, "../data/processed/news/relevant/test_terms.csv")    relation_clusters = relator.cluster(        train_coocs + dev_coocs,        train_meta + dev_meta,        f"../results/extracted_relations/relation_jsons/train_dev.json"    )    labels = relator.classify(        train_meta + dev_meta,        "../data/annotations/relations/dev_labels.json",        f"../results/extracted_relations/labels/train.json"    )def get_sample_relations():    from random import sample    rels = {}    files = [        ("dev", "../data/annotations/relations/dev_20200605.json"),        ("test", "../data/annotations/relations/test_20200605.json")    ]    for dataset, filepath in files:        with open(filepath, "r") as f:            for line in f.readlines():                ann = json.loads(line)                text = ann["text"]                meta = ann["meta"].copy()                meta["dataset"] = dataset                meta["anno_id"] = ann["id"]                meta["anno_label"] = ann["annotations"]                annotation = "NO" if ann["annotations"] and ann["annotations"][0]["label"] in (19, 21) else "YES"                rel_code = f"{dataset}_{annotation}"                if rel_code in rels:                    rels[rel_code].append({                        "text": text,                        "meta": meta,                        "labels": [annotation]                    })                else:                    rels[f"{dataset}_{annotation}"] = [{                        "text": text,                        "meta": meta,                        "labels": [annotation]                    }]    all_rels = []    for rel_code in rels:        length = len(rels[rel_code])        sample_length = int(0.1 * length)        pop = rels[rel_code][:]        sam = sample(pop, sample_length)        all_rels += sam    all_rels = sample(all_rels, len(all_rels))    with open("../data/interim/rel_to_anno.jsonl", "w") as f:        for rel in all_rels:            json.dump(rel, f)            f.write("\n")def check_review():    label_mapping = {        19: "NO",        20: "YES",        21: "NO",        22: "YES",        28: "NO",        29: "YES",        30: "UNSURE"    }    with open("../data/annotations/relations/review.jsonl", "r") as f:        agree = 0        disagree = 0        for line in f.readlines():            row_dict = json.loads(line)            text = row_dict["text"]            dataset = row_dict["meta"]["dataset"]            prev_label = label_mapping[row_dict["meta"]["anno_label"][0]["label"]] if len(                row_dict["meta"]["anno_label"]) > 0 else "YES"            review_label = label_mapping[row_dict["annotations"][0]["label"]]            if prev_label != review_label:                print(dataset, f"{prev_label}->{review_label}", text)                disagree += 1            else:                agree += 1        print(agree, disagree)if __name__ == "__main__":    prepare_anno_to_labels()

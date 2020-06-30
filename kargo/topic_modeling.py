@@ -133,4 +133,9 @@ if __name__ == "__main__":
     topic_corpus = topic_modeler.get_top_news_from_topic("topic_10_tfidf.csv", 3)
     topic_corpus.write_xml_to("../data/processed/lda_sampling_10p.xml")
     # lda_corpus = Corpus("../data/processed/lda_sampling_10p.xml")
-    # produce_jsonl_with_existing("../data/manual/annotation.json1", lda_corpus, "../data/manual/lda_sample_p10_1.json1")
+    # produce_jsonl_with_existing(
+    #     "../data/manual/annotation.json1",
+    #     lda_corpus,
+    #     "../data/manual/lda_sample_p10_1.json1"
+    # )
+

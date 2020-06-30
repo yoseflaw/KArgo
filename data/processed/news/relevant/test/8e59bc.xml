@@ -12,6 +12,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>2</deprel_head_id>
             <deprel_head_text>Way</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>B-ORG</ner>
           </token>
           <token id="2">
@@ -23,6 +24,7 @@
             <deprel>root</deprel>
             <deprel_head_id>0</deprel_head_id>
             <deprel_head_text>root</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>I-ORG</ner>
           </token>
           <token id="3">
@@ -34,6 +36,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>2</deprel_head_id>
             <deprel_head_text>Way</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>E-ORG</ner>
           </token>
           <token id="4">
@@ -45,6 +48,7 @@
             <deprel>mark</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>operate</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="5">
@@ -56,6 +60,7 @@
             <deprel>acl</deprel>
             <deprel_head_id>2</deprel_head_id>
             <deprel_head_text>Way</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="6">
@@ -67,6 +72,7 @@
             <deprel>case</deprel>
             <deprel_head_id>12</deprel_head_id>
             <deprel_head_text>tech</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="7">
@@ -78,6 +84,7 @@
             <deprel>nmod:poss</deprel>
             <deprel_head_id>12</deprel_head_id>
             <deprel_head_text>tech</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>B-ORG</ner>
           </token>
           <token id="8">
@@ -89,6 +96,7 @@
             <deprel>flat</deprel>
             <deprel_head_id>7</deprel_head_id>
             <deprel_head_text>ACL</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>I-ORG</ner>
           </token>
           <token id="9">
@@ -100,6 +108,7 @@
             <deprel>case</deprel>
             <deprel_head_id>8</deprel_head_id>
             <deprel_head_text>Airshop</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>E-ORG</ner>
           </token>
           <token id="10">
@@ -111,6 +120,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>12</deprel_head_id>
             <deprel_head_text>tech</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>S-ORG</ner>
           </token>
           <token id="11">
@@ -122,6 +132,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>12</deprel_head_id>
             <deprel_head_text>tech</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="12">
@@ -133,6 +144,7 @@
             <deprel>obl</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>operate</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>O</ner>
           </token>
         </tokens>
@@ -148,6 +160,7 @@
             <deprel>case</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>month</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="2">
@@ -159,6 +172,7 @@
             <deprel>advmod</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>month</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>B-DATE</ner>
           </token>
           <token id="3">
@@ -170,6 +184,7 @@
             <deprel>fixed</deprel>
             <deprel_head_id>2</deprel_head_id>
             <deprel_head_text>less</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>I-DATE</ner>
           </token>
           <token id="4">
@@ -181,6 +196,7 @@
             <deprel>nummod</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>month</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>I-DATE</ner>
           </token>
           <token id="5">
@@ -192,6 +208,7 @@
             <deprel>obl</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>translating</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>E-DATE</ner>
           </token>
           <token id="6">
@@ -203,6 +220,7 @@
             <deprel>case</deprel>
             <deprel_head_id>8</deprel_head_id>
             <deprel_head_text>market</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="7">
@@ -214,6 +232,7 @@
             <deprel>det</deprel>
             <deprel_head_id>8</deprel_head_id>
             <deprel_head_text>market</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="8">
@@ -225,6 +244,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>month</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="9">
@@ -236,6 +256,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>month</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="10">
@@ -247,6 +268,7 @@
             <deprel>nmod:poss</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>technology</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>B-ORG</ner>
           </token>
           <token id="11">
@@ -258,6 +280,7 @@
             <deprel>nmod:poss</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>technology</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>I-ORG</ner>
           </token>
           <token id="12">
@@ -269,6 +292,7 @@
             <deprel>case</deprel>
             <deprel_head_id>11</deprel_head_id>
             <deprel_head_text>Airshop</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>E-ORG</ner>
           </token>
           <token id="13">
@@ -280,6 +304,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>technology</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="14">
@@ -291,6 +316,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>technology</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="15">
@@ -302,6 +328,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>technology</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>S-PRODUCT</ner>
           </token>
           <token id="16">
@@ -313,6 +340,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>technology</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="17">
@@ -324,6 +352,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>translating</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="18">
@@ -335,6 +364,7 @@
             <deprel>aux</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>translating</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="19">
@@ -346,6 +376,7 @@
             <deprel>advmod</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>translating</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="20">
@@ -357,6 +388,7 @@
             <deprel>root</deprel>
             <deprel_head_id>0</deprel_head_id>
             <deprel_head_text>root</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="21">
@@ -368,6 +400,7 @@
             <deprel>case</deprel>
             <deprel_head_id>24</deprel_head_id>
             <deprel_head_text>business</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="22">
@@ -379,6 +412,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>24</deprel_head_id>
             <deprel_head_text>business</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="23">
@@ -390,6 +424,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>24</deprel_head_id>
             <deprel_head_text>business</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="24">
@@ -401,6 +436,7 @@
             <deprel>obl</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>translating</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="25">
@@ -412,6 +448,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>28</deprel_head_id>
             <deprel_head_text>take</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="26">
@@ -423,6 +460,7 @@
             <deprel>mark</deprel>
             <deprel_head_id>28</deprel_head_id>
             <deprel_head_text>take</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="27">
@@ -434,6 +472,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>28</deprel_head_id>
             <deprel_head_text>take</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="28">
@@ -445,6 +484,7 @@
             <deprel>advcl</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>translating</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="29">
@@ -456,6 +496,7 @@
             <deprel>obj</deprel>
             <deprel_head_id>28</deprel_head_id>
             <deprel_head_text>take</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="30">
@@ -467,6 +508,7 @@
             <deprel>mark</deprel>
             <deprel_head_id>31</deprel_head_id>
             <deprel_head_text>eliminate</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="31">
@@ -478,6 +520,7 @@
             <deprel>acl</deprel>
             <deprel_head_id>29</deprel_head_id>
             <deprel_head_text>steps</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="32">
@@ -489,6 +532,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>35</deprel_head_id>
             <deprel_head_text>spots</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="33">
@@ -500,6 +544,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>35</deprel_head_id>
             <deprel_head_text>spots</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="34">
@@ -511,6 +556,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>35</deprel_head_id>
             <deprel_head_text>spots</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="35">
@@ -522,6 +568,7 @@
             <deprel>obj</deprel>
             <deprel_head_id>31</deprel_head_id>
             <deprel_head_text>eliminate</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="36">
@@ -533,6 +580,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>35</deprel_head_id>
             <deprel_head_text>spots</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="37">
@@ -544,6 +592,7 @@
             <deprel>case</deprel>
             <deprel_head_id>41</deprel_head_id>
             <deprel_head_text>chain</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="38">
@@ -555,6 +604,7 @@
             <deprel>det</deprel>
             <deprel_head_id>41</deprel_head_id>
             <deprel_head_text>chain</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="39">
@@ -566,6 +616,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>41</deprel_head_id>
             <deprel_head_text>chain</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="40">
@@ -577,6 +628,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>41</deprel_head_id>
             <deprel_head_text>chain</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="41">
@@ -588,6 +640,7 @@
             <deprel>obl</deprel>
             <deprel_head_id>31</deprel_head_id>
             <deprel_head_text>eliminate</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="42">
@@ -599,6 +652,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>translating</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
         </tokens>
@@ -614,6 +668,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>6</deprel_head_id>
             <deprel_head_text>become</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="2">
@@ -625,6 +680,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>4</deprel_head_id>
             <deprel_head_text>logistics</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="3">
@@ -636,6 +692,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>4</deprel_head_id>
             <deprel_head_text>logistics</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="4">
@@ -647,6 +704,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>6</deprel_head_id>
             <deprel_head_text>become</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="5">
@@ -658,6 +716,7 @@
             <deprel>aux</deprel>
             <deprel_head_id>6</deprel_head_id>
             <deprel_head_text>become</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="6">
@@ -669,6 +728,7 @@
             <deprel>ccomp</deprel>
             <deprel_head_id>32</deprel_head_id>
             <deprel_head_text>said</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="7">
@@ -680,6 +740,7 @@
             <deprel>obj</deprel>
             <deprel_head_id>6</deprel_head_id>
             <deprel_head_text>become</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="8">
@@ -691,6 +752,7 @@
             <deprel>case</deprel>
             <deprel_head_id>11</deprel_head_id>
             <deprel_head_text>focuses</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="9">
@@ -702,6 +764,7 @@
             <deprel>nmod:poss</deprel>
             <deprel_head_id>11</deprel_head_id>
             <deprel_head_text>focuses</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="10">
@@ -713,6 +776,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>11</deprel_head_id>
             <deprel_head_text>focuses</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="11">
@@ -724,6 +788,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>7</deprel_head_id>
             <deprel_head_text>one</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="12">
@@ -735,6 +800,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>16</deprel_head_id>
             <deprel_head_text>contributes</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="13">
@@ -746,6 +812,7 @@
             <deprel>mark</deprel>
             <deprel_head_id>16</deprel_head_id>
             <deprel_head_text>contributes</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="14">
@@ -757,6 +824,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>16</deprel_head_id>
             <deprel_head_text>contributes</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="15">
@@ -768,6 +836,7 @@
             <deprel>advmod</deprel>
             <deprel_head_id>16</deprel_head_id>
             <deprel_head_text>contributes</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="16">
@@ -779,6 +848,7 @@
             <deprel>advcl</deprel>
             <deprel_head_id>32</deprel_head_id>
             <deprel_head_text>said</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="17">
@@ -790,6 +860,7 @@
             <deprel>case</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>line</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="18">
@@ -801,6 +872,7 @@
             <deprel>det</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>line</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="19">
@@ -812,6 +884,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>line</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="20">
@@ -823,6 +896,7 @@
             <deprel>obl</deprel>
             <deprel_head_id>16</deprel_head_id>
             <deprel_head_text>contributes</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="21">
@@ -834,6 +908,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>23</deprel_head_id>
             <deprel_head_text>substantiating</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="22">
@@ -845,6 +920,7 @@
             <deprel>mark</deprel>
             <deprel_head_id>23</deprel_head_id>
             <deprel_head_text>substantiating</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="23">
@@ -856,6 +932,7 @@
             <deprel>advcl</deprel>
             <deprel_head_id>16</deprel_head_id>
             <deprel_head_text>contributes</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="24">
@@ -867,6 +944,7 @@
             <deprel>det</deprel>
             <deprel_head_id>25</deprel_head_id>
             <deprel_head_text>growth</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="25">
@@ -878,6 +956,7 @@
             <deprel>obj</deprel>
             <deprel_head_id>23</deprel_head_id>
             <deprel_head_text>substantiating</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="26">
@@ -889,6 +968,7 @@
             <deprel>case</deprel>
             <deprel_head_id>29</deprel_head_id>
             <deprel_head_text>line</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="27">
@@ -900,6 +980,7 @@
             <deprel>det</deprel>
             <deprel_head_id>29</deprel_head_id>
             <deprel_head_text>line</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="28">
@@ -911,6 +992,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>29</deprel_head_id>
             <deprel_head_text>line</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="29">
@@ -922,6 +1004,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>25</deprel_head_id>
             <deprel_head_text>growth</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="30">
@@ -933,6 +1016,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>16</deprel_head_id>
             <deprel_head_text>contributes</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="31">
@@ -944,6 +1028,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>16</deprel_head_id>
             <deprel_head_text>contributes</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="32">
@@ -955,6 +1040,7 @@
             <deprel>root</deprel>
             <deprel_head_id>0</deprel_head_id>
             <deprel_head_text>root</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="33">
@@ -966,6 +1052,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>32</deprel_head_id>
             <deprel_head_text>said</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>B-PERSON</ner>
           </token>
           <token id="34">
@@ -977,6 +1064,7 @@
             <deprel>flat</deprel>
             <deprel_head_id>33</deprel_head_id>
             <deprel_head_text>Emile</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>E-PERSON</ner>
           </token>
           <token id="35">
@@ -988,6 +1076,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>37</deprel_head_id>
             <deprel_head_text>president</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="36">
@@ -999,6 +1088,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>37</deprel_head_id>
             <deprel_head_text>president</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="37">
@@ -1010,6 +1100,7 @@
             <deprel>appos</deprel>
             <deprel_head_id>33</deprel_head_id>
             <deprel_head_text>Emile</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="38">
@@ -1021,6 +1112,7 @@
             <deprel>case</deprel>
             <deprel_head_id>40</deprel_head_id>
             <deprel_head_text>operations</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="39">
@@ -1032,6 +1124,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>40</deprel_head_id>
             <deprel_head_text>operations</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="40">
@@ -1043,6 +1136,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>37</deprel_head_id>
             <deprel_head_text>president</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="41">
@@ -1054,6 +1148,7 @@
             <deprel>case</deprel>
             <deprel_head_id>45</deprel_head_id>
             <deprel_head_text>Airlines</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="42">
@@ -1065,6 +1160,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>43</deprel_head_id>
             <deprel_head_text>Way</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>B-ORG</ner>
           </token>
           <token id="43">
@@ -1076,6 +1172,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>45</deprel_head_id>
             <deprel_head_text>Airlines</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>I-ORG</ner>
           </token>
           <token id="44">
@@ -1087,6 +1184,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>45</deprel_head_id>
             <deprel_head_text>Airlines</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>I-ORG</ner>
           </token>
           <token id="45">
@@ -1098,6 +1196,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>40</deprel_head_id>
             <deprel_head_text>operations</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>E-ORG</ner>
           </token>
           <token id="46">
@@ -1109,6 +1208,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>48</deprel_head_id>
             <deprel_head_text>confirmed</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="47">
@@ -1120,6 +1220,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>48</deprel_head_id>
             <deprel_head_text>confirmed</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="48">
@@ -1131,6 +1232,7 @@
             <deprel>acl:relcl</deprel>
             <deprel_head_id>33</deprel_head_id>
             <deprel_head_text>Emile</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="49">
@@ -1142,6 +1244,7 @@
             <deprel>det</deprel>
             <deprel_head_id>53</deprel_head_id>
             <deprel_head_text>agreement</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="50">
@@ -1153,6 +1256,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>53</deprel_head_id>
             <deprel_head_text>agreement</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="51">
@@ -1164,6 +1268,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>53</deprel_head_id>
             <deprel_head_text>agreement</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>S-ORG</ner>
           </token>
           <token id="52">
@@ -1175,6 +1280,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>53</deprel_head_id>
             <deprel_head_text>agreement</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="53">
@@ -1186,6 +1292,7 @@
             <deprel>obj</deprel>
             <deprel_head_id>48</deprel_head_id>
             <deprel_head_text>confirmed</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="54">
@@ -1197,6 +1304,7 @@
             <deprel>case</deprel>
             <deprel_head_id>56</deprel_head_id>
             <deprel_head_text>Airshop</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="55">
@@ -1208,6 +1316,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>56</deprel_head_id>
             <deprel_head_text>Airshop</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>B-ORG</ner>
           </token>
           <token id="56">
@@ -1219,6 +1328,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>53</deprel_head_id>
             <deprel_head_text>agreement</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>E-ORG</ner>
           </token>
           <token id="57">
@@ -1230,6 +1340,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>32</deprel_head_id>
             <deprel_head_text>said</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
         </tokens>
@@ -1245,6 +1356,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>3</deprel_head_id>
             <deprel_head_text>said</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>S-ORG</ner>
           </token>
           <token id="2">
@@ -1256,6 +1368,7 @@
             <deprel>advmod</deprel>
             <deprel_head_id>3</deprel_head_id>
             <deprel_head_text>said</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="3">
@@ -1267,6 +1380,7 @@
             <deprel>root</deprel>
             <deprel_head_id>0</deprel_head_id>
             <deprel_head_text>root</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="4">
@@ -1278,6 +1392,7 @@
             <deprel>mark</deprel>
             <deprel_head_id>30</deprel_head_id>
             <deprel_head_text>game-changer</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="5">
@@ -1289,6 +1404,7 @@
             <deprel>nmod:poss</deprel>
             <deprel_head_id>9</deprel_head_id>
             <deprel_head_text>fit</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>B-ORG</ner>
           </token>
           <token id="6">
@@ -1300,6 +1416,7 @@
             <deprel>flat</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>ACL</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>I-ORG</ner>
           </token>
           <token id="7">
@@ -1311,6 +1428,7 @@
             <deprel>case</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>ACL</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>E-ORG</ner>
           </token>
           <token id="8">
@@ -1322,6 +1440,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>9</deprel_head_id>
             <deprel_head_text>fit</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="9">
@@ -1333,6 +1452,7 @@
             <deprel>ccomp</deprel>
             <deprel_head_id>3</deprel_head_id>
             <deprel_head_text>said</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="10">
@@ -1344,6 +1464,7 @@
             <deprel>case</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>plans</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="11">
@@ -1355,6 +1476,7 @@
             <deprel>det</deprel>
             <deprel_head_id>12</deprel_head_id>
             <deprel_head_text>carrier</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="12">
@@ -1366,6 +1488,7 @@
             <deprel>nmod:poss</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>plans</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="13">
@@ -1377,6 +1500,7 @@
             <deprel>case</deprel>
             <deprel_head_id>12</deprel_head_id>
             <deprel_head_text>carrier</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="14">
@@ -1388,6 +1512,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>plans</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="15">
@@ -1399,6 +1524,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>plans</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="16">
@@ -1410,6 +1536,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>plans</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="17">
@@ -1421,6 +1548,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>9</deprel_head_id>
             <deprel_head_text>fit</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="18">
@@ -1432,6 +1560,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>adding</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="19">
@@ -1443,6 +1572,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>adding</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="20">
@@ -1454,6 +1584,7 @@
             <deprel>ccomp</deprel>
             <deprel_head_id>3</deprel_head_id>
             <deprel_head_text>said</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="21">
@@ -1465,6 +1596,7 @@
             <deprel>mark</deprel>
             <deprel_head_id>30</deprel_head_id>
             <deprel_head_text>game-changer</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="22">
@@ -1476,6 +1608,7 @@
             <deprel>det</deprel>
             <deprel_head_id>25</deprel_head_id>
             <deprel_head_text>technology</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="23">
@@ -1487,6 +1620,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>25</deprel_head_id>
             <deprel_head_text>technology</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="24">
@@ -1498,6 +1632,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>25</deprel_head_id>
             <deprel_head_text>technology</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>S-PRODUCT</ner>
           </token>
           <token id="25">
@@ -1509,6 +1644,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>30</deprel_head_id>
             <deprel_head_text>game-changer</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="26">
@@ -1520,6 +1656,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>25</deprel_head_id>
             <deprel_head_text>technology</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="27">
@@ -1531,6 +1668,7 @@
             <deprel>aux</deprel>
             <deprel_head_id>30</deprel_head_id>
             <deprel_head_text>game-changer</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="28">
@@ -1542,6 +1680,7 @@
             <deprel>cop</deprel>
             <deprel_head_id>30</deprel_head_id>
             <deprel_head_text>game-changer</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="29">
@@ -1553,6 +1692,7 @@
             <deprel>det</deprel>
             <deprel_head_id>30</deprel_head_id>
             <deprel_head_text>game-changer</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="30">
@@ -1564,6 +1704,7 @@
             <deprel>ccomp</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>adding</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="31">
@@ -1575,6 +1716,7 @@
             <deprel>case</deprel>
             <deprel_head_id>32</deprel_head_id>
             <deprel_head_text>us</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="32">
@@ -1586,6 +1728,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>30</deprel_head_id>
             <deprel_head_text>game-changer</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="33">
@@ -1597,6 +1740,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>30</deprel_head_id>
             <deprel_head_text>game-changer</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="34">
@@ -1608,6 +1752,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>38</deprel_head_id>
             <deprel_head_text>end-customers</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="35">
@@ -1619,6 +1764,7 @@
             <deprel>cc</deprel>
             <deprel_head_id>38</deprel_head_id>
             <deprel_head_text>end-customers</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="36">
@@ -1630,6 +1776,7 @@
             <deprel>case</deprel>
             <deprel_head_id>38</deprel_head_id>
             <deprel_head_text>end-customers</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="37">
@@ -1641,6 +1788,7 @@
             <deprel>nmod:poss</deprel>
             <deprel_head_id>38</deprel_head_id>
             <deprel_head_text>end-customers</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="38">
@@ -1652,6 +1800,7 @@
             <deprel>conj</deprel>
             <deprel_head_id>31</deprel_head_id>
             <deprel_head_text>for</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="39">
@@ -1663,6 +1812,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>adding</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="40">
@@ -1674,6 +1824,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>adding</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
         </tokens>
@@ -1689,6 +1840,7 @@
             <deprel>det</deprel>
             <deprel_head_id>3</deprel_head_id>
             <deprel_head_text>Way</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="2">
@@ -1700,6 +1852,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>3</deprel_head_id>
             <deprel_head_text>Way</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>B-ORG</ner>
           </token>
           <token id="3">
@@ -1711,6 +1864,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>4</deprel_head_id>
             <deprel_head_text>deal</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>E-ORG</ner>
           </token>
           <token id="4">
@@ -1722,6 +1876,7 @@
             <deprel>root</deprel>
             <deprel_head_id>0</deprel_head_id>
             <deprel_head_text>root</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="5">
@@ -1733,6 +1888,7 @@
             <deprel>xcomp</deprel>
             <deprel_head_id>4</deprel_head_id>
             <deprel_head_text>deal</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="6">
@@ -1744,6 +1900,7 @@
             <deprel>case</deprel>
             <deprel_head_id>10</deprel_head_id>
             <deprel_head_text>announcement</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="7">
@@ -1755,6 +1912,7 @@
             <deprel>nmod:poss</deprel>
             <deprel_head_id>10</deprel_head_id>
             <deprel_head_text>announcement</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>B-ORG</ner>
           </token>
           <token id="8">
@@ -1766,6 +1924,7 @@
             <deprel>flat</deprel>
             <deprel_head_id>7</deprel_head_id>
             <deprel_head_text>ACL</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>I-ORG</ner>
           </token>
           <token id="9">
@@ -1777,6 +1936,7 @@
             <deprel>case</deprel>
             <deprel_head_id>7</deprel_head_id>
             <deprel_head_text>ACL</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>E-ORG</ner>
           </token>
           <token id="10">
@@ -1788,6 +1948,7 @@
             <deprel>obl</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>builds</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="11">
@@ -1799,6 +1960,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>12</deprel_head_id>
             <deprel_head_text>month</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>B-DATE</ner>
           </token>
           <token id="12">
@@ -1810,6 +1972,7 @@
             <deprel>obl:tmod</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>builds</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>E-DATE</ner>
           </token>
           <token id="13">
@@ -1821,6 +1984,7 @@
             <deprel>case</deprel>
             <deprel_head_id>16</deprel_head_id>
             <deprel_head_text>alliance</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="14">
@@ -1832,6 +1996,7 @@
             <deprel>det</deprel>
             <deprel_head_id>16</deprel_head_id>
             <deprel_head_text>alliance</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="15">
@@ -1843,6 +2008,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>16</deprel_head_id>
             <deprel_head_text>alliance</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="16">
@@ -1854,6 +2020,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>12</deprel_head_id>
             <deprel_head_text>month</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="17">
@@ -1865,6 +2032,7 @@
             <deprel>case</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>Technologies</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="18">
@@ -1876,6 +2044,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>19</deprel_head_id>
             <deprel_head_text>Transport</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>B-ORG</ner>
           </token>
           <token id="19">
@@ -1887,6 +2056,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>Technologies</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>I-ORG</ner>
           </token>
           <token id="20">
@@ -1898,6 +2068,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>16</deprel_head_id>
             <deprel_head_text>alliance</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>E-ORG</ner>
           </token>
           <token id="21">
@@ -1909,6 +2080,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>24</deprel_head_id>
             <deprel_head_text>introduction</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="22">
@@ -1920,6 +2092,7 @@
             <deprel>cc</deprel>
             <deprel_head_id>24</deprel_head_id>
             <deprel_head_text>introduction</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="23">
@@ -1931,6 +2104,7 @@
             <deprel>det</deprel>
             <deprel_head_id>24</deprel_head_id>
             <deprel_head_text>introduction</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="24">
@@ -1942,6 +2116,7 @@
             <deprel>conj</deprel>
             <deprel_head_id>10</deprel_head_id>
             <deprel_head_text>announcement</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="25">
@@ -1953,6 +2128,7 @@
             <deprel>case</deprel>
             <deprel_head_id>28</deprel_head_id>
             <deprel_head_text>tracking</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="26">
@@ -1964,6 +2140,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>28</deprel_head_id>
             <deprel_head_text>tracking</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="27">
@@ -1975,6 +2152,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>28</deprel_head_id>
             <deprel_head_text>tracking</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>S-PRODUCT</ner>
           </token>
           <token id="28">
@@ -1986,6 +2164,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>24</deprel_head_id>
             <deprel_head_text>introduction</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="29">
@@ -1997,6 +2176,7 @@
             <deprel>case</deprel>
             <deprel_head_id>31</deprel_head_id>
             <deprel_head_text>ULDs</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="30">
@@ -2008,6 +2188,7 @@
             <deprel>nmod:poss</deprel>
             <deprel_head_id>31</deprel_head_id>
             <deprel_head_text>ULDs</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="31">
@@ -2019,6 +2200,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>28</deprel_head_id>
             <deprel_head_text>tracking</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>S-PRODUCT</ner>
           </token>
           <token id="32">
@@ -2030,6 +2212,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>builds</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
         </tokens>
@@ -2045,6 +2228,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>installing</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>B-ORG</ner>
           </token>
           <token id="2">
@@ -2056,6 +2240,7 @@
             <deprel>flat</deprel>
             <deprel_head_id>1</deprel_head_id>
             <deprel_head_text>ACL</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>E-ORG</ner>
           </token>
           <token id="3">
@@ -2067,6 +2252,7 @@
             <deprel>aux</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>installing</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="4">
@@ -2078,6 +2264,7 @@
             <deprel>advmod</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>installing</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="5">
@@ -2089,6 +2276,7 @@
             <deprel>root</deprel>
             <deprel_head_id>0</deprel_head_id>
             <deprel_head_text>root</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="6">
@@ -2100,6 +2288,7 @@
             <deprel>nmod:poss</deprel>
             <deprel_head_id>10</deprel_head_id>
             <deprel_head_text>devices</deprel_head_text>
+            <term_tag>S-TERM</term_tag>
             <ner>S-ORG</ner>
           </token>
           <token id="7">
@@ -2111,6 +2300,7 @@
             <deprel>case</deprel>
             <deprel_head_id>6</deprel_head_id>
             <deprel_head_text>CORES</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="8">
@@ -2122,6 +2312,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>10</deprel_head_id>
             <deprel_head_text>devices</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="9">
@@ -2133,6 +2324,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>10</deprel_head_id>
             <deprel_head_text>devices</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>S-PRODUCT</ner>
           </token>
           <token id="10">
@@ -2144,6 +2336,7 @@
             <deprel>obj</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>installing</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="11">
@@ -2155,6 +2348,7 @@
             <deprel>case</deprel>
             <deprel_head_id>15</deprel_head_id>
             <deprel_head_text>ULDs</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="12">
@@ -2166,6 +2360,7 @@
             <deprel>det</deprel>
             <deprel_head_id>13</deprel_head_id>
             <deprel_head_text>company</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="13">
@@ -2177,6 +2372,7 @@
             <deprel>nmod:poss</deprel>
             <deprel_head_id>15</deprel_head_id>
             <deprel_head_text>ULDs</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="14">
@@ -2188,6 +2384,7 @@
             <deprel>case</deprel>
             <deprel_head_id>13</deprel_head_id>
             <deprel_head_text>company</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="15">
@@ -2199,6 +2396,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>10</deprel_head_id>
             <deprel_head_text>devices</deprel_head_text>
+            <term_tag>S-TERM</term_tag>
             <ner>S-PRODUCT</ner>
           </token>
           <token id="16">
@@ -2210,6 +2408,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>18</deprel_head_id>
             <deprel_head_text>report</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="17">
@@ -2221,6 +2420,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>18</deprel_head_id>
             <deprel_head_text>report</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="18">
@@ -2232,6 +2432,7 @@
             <deprel>acl:relcl</deprel>
             <deprel_head_id>15</deprel_head_id>
             <deprel_head_text>ULDs</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="19">
@@ -2243,6 +2444,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>20</deprel_head_id>
             <deprel_head_text>locations</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>S-ORG</ner>
           </token>
           <token id="20">
@@ -2254,6 +2456,7 @@
             <deprel>obj</deprel>
             <deprel_head_id>18</deprel_head_id>
             <deprel_head_text>report</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="21">
@@ -2265,6 +2468,7 @@
             <deprel>case</deprel>
             <deprel_head_id>22</deprel_head_id>
             <deprel_head_text>airports</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="22">
@@ -2276,6 +2480,7 @@
             <deprel>obl</deprel>
             <deprel_head_id>18</deprel_head_id>
             <deprel_head_text>report</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="23">
@@ -2287,6 +2492,7 @@
             <deprel>cc</deprel>
             <deprel_head_id>26</deprel_head_id>
             <deprel_head_text>globe</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="24">
@@ -2298,6 +2504,7 @@
             <deprel>case</deprel>
             <deprel_head_id>26</deprel_head_id>
             <deprel_head_text>globe</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="25">
@@ -2309,6 +2516,7 @@
             <deprel>det</deprel>
             <deprel_head_id>26</deprel_head_id>
             <deprel_head_text>globe</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="26">
@@ -2320,6 +2528,7 @@
             <deprel>conj</deprel>
             <deprel_head_id>21</deprel_head_id>
             <deprel_head_text>within</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="27">
@@ -2331,6 +2540,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>installing</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
         </tokens>
@@ -2346,6 +2556,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>3</deprel_head_id>
             <deprel_head_text>nets</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="2">
@@ -2357,6 +2568,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>3</deprel_head_id>
             <deprel_head_text>nets</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="3">
@@ -2368,6 +2580,7 @@
             <deprel>root</deprel>
             <deprel_head_id>0</deprel_head_id>
             <deprel_head_text>root</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="4">
@@ -2379,6 +2592,7 @@
             <deprel>case</deprel>
             <deprel_head_id>10</deprel_head_id>
             <deprel_head_text>facility</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="5">
@@ -2390,6 +2604,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>6</deprel_head_id>
             <deprel_head_text>Airshop</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>B-ORG</ner>
           </token>
           <token id="6">
@@ -2401,6 +2616,7 @@
             <deprel>nmod:poss</deprel>
             <deprel_head_id>10</deprel_head_id>
             <deprel_head_text>facility</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>I-ORG</ner>
           </token>
           <token id="7">
@@ -2412,6 +2628,7 @@
             <deprel>case</deprel>
             <deprel_head_id>6</deprel_head_id>
             <deprel_head_text>Airshop</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>E-ORG</ner>
           </token>
           <token id="8">
@@ -2423,6 +2640,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>9</deprel_head_id>
             <deprel_head_text>Carolina</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>B-GPE</ner>
           </token>
           <token id="9">
@@ -2434,6 +2652,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>10</deprel_head_id>
             <deprel_head_text>facility</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>E-GPE</ner>
           </token>
           <token id="10">
@@ -2445,6 +2664,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>3</deprel_head_id>
             <deprel_head_text>nets</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
         </tokens>
@@ -2460,6 +2680,7 @@
             <deprel>case</deprel>
             <deprel_head_id>2</deprel_head_id>
             <deprel_head_text>decades</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="2">
@@ -2471,6 +2692,7 @@
             <deprel>obl</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>recognized</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>S-DATE</ner>
           </token>
           <token id="3">
@@ -2482,6 +2704,7 @@
             <deprel>mark</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>relegated</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="4">
@@ -2493,6 +2716,7 @@
             <deprel>aux:pass</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>relegated</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="5">
@@ -2504,6 +2728,7 @@
             <deprel>acl</deprel>
             <deprel_head_id>2</deprel_head_id>
             <deprel_head_text>decades</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="6">
@@ -2515,6 +2740,7 @@
             <deprel>case</deprel>
             <deprel_head_id>8</deprel_head_id>
             <deprel_head_text>fringes</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="7">
@@ -2526,6 +2752,7 @@
             <deprel>det</deprel>
             <deprel_head_id>8</deprel_head_id>
             <deprel_head_text>fringes</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="8">
@@ -2537,6 +2764,7 @@
             <deprel>obl</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>relegated</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="9">
@@ -2548,6 +2776,7 @@
             <deprel>case</deprel>
             <deprel_head_id>11</deprel_head_id>
             <deprel_head_text>freight</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="10">
@@ -2559,6 +2788,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>11</deprel_head_id>
             <deprel_head_text>freight</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="11">
@@ -2570,6 +2800,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>8</deprel_head_id>
             <deprel_head_text>fringes</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="12">
@@ -2581,6 +2812,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>2</deprel_head_id>
             <deprel_head_text>decades</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="13">
@@ -2592,6 +2824,7 @@
             <deprel>nsubj:pass</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>recognized</deprel_head_text>
+            <term_tag>S-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="14">
@@ -2603,6 +2836,7 @@
             <deprel>aux:pass</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>recognized</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="15">
@@ -2614,6 +2848,7 @@
             <deprel>advmod</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>recognized</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="16">
@@ -2625,6 +2860,7 @@
             <deprel>aux:pass</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>recognized</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="17">
@@ -2636,6 +2872,7 @@
             <deprel>root</deprel>
             <deprel_head_id>0</deprel_head_id>
             <deprel_head_text>root</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="18">
@@ -2647,6 +2884,7 @@
             <deprel>case</deprel>
             <deprel_head_id>21</deprel_head_id>
             <deprel_head_text>unit</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="19">
@@ -2658,6 +2896,7 @@
             <deprel>det</deprel>
             <deprel_head_id>21</deprel_head_id>
             <deprel_head_text>unit</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="20">
@@ -2669,6 +2908,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>21</deprel_head_id>
             <deprel_head_text>unit</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="21">
@@ -2680,6 +2920,7 @@
             <deprel>obl</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>recognized</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="22">
@@ -2691,6 +2932,7 @@
             <deprel>case</deprel>
             <deprel_head_id>23</deprel_head_id>
             <deprel_head_text>tracking</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="23">
@@ -2702,6 +2944,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>21</deprel_head_id>
             <deprel_head_text>unit</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="24">
@@ -2713,6 +2956,7 @@
             <deprel>cc</deprel>
             <deprel_head_id>25</deprel_head_id>
             <deprel_head_text>measurement</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="25">
@@ -2724,6 +2968,7 @@
             <deprel>conj</deprel>
             <deprel_head_id>23</deprel_head_id>
             <deprel_head_text>tracking</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="26">
@@ -2735,6 +2980,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>28</deprel_head_id>
             <deprel_head_text>said</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="27">
@@ -2746,6 +2992,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>28</deprel_head_id>
             <deprel_head_text>said</deprel_head_text>
+            <term_tag>S-TERM</term_tag>
             <ner>S-ORG</ner>
           </token>
           <token id="28">
@@ -2757,6 +3004,7 @@
             <deprel>parataxis</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>recognized</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="29">
@@ -2768,6 +3016,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>30</deprel_head_id>
             <deprel_head_text>prompting</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="30">
@@ -2779,6 +3028,7 @@
             <deprel>advcl</deprel>
             <deprel_head_id>28</deprel_head_id>
             <deprel_head_text>said</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="31">
@@ -2790,6 +3040,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>32</deprel_head_id>
             <deprel_head_text>interest</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="32">
@@ -2801,6 +3052,7 @@
             <deprel>obj</deprel>
             <deprel_head_id>30</deprel_head_id>
             <deprel_head_text>prompting</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="33">
@@ -2812,6 +3064,7 @@
             <deprel>case</deprel>
             <deprel_head_id>34</deprel_head_id>
             <deprel_head_text>technology</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="34">
@@ -2823,6 +3076,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>32</deprel_head_id>
             <deprel_head_text>interest</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="35">
@@ -2834,6 +3088,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>37</deprel_head_id>
             <deprel_head_text>track</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="36">
@@ -2845,6 +3100,7 @@
             <deprel>aux</deprel>
             <deprel_head_id>37</deprel_head_id>
             <deprel_head_text>track</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="37">
@@ -2856,6 +3112,7 @@
             <deprel>acl:relcl</deprel>
             <deprel_head_id>34</deprel_head_id>
             <deprel_head_text>technology</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="38">
@@ -2867,6 +3124,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>39</deprel_head_id>
             <deprel_head_text>units</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="39">
@@ -2878,6 +3136,7 @@
             <deprel>obj</deprel>
             <deprel_head_id>37</deprel_head_id>
             <deprel_head_text>track</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="40">
@@ -2889,6 +3148,7 @@
             <deprel>cc</deprel>
             <deprel_head_id>41</deprel_head_id>
             <deprel_head_text>compile</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="41">
@@ -2900,6 +3160,7 @@
             <deprel>conj</deprel>
             <deprel_head_id>37</deprel_head_id>
             <deprel_head_text>track</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="42">
@@ -2911,6 +3172,7 @@
             <deprel>mark</deprel>
             <deprel_head_id>46</deprel_head_id>
             <deprel_head_text>data</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="43">
@@ -2922,6 +3184,7 @@
             <deprel>case</deprel>
             <deprel_head_id>46</deprel_head_id>
             <deprel_head_text>data</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="44">
@@ -2933,6 +3196,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>46</deprel_head_id>
             <deprel_head_text>data</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="45">
@@ -2944,6 +3208,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>46</deprel_head_id>
             <deprel_head_text>data</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="46">
@@ -2955,6 +3220,7 @@
             <deprel>ccomp</deprel>
             <deprel_head_id>41</deprel_head_id>
             <deprel_head_text>compile</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>O</ner>
           </token>
           <token id="47">
@@ -2966,6 +3232,7 @@
             <deprel>case</deprel>
             <deprel_head_id>48</deprel_head_id>
             <deprel_head_text>efficiency</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="48">
@@ -2977,6 +3244,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>46</deprel_head_id>
             <deprel_head_text>data</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="49">
@@ -2988,6 +3256,7 @@
             <deprel>cc</deprel>
             <deprel_head_id>50</deprel_head_id>
             <deprel_head_text>movement</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="50">
@@ -2999,6 +3268,7 @@
             <deprel>conj</deprel>
             <deprel_head_id>48</deprel_head_id>
             <deprel_head_text>efficiency</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="51">
@@ -3010,6 +3280,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>17</deprel_head_id>
             <deprel_head_text>recognized</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
         </tokens>
@@ -3025,6 +3296,7 @@
             <deprel>det</deprel>
             <deprel_head_id>2</deprel_head_id>
             <deprel_head_text>alliance</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="2">
@@ -3036,6 +3308,7 @@
             <deprel>nsubj</deprel>
             <deprel_head_id>3</deprel_head_id>
             <deprel_head_text>extends</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="3">
@@ -3047,6 +3320,7 @@
             <deprel>root</deprel>
             <deprel_head_id>0</deprel_head_id>
             <deprel_head_text>root</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="4">
@@ -3058,6 +3332,7 @@
             <deprel>nummod</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>years</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>B-DATE</ner>
           </token>
           <token id="5">
@@ -3069,6 +3344,7 @@
             <deprel>obj</deprel>
             <deprel_head_id>3</deprel_head_id>
             <deprel_head_text>extends</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>E-DATE</ner>
           </token>
           <token id="6">
@@ -3080,6 +3356,7 @@
             <deprel>case</deprel>
             <deprel_head_id>11</deprel_head_id>
             <deprel_head_text>partnership</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="7">
@@ -3091,6 +3368,7 @@
             <deprel>nmod:poss</deprel>
             <deprel_head_id>11</deprel_head_id>
             <deprel_head_text>partnership</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>B-ORG</ner>
           </token>
           <token id="8">
@@ -3102,6 +3380,7 @@
             <deprel>flat</deprel>
             <deprel_head_id>7</deprel_head_id>
             <deprel_head_text>ACL</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>I-ORG</ner>
           </token>
           <token id="9">
@@ -3113,6 +3392,7 @@
             <deprel>case</deprel>
             <deprel_head_id>8</deprel_head_id>
             <deprel_head_text>Airshop</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>E-ORG</ner>
           </token>
           <token id="10">
@@ -3124,6 +3404,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>11</deprel_head_id>
             <deprel_head_text>partnership</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="11">
@@ -3135,6 +3416,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>5</deprel_head_id>
             <deprel_head_text>years</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="12">
@@ -3146,6 +3428,7 @@
             <deprel>case</deprel>
             <deprel_head_id>15</deprel_head_id>
             <deprel_head_text>units</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="13">
@@ -3157,6 +3440,7 @@
             <deprel>amod</deprel>
             <deprel_head_id>15</deprel_head_id>
             <deprel_head_text>units</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="14">
@@ -3168,6 +3452,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>15</deprel_head_id>
             <deprel_head_text>units</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="15">
@@ -3179,6 +3464,7 @@
             <deprel>obl</deprel>
             <deprel_head_id>3</deprel_head_id>
             <deprel_head_text>extends</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="16">
@@ -3190,6 +3476,7 @@
             <deprel>case</deprel>
             <deprel_head_id>19</deprel_head_id>
             <deprel_head_text>Holding</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
           <token id="17">
@@ -3201,6 +3488,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>18</deprel_head_id>
             <deprel_head_text>Way</deprel_head_text>
+            <term_tag>B-TERM</term_tag>
             <ner>B-ORG</ner>
           </token>
           <token id="18">
@@ -3212,6 +3500,7 @@
             <deprel>compound</deprel>
             <deprel_head_id>19</deprel_head_id>
             <deprel_head_text>Holding</deprel_head_text>
+            <term_tag>I-TERM</term_tag>
             <ner>I-ORG</ner>
           </token>
           <token id="19">
@@ -3223,6 +3512,7 @@
             <deprel>nmod</deprel>
             <deprel_head_id>15</deprel_head_id>
             <deprel_head_text>units</deprel_head_text>
+            <term_tag>E-TERM</term_tag>
             <ner>E-ORG</ner>
           </token>
           <token id="20">
@@ -3234,6 +3524,7 @@
             <deprel>punct</deprel>
             <deprel_head_id>3</deprel_head_id>
             <deprel_head_text>extends</deprel_head_text>
+            <term_tag>O</term_tag>
             <ner>O</ner>
           </token>
         </tokens>

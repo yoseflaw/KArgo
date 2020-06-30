@@ -3,17 +3,154 @@ from hashlib import md5
 import os
 import random
 import json
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 import html
 from bisect import bisect, insort
 from tqdm import tqdm
 from lxml.objectify import Element
 from lxml import etree, objectify
 import stanza
-from spacy.lang.en.stop_words import STOP_WORDS
 import nltk
 from kargo import logger
 log = logger.get_logger(__name__, logger.INFO)
+
+
+class Token(object):
+
+    def __init__(self, token_id, word, lemma, offset_begin, offset_end, pos, deprel, head_id, head_text, ner, term_tag):
+        self.token_id = token_id
+        self.word = word
+        self.lemma = lemma
+        self.offset_begin = offset_begin
+        self.offset_end = offset_end
+        self.pos = pos
+        self.deprel = deprel
+        self.head_id = head_id
+        self.head_text = head_text
+        self.ner = ner
+        self.term_tag = term_tag
+
+    def __str__(self):
+        return self.word
+
+    def __repr__(self):
+        return f"Token('{self.token_id}', '{self.word}', '{self.pos}', '{self.ner}', '{self.term_tag}')"
+
+
+class SentenceParser(object):
+    valid_attrs = [
+        "id", "word", "lemma", "offset_begin", "offset_end",
+        "pos", "deprel", "head_id", "head_text", "ner", "term_tag"
+    ]
+
+    def __init__(self, sentence):
+        self.sentence = sentence
+        self.sentence_offset = None
+        self.tokens = OrderedDict()
+        for token in sentence.tokens.token:
+            if token.get("id") == "1":
+                self.sentence_offset = int(token.CharacterOffsetBegin.text)
+            token_map = {
+                "token_id": token.get("id"),
+                "word": token.word.text,
+                "lemma": token.lemma.text,
+                "offset_begin": int(token.CharacterOffsetBegin.text) - self.sentence_offset,
+                "offset_end": int(token.CharacterOffsetEnd.text) - self.sentence_offset,
+                "pos": token.POS.text,
+                "deprel": token.deprel.text,
+                "head_id": token.deprel_head_id.text,
+                "head_text": token.deprel_head_text.text,
+                "ner": token.ner.text,
+                "term_tag": token.term_tag.text
+            }
+            self.tokens[token.get("id")] = Token(**token_map)
+
+    def __str__(self):
+        str_rep = []
+        current_offset = 0
+        for token_id, token in self.tokens.items():
+            while current_offset < token.offset_begin:
+                str_rep.append(" ")
+                current_offset += 1
+            str_rep.append(token.word)
+            current_offset = token.offset_end
+        return "".join(str_rep)
+
+    def get_list(self, attr):
+        attr_list = []
+        for token_id, token in self.tokens.items():
+            attr_list.append(getattr(token, attr))
+        return attr_list
+
+    def get_token_attr(self, token_id, attr):
+        if attr not in self.valid_attrs: return None
+        return getattr(self.tokens[token_id], attr)
+
+    def get_named_entities(self, exclude_list=None):
+        ents = []
+        ent = []
+        for token_id, token in self.tokens.items():
+            if exclude_list and token.ner.split("-")[-1] not in exclude_list:
+                if token.ner[0] in ("B", "S"):
+                    ent = [token]
+                elif token.ner[0] in ("I", "E"):
+                    ent.append(token)
+                if token.ner[0] in ("E", "S") or (token.ner[0] in ("B", "I") and int(token_id) == len(self.tokens)):
+                    ents.append(ent)
+        return ents
+
+    # This will only return the first occurrence of a term in the sentence
+    def is_term_exist(self, term_words):
+        sentence_words = self.get_list("word")
+        for i in range(len(sentence_words)-len(term_words)):
+            if sentence_words[i:i+len(term_words)] == term_words:
+                term_tokens = []
+                for j in range(i, i+len(term_words)):
+                    term_tokens.append(self.tokens[str(j+1)])
+                return term_tokens
+        return None
+
+    def get_terms_exist(self, terms_words):
+        exist = []
+        for term_words in terms_words:
+            tokens = self.is_term_exist(term_words)
+            if tokens: exist.append(tokens)
+        return exist
+
+    def get_tokens_from_words(self, words, lower=True):
+        surface_words = str(self).lower() if lower else str(self)
+        find_first_token = 1
+        first_token_id = None
+        last_token_id = None
+        while find_first_token <= len(self.tokens) and not first_token_id:
+            first_token = self.tokens[str(find_first_token)]
+            find_last_token = find_first_token + len(words.split()) - 1
+            while find_last_token <= len(self.tokens) and not last_token_id:
+                last_token = self.tokens[str(find_last_token)]
+                if surface_words[first_token.offset_begin:last_token.offset_end] == words:
+                    first_token_id = find_first_token
+                    last_token_id = find_last_token
+                find_last_token += 1
+            find_first_token += 1
+        return self.get_tokens_subset(first_token_id, last_token_id+1) if first_token_id and last_token_id else None
+
+    def get_tokens_subset(self, begin_id, end_id):
+        subset_tokens = []
+        for i in range(begin_id, end_id):
+            subset_tokens.append(self.tokens[str(i)])
+        return subset_tokens
+
+    @staticmethod
+    def get_surface_words(tokens):
+        str_rep = []
+        current_offset = tokens[0].offset_begin
+        for token in tokens:
+            while current_offset < token.offset_begin:
+                str_rep.append(" ")
+                current_offset += 1
+            str_rep.append(token.word)
+            current_offset = token.offset_end
+        return "".join(str_rep)
 
 
 class XMLBase(object):
@@ -44,21 +181,24 @@ class XMLBase(object):
             xml_out.write(self.get_xml())
 
 
-class AnnotationJSON(object):
+class TermLabels(object):
 
     def __init__(self, annotation_file):
         self.documents = {}
         self.irrelevants = []
+        self.read_from_jsonl(annotation_file)
+
+    def read_from_jsonl(self, annotation_file):
         with open(annotation_file, "r") as fin:
             anns = fin.readlines()
         for ann in anns:
             doc = json.loads(ann)
-            title = doc["text"].split("|")[0]
-            text = doc["text"]
             if "meta" in doc and "doc_id" in doc["meta"]:
                 doc_id = doc["meta"]["doc_id"]
             else:
+                title = doc["text"].split("|")[0]
                 doc_id = md5(title.encode("utf-8")).hexdigest()[-6:]
+            text = doc["text"]
             has_irrelevant = False
             annotation_mapping = {}
             for tag in doc["labels"]:
@@ -78,13 +218,18 @@ class AnnotationJSON(object):
 
 
 class Corpus(XMLBase):
-    annotation_regex = r"\[\[(.+?)\]\]"
 
     def __init__(self, xml_input=None, annotations=None):
         super().__init__("corpus", "document")
         self.corpus = Element("corpus")
         self.url_indices = []
         self.has_terms_locations = False
+        self.nlp = stanza.Pipeline(
+            "en",
+            processors={"tokenize": "gum", "ner": "default", "lemma": "gum", "pos": "gum", "depparse": "gum"},
+            verbose=False,
+            tokenize_no_ssplit=True
+        )
         self.annotations = annotations.documents if annotations else None
         if xml_input:
             if xml_input and not os.path.exists(xml_input):
@@ -297,61 +442,56 @@ class Corpus(XMLBase):
             i += 1
         return dev_c, test_c
 
+    def annotate_sentence(self, sentence, buffer_offset, term_locs=None):
+        term_state = ["O", "B-TERM", "I-TERM"]
+        annotated_text = self.nlp(sentence)
+        annotated_sentences = []
+        head_dict = {0: "root"}
+        for sentence in annotated_text.sentences:
+            annotated_sentence = []
+            for token in sentence.tokens:
+                if len(token.words) > 1:
+                    log.info(token)
+                else:
+                    word = token.words[0]
+                    misc = dict(token_misc.split("=") for token_misc in word.misc.split("|"))
+                    word_id = int(word.id)
+                    head_dict[word_id] = word.text
+                    start_char = buffer_offset + int(misc["start_char"])
+                    end_char = buffer_offset + int(misc["end_char"])
+                    annotations = {
+                        "id": word_id,
+                        "word": word.text,
+                        "pos": word.xpos,
+                        "lemma": word.lemma,
+                        "deprel": word.deprel,
+                        "deprel_head_id": word.head,
+                        "character_offset_begin": start_char,
+                        "character_offset_end": end_char,
+                        "ner": token.ner
+                    }
+                    if term_locs is not None and len(term_locs) > 0:
+                        annotations["term_tag"] = term_state[bisect(term_locs, start_char) % 3]
+                    annotated_sentence.append(annotations)
+            for i, token in enumerate(annotated_sentence):
+                token["deprel_head_text"] = head_dict[token["deprel_head_id"]]
+                if "term_tag" in token:
+                    # hacky way, should fix write_to_core_nlp_xmls insort usage
+                    # if token["term_tag"][0] == "I" and (i == 0 or annotated_sentence[i-1]["term_tag"][0] == "O"):
+                    #     if i == len(annotated_sentence) - 1 or annotated_sentence[i+1]["term_tag"][0] != "I":
+                    #         token["term_tag"] = "S" + token["term_tag"][1:]
+                    #     else:
+                    #         token["term_tag"] = "B" + token["term_tag"][1:]
+                    # el
+                    if i == len(annotated_sentence) - 1 or annotated_sentence[i+1]["term_tag"][0] != "I":
+                        if token["term_tag"][0] == "B":
+                            token["term_tag"] = "S" + token["term_tag"][1:]
+                        elif token["term_tag"][0] == "I":
+                            token["term_tag"] = "E" + token["term_tag"][1:]
+            annotated_sentences.append(annotated_sentence)
+        return annotated_sentences
+
     def write_to_core_nlp_xmls(self, output_folder):
-        # term_locs = []
-        # term_state = ["O", "B", "I"]
-        # stanza_nlp_w_ssplit = stanza.Pipeline(
-        #     "en",
-        #     processors={"tokenize": "gum", "ner": "default", "lemma": "gum", "pos": "gum", "depparse": "gum"},
-        #     verbose=False
-        # )
-        # stanza_nlp_no_ssplit = stanza.Pipeline(
-        #     "en",
-        #     processors={"tokenize": "gum", "ner": "default", "lemma": "gum", "pos": "gum", "depparse": "gum"},
-        #     verbose=False,
-        #     tokenize_no_ssplit=True
-        # )
-        stanza_nlp = stanza.Pipeline(
-            "en",
-            processors={"tokenize": "gum", "ner": "default", "lemma": "gum", "pos": "gum", "depparse": "gum"},
-            verbose=False,
-            tokenize_no_ssplit=True
-        )
-
-        # assumed sentence is split
-        def annotate_sentence(sentence):
-            # annotated_text = stanza_nlp_no_ssplit(sentences) if no_ssplit else stanza_nlp_w_ssplit(sentences)
-            annotated_text = stanza_nlp(sentence)
-            annotated_sentences = []
-            head_dict = {0: "root"}
-            for sentence in annotated_text.sentences:
-                annotated_sentence = []
-                for token in sentence.tokens:
-                    if len(token.words) > 1: log.info(token)
-                    else:
-                        word = token.words[0]
-                        misc = dict(token_misc.split("=") for token_misc in word.misc.split("|"))
-                        word_id = int(word.id)
-                        head_dict[word_id] = word.text
-                        start_char = buffer_offset + int(misc["start_char"])
-                        end_char = buffer_offset + int(misc["end_char"])
-                        annotated_sentence.append({
-                            "id": word_id,
-                            "word": word.text,
-                            "pos": word.xpos,
-                            "lemma": word.lemma,
-                            "deprel": word.deprel,
-                            "deprel_head_id": word.head,
-                            "character_offset_begin": start_char,
-                            "character_offset_end": end_char,
-                            "ner": token.ner
-                            # "term_tag": term_state[bisect(term_locs, start_char) % 3] if len(term_locs) > 0 else None
-                        })
-                for token in annotated_sentence:
-                    token["deprel_head_text"] = head_dict[token["deprel_head_id"]]
-                annotated_sentences.append(annotated_sentence)
-            return annotated_sentences
-
         for document in tqdm(self.iter_documents(), total=len(self)):
             document_id = document.document_id.text
             if f"{document_id}.xml" not in os.listdir(output_folder):
@@ -364,7 +504,7 @@ class Corpus(XMLBase):
                             insort(term_locs, int(location.begin.text)-0.5)
                             insort(term_locs, int(location.begin.text)+0.5)
                             insort(term_locs, int(location.end.text))
-                annotated_title = annotate_sentence(title)
+                annotated_title = self.annotate_sentence(title, buffer_offset, term_locs)
                 buffer_offset += len(title) + 1
                 annotated_content = []
                 for p in document.content.p:
@@ -372,7 +512,7 @@ class Corpus(XMLBase):
                         text = p.text.strip()
                         p_sents = nltk.tokenize.sent_tokenize(text)
                         for p_sent in p_sents:
-                            annotated_content += annotate_sentence(p_sent)
+                            annotated_content += self.annotate_sentence(p_sent, buffer_offset, term_locs)
                             buffer_offset += len(p_sent) + 1
                 core_nlp_document = StanfordCoreNLPDocument()
                 core_nlp_document.from_sentences(annotated_title, annotated_content)
@@ -418,6 +558,47 @@ class StanfordCoreNLPCorpus(XMLBase):
             doc = doc.root.document
             doc.set("id", filename.split(".")[0])
             self.root.append(doc)
+
+    def write_to_kargen_dataset(self, labels_file, output_file, lower=True, contain_terms_only=False):
+        # valid_ner = ["ORG", "DATE", "PERSON", "GPE", "CARDINAL", "FAC"]
+        with open(labels_file, "r") as f:
+            labels = json.load(f)
+        buffer_output = []
+        for document in tqdm(self.iter_documents(), total=len(self), disable=True):
+            doc_id = document.get("id")
+            for sentence_id, sentence in enumerate(document.sentences.sentence):
+                parsed_sentence = SentenceParser(sentence)
+                sentence_rels = {}
+                if doc_id in labels and str(sentence_id) in labels[doc_id]:
+                    for relation in labels[doc_id][str(sentence_id)]:
+                        label = labels[doc_id][str(sentence_id)][relation]
+                        head, tail = relation.split("|")
+                        head_tokens = parsed_sentence.get_tokens_from_words(head, lower)
+                        tail_tokens = parsed_sentence.get_tokens_from_words(tail, lower)
+                        sentence_rels[head_tokens[-1].token_id] = (label, tail_tokens[-1].token_id)
+                found_term = False
+                buffer_sentence = []
+                for token_id in parsed_sentence.tokens:
+                    token = parsed_sentence.tokens[token_id]
+                    if not found_term:
+                        found_term = token.term_tag[0] != "O"
+                    if token_id in sentence_rels:
+                        token_label, token_tail = sentence_rels[token_id]
+                    else:
+                        token_label, token_tail = 0, 0
+                    # ner = token.ner
+                    # if ner != "O" and ner[2:] not in valid_ner:
+                    #     ner = ner[0] + "-MISC"
+                    buffer_sentence.append([
+                        token.token_id, token.word, token.ner, token.term_tag,
+                        str(token_label), str(token_tail)
+                    ])
+                if not contain_terms_only or (contain_terms_only and found_term):
+                    buffer_output.extend(buffer_sentence)
+                    buffer_output.append([])
+        with open(output_file, "w") as f:
+            for line in buffer_output:
+                f.write("\t".join(line) + "\n")
 
     def get_summary(self):
         doc_stats = {}
@@ -524,7 +705,8 @@ class StanfordCoreNLPDocument(XMLBase):
                 token_element.deprel = token["deprel"]
                 token_element.deprel_head_id = token["deprel_head_id"]
                 token_element.deprel_head_text = token["deprel_head_text"]
-                # token_element.term_tag = token["term_tag"]
+                if "term_tag" in token:
+                    token_element.term_tag = token["term_tag"]
                 token_element.ner = token["ner"]
                 tokens_element.append(token_element)
             tokens.token = tokens_element
@@ -556,7 +738,6 @@ class StanfordCoreNLPDocument(XMLBase):
 
 def doc_stats():
     # DOCUMENT STATISTICS
-    import string
     xml_folders = [
         ("Train Set", "../data/processed/news/relevant/train/"),
         ("Dev Set", "../data/processed/news/relevant/dev/"),
@@ -684,80 +865,3 @@ def doc_stats():
                 ) for c in corpus_stats]
             ) + "\\\\\n"
         )
-
-
-def train_test_split():
-    # TRAIN/DEV/TEST SPLIT
-    corpus_all = Corpus("../data/interim/all-v2.xml")
-    anno_json = AnnotationJSON("../data/manual/labels/annotation.json1")
-    # irrelevant
-    log.info("Start processing irrelevant corpus")
-    irrel_corpus = corpus_all.get_documents_by_ids(anno_json.irrelevants)
-    irrel_train_corpus, irrel_dev_test_corpus = irrel_corpus.train_test_split(test_size=0.5)
-    irrel_dev_corpus, irrel_test_corpus = irrel_dev_test_corpus.train_test_split(test_size=0.5)
-    irrel_train_corpus.write_xml_to("../data/processed/irrelevant/train.xml")
-    irrel_train_corpus.write_to_core_nlp_xmls("../data/processed/irrelevant/train/")
-    irrel_dev_corpus.write_xml_to("../data/processed/irrelevant/dev.xml")
-    irrel_dev_corpus.write_to_core_nlp_xmls("../data/processed/irrelevant/dev/")
-    irrel_test_corpus.write_xml_to("../data/processed/irrelevant/test.xml")
-    irrel_test_corpus.write_to_core_nlp_xmls("../data/processed/irrelevant/test/")
-    # relevant
-    log.info("Start processing relevant corpus")
-    corpus_anno = Corpus("../data/interim/all-v2.xml", annotations=anno_json)
-    corpus_ref = Corpus("../data/interim/lda_sampling_10p.xml")
-    # training set
-    excluded_ids = anno_json.irrelevants + corpus_anno.get_document_ids()
-    rel_train_corpus = corpus_ref.get_sample(len(corpus_ref), excluded_ids=excluded_ids)
-    rel_train_corpus.write_xml_to("../data/processed/relevant/train.xml")
-    rel_train_corpus.write_to_core_nlp_xmls("../data/processed/relevant/train/")
-    # dev/test set
-    rel_dev_corpus, rel_test_corpus = corpus_anno.train_test_split(test_size=0.5)
-    rel_dev_corpus.write_xml_to("../data/processed/relevant/dev.xml")
-    rel_dev_corpus.write_to_core_nlp_xmls("../data/processed/relevant/dev")
-    rel_test_corpus.write_xml_to("../data/processed/relevant/test.xml")
-    rel_test_corpus.write_to_core_nlp_xmls("../data/processed/relevant/test")
-    rel_test_corpus = Corpus("../data/processed/relevant/test.xml")
-    rel_test_corpus.write_to_core_nlp_xmls("../data/processed/relevant/test")
-
-
-def get_term_csv():
-    # Get dev/test terms in CSV
-    dev_rel_corpus = Corpus("../data/processed/news/relevant/dev.xml")
-    test_rel_corpus = Corpus("../data/processed/news/relevant/test.xml")
-    oldoc_corpus = Corpus("../data/processed/online_docs/online_docs.xml")
-    dev_rel_corpus.get_annotated_terms_as_csv("../data/processed/news/relevant/dev_terms.csv")
-    test_rel_corpus.get_annotated_terms_as_csv("../data/processed/news/relevant/test_terms.csv")
-    oldoc_corpus.get_annotated_terms_as_csv("../data/processed/online_docs/online_docs_terms.csv")
-
-
-def get_more_samples():
-    corpus = StanfordCoreNLPCorpus("../data/test/core_nlp_samples")
-    # corpus.write_xml_to("../data/interim/delete_me1.xml")
-    # more_sample = corpus.get_more_sample(50, "../data/manual/backup-20200511.json1")
-    # more_sample.write_to_jsonl("../data/processed/more_sample_50_2_lda15p.json1")
-
-
-def process_html_excerpt():
-    # corpus = Corpus("../data/interim/online_docs.xml")
-    # corpus.write_xml_to("../data/interim/online_docs.2.xml")
-    # corpus.write_to_jsonl("../data/manual/online_docs.json")
-    anno_json = AnnotationJSON("../data/manual/online_docs.json1")
-    corpus = Corpus(
-        "../data/processed/online_docs/online_docs.xml",
-        annotations=anno_json
-    )
-    corpus.write_xml_to("../data/interim/online_docs_annotated.xml")
-    # corpus = Corpus("../data/interim/online_docs_annotated.xml")
-    # corpus.write_to_core_nlp_xmls("../data/processed/online_docs/")
-
-
-def check_duplicate_dev_test():
-    dev_list = set([filename for filename in os.listdir("../data/processed/news/relevant/dev/")])
-    test_list = set([filename for filename in os.listdir("../data/processed/news/relevant/test/")])
-    print(f"DEV unique ids: {len(dev_list)}")
-    print(f"TEST unique ids: {len(test_list)}")
-    print(f"Duplicate: {dev_list.intersection(test_list)}")
-
-
-if __name__ == "__main__":
-    doc_stats()

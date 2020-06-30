@@ -10,7 +10,7 @@ class TestCorpus(unittest.TestCase):
         self.assertEqual(len(check_corpus1), 2)
 
     def test_annotated(self):
-        anno_json = corpus.AnnotationJSON("../../data/test/samples_with_manual_annotation.json1")
+        anno_json = corpus.TermLabels("../../data/test/samples_with_manual_annotation.json1")
         check_corpus = corpus.Corpus(
             "../../data/test/samples_news_clean_unanno.xml",
             annotations=anno_json
@@ -18,7 +18,7 @@ class TestCorpus(unittest.TestCase):
         self.assertEqual(len(check_corpus), 2)
 
     def test_annotated_empty(self):
-        anno_json = corpus.AnnotationJSON("../../data/test/samples_with_manual_annotation.json1")
+        anno_json = corpus.TermLabels("../../data/test/samples_with_manual_annotation.json1")
         check_corpus = corpus.Corpus(
             "../../data/test/samples_news_clean_random.xml",
             annotations=anno_json
@@ -30,7 +30,7 @@ class TestCorpus(unittest.TestCase):
         self.assertEqual(len(check_corpus), 2)
 
     def test_existing_annotation_w_extra_annotation(self):
-        anno_json = corpus.AnnotationJSON("../../data/test/samples_with_manual_annotation.json1")
+        anno_json = corpus.TermLabels("../../data/test/samples_with_manual_annotation.json1")
         check_corpus = corpus.Corpus(
             "../../data/test/samples_with_terms.xml",
             annotations=anno_json

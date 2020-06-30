@@ -1,5 +1,8 @@
+import html
+import json
 import os
 from csv import DictWriter, DictReader
+from pprint import pprint
 
 import numpy as np
 import nltk
@@ -29,6 +32,53 @@ class TermsExtractor(object):
             for document_id in all_terms:
                 csv_writer.writerow({"document_id": document_id, "terms": "|".join(all_terms[document_id])})
         return True
+
+    @staticmethod
+    def export_to_jsonl(documents, auto_term_file):
+        auto_terms_rows = []
+        for document in documents:
+            text = []
+            all_begin_offsets = []
+            labels = []
+            for sentence in document["sentences"]:
+                char_offsets = sentence.meta["char_offsets"]
+                words = sentence.words
+                sentence_words = ""
+                current_offset = char_offsets[0][0]
+                for word, offset in zip(words, char_offsets):
+                    while current_offset < offset[0]:
+                        sentence_words += " "
+                        current_offset += 1
+                    sentence_words += word
+                    current_offset = offset[1]
+                    all_begin_offsets.append(offset[0])
+                text.append(sentence_words)
+            str_text = "|".join(text).lower()
+            for term in document["terms"]:
+                labels.extend([
+                    [begin_offset, begin_offset+len(term)]
+                    for begin_offset in all_begin_offsets if str_text.startswith(term, begin_offset)
+                ])
+            labels.sort(key=lambda r: (r[0], r[1]))
+            clean_labels = []
+            prev_cutoff = None
+            for label in labels:
+                b, e = label
+                if prev_cutoff is None or b >= prev_cutoff[1]:
+                    clean_labels.append((b, e))
+                    prev_cutoff = (b, e)
+                elif e > prev_cutoff[1]:
+                    last_b, last_e = clean_labels.pop(-1)
+                    clean_labels.append((last_b, e))
+            auto_terms_rows.append({
+                "text": str_text,
+                "meta": {"doc_id": document["document_id"]},
+                "labels": [[b, e, "AUTO"] for b, e in clean_labels]
+            })
+        with open(auto_term_file, "w") as f:
+            for row in auto_terms_rows:
+                json.dump(html.unescape(row), f)
+                f.write("\n")
 
     @staticmethod
     def read_terms_from(input_file):
@@ -107,9 +157,11 @@ class PKEBasedTermsExtractor(TermsExtractor):
                     or len(v.surface_forms[0][-1]) < 3:
                 del extractor.candidates[k]
 
-    def extract(self, core_nlp_folder, n_term, grammar, filtering_params, weighting_params, output_file=None):
+    def extract(self, core_nlp_folder, n_term, grammar, filtering_params, weighting_params,
+                output_file=None, auto_term_file=None):
         xml_files = [filename for filename in os.listdir(core_nlp_folder) if filename.endswith(".xml")]
         all_terms = {}
+        documents = []
         for xml_file in tqdm(xml_files):
             extractor = self.extractor_class(**self.extractor_init_params)
             extractor.load_document(input=os.path.join(core_nlp_folder, xml_file), language="en")
@@ -119,7 +171,13 @@ class PKEBasedTermsExtractor(TermsExtractor):
             terms = [term for term, _ in extractor.get_n_best(n_term)]
             document_id = xml_file.split(".")[0]
             all_terms[document_id] = terms
+            documents.append({
+                "document_id": document_id,
+                "sentences": extractor.sentences,
+                "terms": terms
+            })
         if output_file: TermsExtractor.write_terms_to(all_terms, output_file)
+        if auto_term_file: TermsExtractor.export_to_jsonl(documents, auto_term_file)
         return all_terms
 
 
@@ -241,28 +299,77 @@ def run_trial():
             grammar=pke_factory["grammar"],
             filtering_params=filtering_params,
             weighting_params=pke_factory["extractors"][name]["weighting_params"],
-            output_file=os.path.join("../data/test/extracted_terms_sample/", f"{name}.csv")
+            output_file=f"../data/test/extracted_terms_sample/{name}.csv",
+            auto_term_file=f"../data/test/automatic_annotations/{name}.jsonl"
         )
-    log.info("Begin Extraction with EmbedRank")
-    embedrank_extractor = EmbedRankTermsExtractor(
-        emdib_model_path="../pretrain_models/torontobooks_unigrams.bin"
-    )
-    embedrank_terms = embedrank_extractor.extract(
-        snlp_folder, n,
-        grammar=r"""
-                NALL:
-                    {<NN|NNP|NNS|NNPS>}
+    # log.info("Begin Extraction with EmbedRank")
+    # embedrank_extractor = EmbedRankTermsExtractor(
+    #     emdib_model_path="../pretrain_models/torontobooks_unigrams.bin"
+    # )
+    # embedrank_terms = embedrank_extractor.extract(
+    #     snlp_folder, n,
+    #     grammar=r"""
+    #             NALL:
+    #                 {<NN|NNP|NNS|NNPS>}
+    #
+    #             NBAR:
+    #                 {<NALL|CD|JJ>*<NALL>}
+    #
+    #             NP:
+    #                 {<NBAR>}
+    #                 {<NBAR><IN><NBAR>}
+    #             """,
+    #     considered_tags={'NN', 'NNS', 'NNP', 'NNPS', 'JJ', 'IN', 'CD'},
+    #     output_file="../data/test/extracted_terms_sample/embedrank.csv"
+    # )
 
+
+def try_export_jsonl():
+    n = 10
+    # snlp_folder = "../data/processed/news/relevant/train/"
+    snlp_folder = "../data/processed/news/relevant/train/"
+    compute_document_frequency(
+        snlp_folder, os.path.join("../data/interim/news_cargo_df.tsv.gz"),
+        stoplist=list(STOP_WORDS)
+    )
+    cargo_df = load_document_frequency_file("../data/interim/news_cargo_df.tsv.gz")
+    pke_factory = {
+        "grammar":  r"""
                 NBAR:
-                    {<NALL|CD|JJ>*<NALL>}
+                    {<NOUN|PROPN|NUM|ADJ>*<NOUN|PROPN>}
 
                 NP:
                     {<NBAR>}
-                    {<NBAR><IN><NBAR>}
+                    {<NBAR><ADP><NBAR>}
                 """,
-        considered_tags={'NN', 'NNS', 'NNP', 'NNPS', 'JJ', 'IN', 'CD'},
-        output_file="../data/test/extracted_terms_sample/embedrank.csv"
-    )
+        "filtering_params": {
+            "stoplist": list(STOP_WORDS)
+        },
+        "extractors": {
+            "kpm": {
+                "instance": PKEBasedTermsExtractor(KPMiner),
+                "weighting_params": {"df": cargo_df}
+            },
+        }
+    }
+    for name in pke_factory["extractors"]:
+        log.info(f"Begin Extraction with PKE based extractor: {name}")
+        extractor_instance = pke_factory["extractors"][name]["instance"]
+        if "filtering_params" in pke_factory["extractors"][name]:
+            filtering_params = {
+                **pke_factory["filtering_params"],
+                **pke_factory["extractors"][name]["filtering_params"]
+            }
+        else:
+            filtering_params = pke_factory["filtering_params"]
+        extractor_instance.extract(
+            snlp_folder, n,
+            grammar=pke_factory["grammar"],
+            filtering_params=filtering_params,
+            weighting_params=pke_factory["extractors"][name]["weighting_params"],
+            output_file=f"../results/extracted_terms/train/{name}.csv",
+            auto_term_file=f"../data/annotations/automatic/terms/{name}.jsonl"
+        )
 
 
 if __name__ == "__main__":

@@ -161,8 +161,12 @@ class Evaluator(object):
             how="inner",
             on=["method", "k"]
         )
+        combine_df = combine_df.rename(columns={
+            "precisions": "Precisions",
+            "relative recalls": "Relative Recalls"
+        })
         combine_melt_df = pd.melt(
-            combine_df, id_vars=["method", "k"], value_vars=["F-score", "precisions", "relative recalls"]
+            combine_df, id_vars=["method", "k"], value_vars=["F-score", "Precisions", "Relative Recalls"]
         )
         combine_melt_df.columns = ["Method", "k", "Evaluation", "Score"]
         click = alt.selection_multi(fields=["Method"])
@@ -184,7 +188,35 @@ class Evaluator(object):
         ).properties(
             selection=click
         )
+        # f10_chart = alt.Chart(combine_melt_df).mark_bar().encode(
+        #     # x=alt.X("mean(Score):Q", title="Avg F-score"),
+        #     x=alt.X("Score:Q", title="F@10"),
+        #     y=alt.Y("Method", sort="-x"),
+        #     # color=alt.condition(click, "Method", alt.value("lightgray"))
+        #     color=alt.Color("Method:N", legend=None)
+        # ).transform_filter(
+        #     (datum.Evaluation == "F1-score") & (datum.k == 10)
+        # )
         all_charts = method_charts & overall_chart
+        all_charts = all_charts.configure_title(
+            fontSize=24,
+            font="Times New Roman"
+        ).configure_header(
+            titleFont="Times New Roman",
+            titleFontSize=22,
+            labelFont="Times New Roman",
+            labelFontSize=20
+        ).configure_axis(
+            titleFont="Times New Roman",
+            titleFontSize=18,
+            labelFont="Times New Roman",
+            labelFontSize=18
+        ).configure_legend(
+            titleFont="Times New Roman",
+            titleFontSize=20,
+            labelFont="Times New Roman",
+            labelFontSize=18
+        )
         all_charts.save(output_file)
 
 

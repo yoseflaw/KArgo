@@ -1,0 +1,4406 @@
+{
+  "dev": {
+    "3b8ea4": {
+      "3": {
+        "norwegian cargo|saudi cargo": "NO",
+        "lufthansa|norwegian cargo": "NO",
+        "copa airlines|lufthansa": "NO",
+        "cathay pacific|copa airlines": "NO",
+        "alaska airlines|cathay pacific": "NO",
+        "caribbean airlines cargo|alaska airlines": "YES"
+      },
+      "2": {
+        "vancouver|montreal": "NO",
+        "toronto|vancouver": "NO",
+        "fort lauderdale|toronto": "NO",
+        "miami|fort lauderdale": "NO",
+        "barbados|miami": "NO",
+        "port-of-spain|barbados": "NO",
+        "hubs|port-of-spain": "YES",
+        "caribbean airlines cargo|hubs": "YES",
+        "interline agreement|caribbean airlines cargo": "YES"
+      },
+      "1": {
+        "interline agreement|air canada": "YES",
+        "caribbean airlines cargo|interline agreement": "YES"
+      },
+      "0": {
+        "interline agreement|air canada": "YES",
+        "caribbean airlines cargo|interline agreement": "YES"
+      },
+      "6": {
+        "valuable cargo|diplomatic documents": "NO",
+        "dangerous goods|valuable cargo": "NO",
+        "human remains|dangerous goods": "NO",
+        "perishables|human remains": "NO",
+        "live animals|perishables": "NO",
+        "general cargo|live animals": "NO"
+      },
+      "5": {
+        "80%|caribbean": "YES",
+        "direct cargo services|80%": "YES",
+        "caribbean airlines cargo|direct cargo services": "YES"
+      },
+      "4": {
+        "caribbean airlines cargo|priority shipping": "YES"
+      }
+    },
+    "e205fc": {
+      "10": {
+        "spain|barcelona airport": "YES",
+        "switzerland|spain": "NO",
+        "zurich airport|switzerland": "NO",
+        "poland|zurich airport": "NO",
+        "warsaw airport|poland": "YES",
+        "netherlands|warsaw airport": "NO",
+        "amsterdam airport schiphol|netherlands": "YES",
+        "italy|amsterdam airport schiphol": "NO",
+        "milan airport|italy": "YES",
+        "dublin airport|milan airport": "NO",
+        "ireland|dublin airport": "YES",
+        "stuttgart airport|ireland": "NO",
+        "munich airport|stuttgart airport": "NO",
+        "frankfurt airport|munich airport": "NO",
+        "network|frankfurt airport": "YES",
+        "german|network": "YES",
+        "france|german": "NO",
+        "paris charles de gaulle airport|france": "NO",
+        "lyon airport|paris charles de gaulle airport": "YES",
+        "copenhagen airport|lyon airport": "NO",
+        "denmark|copenhagen airport": "YES",
+        "the czech republic|denmark": "NO",
+        "prague airport|the czech republic": "YES",
+        "european|prague airport": "YES"
+      },
+      "8": {
+        "credo xtreme pallet shippers|credo cargo bulk shippers": "NO",
+        "credo on demand|credo xtreme pallet shippers": "YES",
+        "additional option for returning|credo on demand": "YES",
+        "drop points|additional option for returning": "YES"
+      },
+      "7": {
+        "peli biothermal|network": "NO",
+        "europe|peli biothermal": "NO",
+        "pharmaceutical and healthcare storage warehousing sites|europe": "YES",
+        "gdp|pharmaceutical and healthcare storage warehousing sites": "YES",
+        "gmp|gdp": "NO",
+        "rhenus logistics|gmp": "YES"
+      },
+      "6": {
+        "pharmaceutical distribution|drop-off location": "YES"
+      },
+      "5": {
+        "cr\u0113do|rental programs": "YES",
+        "peli biothermal|credo on demand": "NO"
+      },
+      "4": {
+        "credo cube|temperature controlled packaging": "YES",
+        "repair|credo cube": "YES",
+        "refurbishment|repair": "NO",
+        "conditioning|refurbishment": "NO",
+        "service centres|conditioning": "YES",
+        "peli biothermal|service centres": "YES",
+        "network|peli biothermal": "YES"
+      },
+      "3": {
+        "conditioning|end of rental drop-off": "NO",
+        "credo on demand|conditioning": "NO"
+      },
+      "2": {
+        "americas|asia": "NO",
+        "more than 50|americas": "NO",
+        "drop points|more than 50": "NO",
+        "european|drop points": "YES"
+      },
+      "1": {
+        "europe|rhenus logistics": "NO",
+        "network|europe": "YES",
+        "credo on demand|network": "YES",
+        "drop points|credo on demand": "YES",
+        "13|drop points": "YES",
+        "peli biothermal|13": "YES"
+      },
+      "0": {
+        "13 points|credo on demand": "YES",
+        "peli biothermal|13 points": "YES"
+      }
+    },
+    "761857": {
+      "6": {
+        "air france-klm-martinair cargo|virgin atlantic cargo": "NO",
+        "united cargo|air france-klm-martinair cargo": "NO",
+        "delta cargo|united cargo": "NO"
+      },
+      "5": {
+        "rkn|rap containers": "NO",
+        "csafe|rkn": "YES",
+        "latam cargo|csafe": "YES",
+        "csafe|latam cargo": "YES",
+        "swiss worldcargo|csafe": "YES"
+      },
+      "3": {
+        "worldwide flight services|wfs": "YES",
+        "new york|worldwide flight services": "NO",
+        "jfk|new york": "YES",
+        "john f. kennedy international airport|jfk": "YES",
+        "pharmaceutical facility|john f. kennedy international airport": "YES",
+        "gdp|pharmaceutical facility": "YES",
+        "good distribution practice|gdp": "YES",
+        "first|good distribution practice": "NO",
+        "international air transport association|iata": "YES",
+        "ceiv pharma certification|international air transport association": "YES"
+      },
+      "2": {
+        "swiss worldcargo|more than 100": "NO"
+      },
+      "1": {
+        "rap active temperature-controlled containers|csafe": "YES",
+        "csafe|rap active temperature-controlled containers": "YES",
+        "swiss international air lines|csafe": "YES",
+        "swiss worldcargo|swiss international air lines": "YES"
+      },
+      "0": {
+        "swiss worldcargo|csafe": "YES"
+      }
+    },
+    "836455": {
+      "8": {
+        "iata|swiss worldcargo": "YES"
+      },
+      "4": {
+        "safeguard product integrity|maintain high standards": "YES",
+        "pharmaceutical handling|safeguard product integrity": "YES",
+        "swiss worldcargo|pharmaceutical handling": "YES",
+        "iata|swiss worldcargo": "YES"
+      },
+      "3": {
+        "swiss|swissmedic": "YES",
+        "gdp compliant|swiss": "YES",
+        "ceiv|gdp compliant": "YES",
+        "hub in zurich|ceiv": "YES"
+      },
+      "1": {
+        "ceiv|pharma certification": "YES",
+        "center of excellence for independent validators|ceiv": "YES",
+        "iata|center of excellence for independent validators": "YES",
+        "international air transport association|iata": "YES",
+        "swiss worldcargo|international air transport association": "YES"
+      },
+      "0": {
+        "iata|ceiv": "YES",
+        "swiss worldcargo|iata": "YES"
+      }
+    },
+    "aa8693": {
+      "12": {
+        "sun-reflective film|temperature-sensitive shipments": "YES",
+        "road feeder service cool|sun-reflective film": "YES",
+        "lufthansa|road feeder service cool": "YES"
+      },
+      "10": {
+        "apron|fastest possible loading": "NO",
+        "direct access|apron": "YES",
+        "deep-freeze compartment|direct access": "NO",
+        "cooling rooms|deep-freeze compartment": "YES",
+        "cool center|cooling rooms": "YES",
+        "home hub of frankfurt|cool center": "YES",
+        "lufthansa|home hub of frankfurt": "YES"
+      },
+      "9": {
+        "usa|south america": "NO",
+        "india|usa": "NO",
+        "asia|india": "NO",
+        "germany|asia": "NO",
+        "lufthansa|germany": "NO"
+      },
+      "6": {
+        "five days|temperature stability": "YES",
+        "thermal containers|five days": "YES",
+        "va-q-tec|thermal containers": "YES",
+        "w\u00fcrzburg|va-q-tec": "NO"
+      },
+      "4": {
+        "lufthansa|pharmaceutical goods": "YES"
+      },
+      "3": {
+        "two|us pallets": "YES",
+        "five|two": "NO",
+        "external energy sources|five": "NO"
+      },
+      "2": {
+        "temperature ranges|-70\u00b0c to +25\u00b0c": "YES",
+        "six|temperature ranges": "YES",
+        "temperature-controlled container solution|six": "YES",
+        "va-q-tainer|temperature-controlled container solution": "YES"
+      },
+      "1": {
+        "thermal containers|german": "NO",
+        "va-q-tainer|thermal containers": "YES",
+        "temperature-controlled specialist|va-q-tainer": "YES",
+        "va-q-tec|temperature-controlled specialist": "NO",
+        "lufthansa|va-q-tec": "YES"
+      },
+      "0": {
+        "lufthansa|va-q-tec": "YES"
+      }
+    },
+    "952115": {
+      "10": {
+        "user-defined payload temperature set point|ambient conditions": "YES",
+        "csafe rap|user-defined payload temperature set point": "YES",
+        "compressor-driven cooling and radiant heating system|csafe rap": "YES",
+        "thermocor vip insulation|compressor-driven cooling and radiant heating system": "YES",
+        "csafe|thermocor vip insulation": "YES"
+      },
+      "9": {
+        "csafe rkn|global temperature-controlled shipments": "YES"
+      },
+      "8": {
+        "cargo marketing|turkish cargo": "NO",
+        "svp|cargo marketing": "NO"
+      },
+      "7": {
+        "csafe rap|turkish cargo": "YES"
+      },
+      "6": {
+        "active temperature-controlled containers|cargo payloads": "YES",
+        "pharmaceutical shipments|active temperature-controlled containers": "YES"
+      },
+      "4": {
+        "global marketing and partner management|csafe global": "NO",
+        "temperature-sensitive healthcare products|global marketing and partner management": "NO",
+        "turkish cargo|temperature-sensitive healthcare products": "YES"
+      },
+      "3": {
+        "rap payload capacity|temperature-sensitive pharmaceuticals": "NO",
+        "csafe rap|temperature control solutions": "YES"
+      },
+      "2": {
+        "csafe rap|in-flight use": "YES"
+      },
+      "1": {
+        "temperature controlled solutions|csafe global": "YES",
+        "turkish cargo|one": "NO"
+      },
+      "0": {
+        "csafe global|csafe rap": "YES",
+        "turkish cargo|csafe global": "YES"
+      }
+    },
+    "d4448b": {
+      "14": {
+        "pharmaceutical products|gdp": "YES"
+      },
+      "13": {
+        "15-25 degrees|total of 156 unit load devices": "NO",
+        "2-8|15-25 degrees": "NO",
+        "zones|2-8": "YES",
+        "two|zones": "YES",
+        "temperature-sensitive cargo|two": "YES",
+        "2,470sqm airside transit facility|temperature-sensitive cargo": "YES",
+        "climate control centre|2,470sqm airside transit facility": "YES",
+        "qatar airways|climate control centre": "YES"
+      },
+      "12": {
+        "va-q-tec|pharmaceuticals": "YES",
+        "dokasch|va-q-tec": "NO",
+        "csafe|dokasch": "NO",
+        "envirotainer|csafe": "NO",
+        "quality audit and training modules|pharma stations": "YES",
+        "pharma network spans 75 destinations|quality audit and training modules": "NO"
+      },
+      "10": {
+        "qatar airways|cool chain services": "YES"
+      },
+      "6": {
+        "correct and safe handling|envirotainer": "YES"
+      },
+      "3": {
+        "active pharma containers|pharmaceutical products": "YES",
+        "qep accreditation|active pharma containers": "YES"
+      },
+      "2": {
+        "gdp|qatar airways": "YES",
+        "good distribution practice|gdp": "YES",
+        "envirotainer containers|good distribution practice": "YES"
+      },
+      "1": {
+        "doha|qatar": "YES",
+        "chicago|doha": "NO",
+        "paris|chicago": "NO",
+        "basel|paris": "NO",
+        "amsterdam|basel": "NO",
+        "qep|amsterdam": "YES",
+        "qualified envirotainer provider training and quality programme|qep": "YES",
+        "qatar airways|qualified envirotainer provider training and quality programme": "YES"
+      },
+      "0": {
+        "qep accreditation|five": "YES",
+        "qatar airways|qep accreditation": "YES"
+      }
+    },
+    "3de043": {
+      "10": {
+        "miami|2.": "NO",
+        "elevate conference|miami": "NO",
+        "air cargo world's|elevate conference": "NO"
+      },
+      "9": {
+        "expansion|ceiv certification": "YES",
+        "health care center|expansion": "YES",
+        "ground handling services fraport ag|health care center": "NO",
+        "lug|ground handling services fraport ag": "NO"
+      },
+      "8": {
+        "ceiv certification|pharmaceutical handling": "YES",
+        "iata|ceiv certification": "YES",
+        "lug|iata": "YES"
+      },
+      "6": {
+        "frankfurt/main|lug": "NO",
+        "life science and health care shipments|frankfurt/main": "YES",
+        "emirates airline|fra": "YES",
+        "lug|emirates airline": "YES"
+      },
+      "5": {
+        "expansion|1,200 square meters": "YES",
+        "footprint|expansion": "YES"
+      },
+      "3": {
+        "-18\u00b0c to 25\u00b0c|lug": "YES",
+        "storage temperatures|-18\u00b0c to 25\u00b0c": "YES",
+        "eight rooms|storage temperatures": "YES",
+        "650 square meters|eight rooms": "NO",
+        "expansion|650 square meters": "YES",
+        "health care center|expansion": "YES",
+        "first|health care center": "NO"
+      },
+      "2": {
+        "frankfurt airport|fra": "YES",
+        "health care center|frankfurt airport": "YES",
+        "ground-handler lug aircargo handling|health care center": "YES",
+        "cool-chain operations|ground-handler lug aircargo handling": "YES"
+      },
+      "1": {
+        "expansion|ceiv certification": "NO",
+        "health care center|expansion": "YES"
+      },
+      "0": {
+        "lug|frankfurt": "YES"
+      }
+    },
+    "84f7d8": {
+      "4": {
+        "fiege|fischer road cargo": "YES",
+        "iata|ceiv": "YES",
+        "swiss worldcargo|iata": "YES",
+        "swissport|swiss worldcargo": "YES",
+        "fischer road cargo|swissport": "YES"
+      },
+      "3": {
+        "france|switzerland": "NO",
+        "ceiv pharma|france": "YES",
+        "iata|ceiv pharma": "YES",
+        "first airport authority to be certified|iata": "YES",
+        "germany|first airport authority to be certified": "NO",
+        "france|germany": "NO",
+        "switzerland|france": "NO"
+      },
+      "2": {
+        "swissport|swiss worldcargo": "NO",
+        "fiege, fischer road cargo|swissport": "NO",
+        "cargo terminal|iata": "YES",
+        "euroairport|cargo terminal": "YES"
+      },
+      "1": {
+        "ceiv pharma certificate|iata": "NO",
+        "iata|ceiv pharma certificate": "YES",
+        "euroairport|iata": "YES"
+      },
+      "0": {
+        "iata|ceiv pharma": "YES",
+        "euroairport|iata": "YES"
+      },
+      "6": {
+        "constant temperature control|real-time temperature monitoring": "YES",
+        "cargo terminal|constant temperature control": "YES",
+        "21,000m2|cargo terminal": "YES"
+      },
+      "5": {
+        "temperature sensitive pharmaceuticals|euroairport": "YES"
+      }
+    },
+    "7972ec": {
+      "7": {
+        "boeing|2.2bn": "NO",
+        "777-300 passenger aircraft|boeing": "YES",
+        "an additional four|777-300 passenger aircraft": "YES"
+      },
+      "6": {
+        "bellyhold|freighter aircraft": "YES"
+      },
+      "5": {
+        "tonnage|160%": "YES"
+      },
+      "4": {
+        "qatar airways|cargo boom": "YES"
+      },
+      "3": {
+        "747-f|qatar": "YES",
+        "second|747-f": "YES"
+      },
+      "2": {
+        "first|two": "NO"
+      },
+      "1": {
+        "first|seattle": "NO",
+        "boeing|first": "NO",
+        "747-8 freighter aircraft|boeing": "YES"
+      },
+      "0": {
+        "747-8fs|qatar": "YES"
+      }
+    },
+    "d38cc0": {
+      "10": {
+        "directly at the apron|very short tarmac distances": "YES"
+      },
+      "8": {
+        "kn pharmachain|gxp compliant transport": "YES",
+        "kuehne + nagel|kn pharmachain": "YES"
+      },
+      "7": {
+        "pharma & healthcare industry|austria": "YES",
+        "kuehne + nagel|vienna international airport": "YES",
+        "kuehne + nagel|kuehne + nagel": "NO"
+      },
+      "5": {
+        "24 hours|vienna pharma hub": "YES",
+        "15|24 hours": "NO",
+        "pharma handling center|23": "NO",
+        "flughafen wien|pharma handling center": "NO",
+        "vienna airport|flughafen wien": "YES"
+      },
+      "4": {
+        "vienna airport|\u20ac1.8 million": "NO",
+        "temperature-sensitive pharmaceutical products|vienna airport": "YES",
+        "pharma centre|temperature-sensitive pharmaceutical products": "YES"
+      },
+      "3": {
+        "153 sqm|2-8c": "YES",
+        "15-25c|153 sqm": "NO",
+        "pharmaceuticals|15-25c": "YES",
+        "controlled room temperature area|pharmaceuticals": "YES",
+        "1,600 sqm|controlled room temperature area": "YES",
+        "temperature-controlled areas|1,600 sqm": "YES",
+        "two|temperature-controlled areas": "YES"
+      },
+      "2": {
+        "the air cargo center|direct access from both land and airside areas": "YES"
+      },
+      "1": {
+        "vienna pharma handling center|vphc": "YES",
+        "1,600 sqm|vienna pharma handling center": "YES",
+        "exclusive handling area|1,600 sqm": "YES",
+        "kuehne + nagel|exclusive handling area": "YES"
+      },
+      "0": {
+        "exclusive handling area|vienna airport": "YES",
+        "k+n|exclusive handling area": "YES"
+      }
+    },
+    "ff6cde": {
+      "5": {
+        "iea|gdp": "YES",
+        "iea|iea": "YES"
+      },
+      "1": {
+        "good distribution practice|gdp": "YES",
+        "campbell mccleave|good distribution practice": "YES",
+        "iea|campbell mccleave": "YES",
+        "irish exporters association|iea": "YES",
+        "life sciences international|irish exporters association": "YES"
+      },
+      "0": {
+        "campbell mccleave|gdp": "YES",
+        "northern ireland|campbell mccleave": "YES"
+      }
+    },
+    "db4dd3": {
+      "7": {
+        "fuel burn|emissions": "YES",
+        "25 per cent|fuel burn": "YES",
+        "rolls-royce trent xwb engines|25 per cent": "YES",
+        "fuel-efficient|rolls-royce trent xwb engines": "YES"
+      },
+      "5": {
+        "ethiopian airlines|a350": "YES"
+      },
+      "4": {
+        "the middle east|asia": "NO",
+        "europe|the middle east": "NO",
+        "africa|europe": "NO",
+        "addis ababa|africa": "YES",
+        "long haul routes|addis ababa": "YES"
+      },
+      "3": {
+        "ten|ever-expanding global network": "NO",
+        "a350-900s|ten": "NO"
+      },
+      "2": {
+        "a350s|two": "NO",
+        "four|a350s": "YES",
+        "ethiopian|four": "YES",
+        "african|ethiopian": "NO",
+        "first|african": "YES",
+        "a350|first": "NO",
+        "first|a350": "YES"
+      },
+      "1": {
+        "a350-900s|long-haul network": "YES",
+        "airbus|a350-900s": "YES",
+        "an additional 10|airbus": "YES",
+        "ethiopian airlines|an additional 10": "YES"
+      },
+      "0": {
+        "10|a350-900s": "YES",
+        "ethiopian airlines|10": "YES"
+      }
+    },
+    "2d7394": {
+      "13": {
+        "more than 550,000 tons|approximately 7.5 million": "NO",
+        "nearly 2,000|more than 550,000 tons": "NO",
+        "swissport|nearly 2,000": "NO"
+      },
+      "12": {
+        "airside|speed gates": "YES"
+      },
+      "11": {
+        "landside|50 truck loading bays": "YES"
+      },
+      "10": {
+        "25,000 square metre|material handling system": "YES"
+      },
+      "9": {
+        "emea|swissport": "NO",
+        "middle-east & africa|emea": "NO",
+        "europe|middle-east & africa": "NO"
+      },
+      "6": {
+        "1,000 sqm|cooling facility": "YES"
+      },
+      "5": {
+        "800 sqm|2,620": "YES"
+      },
+      "4": {
+        "surface area|pharmaceutical products": "YES",
+        "swissport pharma center|surface area": "YES"
+      },
+      "3": {
+        "brussels airport company|25,000 square metre": "YES"
+      },
+      "1": {
+        "3,620 square metre|swissport pharma center": "YES",
+        "several million euros|3,620 square metre": "NO",
+        "swissport|several million euros": "NO"
+      }
+    },
+    "1f1eb7": {
+      "4": {
+        "groupage shipments|cargo mobile tracking": "YES",
+        "activetracing|groupage shipments": "YES",
+        "dhl|activetracing": "YES",
+        "dhl|dhl": "NO",
+        "lifetrack|dhl": "YES"
+      },
+      "2": {
+        "in-transit issues|temperature changes": "YES",
+        "cold-chain tracking|lifetrack": "NO",
+        "dhl|cold-chain tracking": "YES"
+      },
+      "1": {
+        "ios|android": "NO",
+        "lifetrack|ios": "YES",
+        "dhl|lifetrack": "YES"
+      }
+    },
+    "e01ae8": {
+      "10": {
+        "rap|temperature-sensitive products": "YES",
+        "csafe|rap": "YES"
+      },
+      "9": {
+        "csafe|virgin atlantic": "YES"
+      },
+      "8": {
+        "battery run time|100 hours": "YES",
+        "euro pallets|battery run time": "NO",
+        "five|euro pallets": "YES",
+        "us wooden pallets|five": "NO",
+        "four|us wooden pallets": "YES",
+        "4.8 tonnes|four": "NO"
+      },
+      "7": {
+        "csafe|thermocor vacuum installation panel technology": "YES",
+        "radiant heating system|csafe": "NO",
+        "compressor driven cooling technology|radiant heating system": "NO",
+        "active temperature management system|compressor driven cooling technology": "YES",
+        "csafe|active temperature management system": "YES",
+        "rap|csafe": "YES"
+      },
+      "6": {
+        "extreme temperatures|-30c up to +54c": "YES",
+        "+4c to 25c|extreme temperatures": "YES",
+        "temperature range|+4c to 25c": "YES",
+        "rap|temperature range": "YES",
+        "csafe|rap": "YES"
+      },
+      "4": {
+        "heating and cooling containers|virgin": "YES",
+        "temperature-controlled active|heating and cooling containers": "YES",
+        "rap|temperature-controlled active": "YES",
+        "csafe|rap": "YES",
+        "uk|csafe": "YES",
+        "first|uk": "YES"
+      },
+      "3": {
+        "rkn e1|rap e2 units": "NO",
+        "rap t2|rkn e1": "NO",
+        "rkn t2|rap t2": "NO",
+        "envirotainer|rkn t2": "YES",
+        "rkn container|envirotainer": "NO",
+        "csafe|rkn container": "YES"
+      },
+      "2": {
+        "european aviation safety agency|easa": "YES",
+        "us federal aviation administration|european aviation safety agency": "NO",
+        "rap containers|us federal aviation administration": "YES",
+        "virgin|rap containers": "YES",
+        "csafe|virgin": "YES",
+        "master lease agreement|csafe": "YES"
+      },
+      "1": {
+        "rap container|temperature-sensitive life-enhancing healthcare products": "YES",
+        "csafe|rap container": "YES",
+        "uk|csafe": "YES",
+        "first|uk": "YES",
+        "virgin atlantic|first": "YES"
+      },
+      "0": {
+        "csafe|rap containers": "YES",
+        "virgin atlantic|csafe": "YES"
+      }
+    },
+    "cbad7c": {
+      "6": {
+        "nine|asian": "NO",
+        "asia|nine": "NO",
+        "asia|asia": "NO",
+        "latin america|asia": "YES",
+        "belly cargo capacity|latin america": "YES",
+        "airline network|belly cargo capacity": "NO",
+        "dfw|airline network": "YES"
+      },
+      "5": {
+        "asia|perishables": "YES",
+        "latin america|asia": "YES",
+        "dfw|latin america": "NO"
+      },
+      "3": {
+        "japan airlines|first": "NO",
+        "ceiv accreditation|japan airlines": "YES",
+        "iata|ceiv accreditation": "YES"
+      },
+      "2": {
+        "perishables|pharmaceuticals": "YES",
+        "staff trained|perishables": "YES",
+        "cool-chain solutions|staff trained": "YES",
+        "dedicated|cool-chain solutions": "YES",
+        "around 18,000 sq ft|dedicated": "YES",
+        "airlogistix usa|around 18,000 sq ft": "NO",
+        "perishable products|airlogistix usa": "YES",
+        "dnata|cargo handling centre": "YES"
+      },
+      "1": {
+        "dallas|dfw": "YES",
+        "cool-chain perishable cargo facility|dallas": "YES",
+        "dedicated|cool-chain perishable cargo facility": "YES",
+        "cargo centre|dedicated": "YES",
+        "37,000 sq ft|cargo centre": "YES",
+        "dnata|37,000 sq ft": "YES",
+        "ground handler|dnata": "YES"
+      },
+      "0": {
+        "dedicated|perishables": "YES",
+        "dallas airport|dedicated": "YES",
+        "dnata|dallas airport": "YES"
+      }
+    },
+    "b228ce": {
+      "12": {
+        "the oresund region|copenhagen": "NO",
+        "sweden|the oresund region": "YES",
+        "denmark|sweden": "NO",
+        "pharma|denmark": "YES",
+        "wfs|pharma": "NO",
+        "emeaa|wfs": "NO",
+        "svp commercial cargo|emeaa": "NO"
+      },
+      "11": {
+        "copenhagen|wfs": "NO"
+      },
+      "9": {
+        "gdp|ceiv standards": "NO"
+      },
+      "7": {
+        "13,900 square metres|4,700 square metres": "NO",
+        "copenhagen|13,900 square metres": "YES",
+        "wfs|copenhagen": "YES"
+      },
+      "6": {
+        "paris charles de gaulle|cdg": "YES",
+        "pharmaceuticals|paris charles de gaulle": "YES",
+        "ground handler|pharmaceuticals": "YES",
+        "paris|ground handler": "YES",
+        "pharma centre|paris": "YES",
+        "\u20ac10 million|pharma centre": "NO"
+      },
+      "5": {
+        "15-25\u00b0c|temperature range": "YES",
+        "temperature control areas|copenhagen": "YES",
+        "wfs|temperature control areas": "YES"
+      },
+      "4": {
+        "300|euro-pallets": "YES",
+        "pre-built pallets|300": "YES",
+        "loose shipments|pre-built pallets": "NO",
+        "storage|loose shipments": "YES",
+        "build-up|storage": "NO",
+        "pre-storage|build-up": "NO",
+        "offload|pre-storage": "NO",
+        "acceptance|offload": "NO",
+        "2-8\u00b0c pharma products|acceptance": "YES",
+        "temperature-controlled environment|2-8\u00b0c pharma products": "YES",
+        "1,500 sqm|temperature-controlled environment": "YES"
+      },
+      "3": {
+        "copenhagen airport|cargo": "YES",
+        "wfs|copenhagen airport": "YES",
+        "airline sales & route development|wfs": "YES"
+      },
+      "1": {
+        "pharma facility|copenhagen airport": "YES",
+        "wfs|pharma facility": "YES",
+        "worldwide flight services|wfs": "YES"
+      },
+      "0": {
+        "wfs|copenhagen": "YES"
+      }
+    },
+    "d6a9d1": {
+      "1": {
+        "dhl|puerto rico": "YES",
+        "united|dhl": "YES",
+        "more flights|cold chain storage": "NO",
+        "life sciences industry|more flights": "YES",
+        "pharmaceutical|life sciences industry": "NO",
+        "puerto rico|pharmaceutical": "YES"
+      },
+      "0": {
+        "pharma|puerto rico": "YES",
+        "dhl|pharma": "YES",
+        "united|dhl": "YES"
+      },
+      "7": {
+        "united|puerto rico": "YES",
+        "san juan|united": "YES",
+        "temperature-sensitive patient care products|san juan": "YES",
+        "tempcontrol|temperature-sensitive patient care products": "YES",
+        "sales americas|tempcontrol": "NO",
+        "united|sales americas": "NO"
+      },
+      "6": {
+        "medicines|pharmaceutical products": "YES",
+        "cold chain infrastructure|medicines": "YES",
+        "global network|cold chain infrastructure": "NO",
+        "puerto rico|global network": "YES",
+        "pharmaceutical|puerto rico": "YES",
+        "dhl temperature management solutions|pharmaceutical": "NO",
+        "dhl|dhl temperature management solutions": "YES"
+      },
+      "5": {
+        "hot gas injection system|relative humidity levels": "YES",
+        "chambers|hot gas injection system": "YES"
+      },
+      "4": {
+        "100 percent redundant|refrigeration systems": "YES",
+        "77|100 percent redundant": "NO",
+        "59|77": "YES",
+        "25|59": "NO",
+        "15|25": "YES",
+        "chambers|15": "YES",
+        "three|chambers": "YES"
+      },
+      "3": {
+        "486 pallets|double deep racks": "YES",
+        "single pallet racks|486 pallets": "YES",
+        "324 pallets|single pallet racks": "YES",
+        "cold chambers|324 pallets": "YES",
+        "three|cold chambers": "YES",
+        "san juan|three": "YES",
+        "warehouse|san juan": "YES",
+        "5,616 square foot|warehouse": "YES",
+        "dhl|5,616 square foot": "YES"
+      },
+      "2": {
+        "luis munoz marin airport|boeing 777": "NO",
+        "san juan's|luis munoz marin airport": "YES",
+        "newark liberty international airport|san juan's": "YES",
+        "new york's|newark liberty international airport": "YES",
+        "united|new york's": "YES"
+      }
+    },
+    "185536": {
+      "9": {
+        "pharmaceutical industry|latin america": "YES"
+      },
+      "8": {
+        "va-q-tec|temperature controlled logistics services": "YES",
+        "va-q-tec|uruguay": "YES"
+      },
+      "6": {
+        "pharmaceutical centres|latin america": "YES",
+        "close proximity|pharmaceutical centres": "YES",
+        "central distribution hub|the southern cone": "YES",
+        "montevideo|central distribution hub": "YES"
+      },
+      "4": {
+        "2,000 containers|pharmaceutical industry": "YES",
+        "global stock|2,000 containers": "YES",
+        "va-q-tec|global stock": "YES"
+      },
+      "3": {
+        "latin america|va-q-tec": "NO",
+        "edgardo ipar|latin america": "NO",
+        "va-q-tec|edgardo ipar": "NO"
+      },
+      "2": {
+        "rental services|fulfilment station": "NO",
+        "va-q-tec|rental services": "YES"
+      },
+      "1": {
+        "montevideo|uruguay": "YES",
+        "latin american|montevideo": "YES",
+        "va-q-tec|latin american": "YES"
+      },
+      "0": {
+        "south america|montevideo": "YES",
+        "va-q-tec|south america": "YES"
+      }
+    },
+    "b4ac81": {
+      "7": {
+        "international air transport association center of excellence for independent validators|pharma handling certified": "YES",
+        "iata ceiv|international air transport association center of excellence for independent validators": "YES",
+        "transported asset protection association trucking security requirements|iata ceiv": "NO",
+        "tapa tsr1|transported asset protection association trucking security requirements": "YES",
+        "jan de rijk logistics|tapa tsr1": "YES"
+      },
+      "4": {
+        "netherlands|scandinavia": "NO"
+      },
+      "2": {
+        "denmark|sweden": "NO",
+        "air france klm|denmark": "YES",
+        "amsterdam|air france klm": "YES"
+      },
+      "1": {
+        "jan de rijk logistics|covering scandinavia": "YES",
+        "road feeder service|jan de rijk logistics": "YES",
+        "air france klm cargo|road feeder service": "YES"
+      },
+      "0": {
+        "air france klm|scandinavian": "YES"
+      }
+    },
+    "20889b": {
+      "4": {
+        "delta airlines|batteries": "YES",
+        "united airlines|delta airlines": "NO"
+      },
+      "3": {
+        "batteries|emergency": "YES",
+        "exception|batteries": "YES"
+      },
+      "1": {
+        "qantas|batteries": "YES"
+      },
+      "0": {
+        "batteries|qantas": "YES"
+      }
+    },
+    "b10cf3": {
+      "7": {
+        "asia|americas": "NO",
+        "europe|asia": "NO",
+        "passive temperature controlled containers|europe": "YES",
+        "rental drop-off|passive temperature controlled containers": "YES",
+        "drop points|rental drop-off": "YES",
+        "50|drop points": "YES"
+      },
+      "6": {
+        "tel aviv|indianapolis": "NO",
+        "frankfurt|tel aviv": "NO",
+        "toronto|frankfurt": "NO",
+        "dublin|toronto": "NO",
+        "basel|dublin": "NO",
+        "seoul|basel": "NO",
+        "san diego|seoul": "NO",
+        "service centres|san diego": "YES",
+        "pelican biothermal|service centres": "YES"
+      },
+      "5": {
+        "temperature controlled packaging|tokyo": "YES",
+        "asia|temperature controlled packaging": "NO",
+        "life science cold chain|asia": "YES"
+      },
+      "4": {
+        "tokyo|service centre": "YES",
+        "first|tokyo": "NO",
+        "china|first": "NO",
+        "usa|china": "NO",
+        "second|usa": "NO",
+        "japan|second": "NO",
+        "credo on demand|japan": "NO"
+      },
+      "3": {
+        "rental programme|temperature controlled pallet": "YES",
+        "credo on demand|rental programme": "YES",
+        "credo cube parcel|credo on demand": "NO",
+        "reusable|credo cube parcel": "YES",
+        "service centre|reusable": "YES",
+        "tokyo|service centre": "YES"
+      },
+      "2": {
+        "credo on demand|network stations": "YES",
+        "12|credo on demand": "YES",
+        "one|12": "NO"
+      },
+      "1": {
+        "credo cube|credo on demand": "NO",
+        "tokyo|credo cube": "YES",
+        "service centre|tokyo": "YES",
+        "pelican biothermal|service centre": "YES"
+      },
+      "0": {
+        "service centre|tokyo": "YES",
+        "pelican biothermal|service centre": "YES"
+      }
+    },
+    "4157e4": {
+      "3": {
+        "exchange product and operational information|three": "NO",
+        "two|exchange product and operational information": "NO"
+      },
+      "2": {
+        "wca time critical|wca dangerous goods": "NO",
+        "wca pharma|wca time critical": "NO",
+        "wca|wca pharma": "YES",
+        "three|wca": "YES",
+        "swiss international air lines|three": "YES",
+        "a memorandum of understanding|swiss international air lines": "NO"
+      },
+      "1": {
+        "wca|freight forwarding network": "YES",
+        "swiss worldcargo|wca": "YES"
+      },
+      "0": {
+        "swiss worldcargo|wca": "YES"
+      }
+    },
+    "37e270": {
+      "7": {
+        "europe|asia-pacific": "NO",
+        "africa|europe": "NO",
+        "americas|africa": "NO",
+        "pharmaport 360s|americas": "YES"
+      },
+      "6": {
+        "gdp certified|pharmaport 360": "NO",
+        "first|gdp certified": "YES",
+        "cargolux|first": "YES",
+        "sonoco|leasing service": "YES"
+      },
+      "4": {
+        "one|sensitive commodities": "NO",
+        "cargolux|one": "NO"
+      },
+      "2": {
+        "active temperature-controlled containers|faa-approved telemetry system": "YES",
+        "smart active containers|active temperature-controlled containers": "NO",
+        "pharmaport 360|smart active containers": "YES"
+      },
+      "1": {
+        "sonoco|pharmaport 360 temperature controlled bulk shipping container": "YES",
+        "cargolux|sonoco": "YES"
+      },
+      "0": {
+        "pharmaport 360s|sonoco": "YES",
+        "cargolux|pharmaport 360s": "YES"
+      }
+    },
+    "b8062a": {
+      "22": {
+        "the hilton london heathrow airport|terminal 4": "NO",
+        "london|the hilton london heathrow airport": "NO",
+        "the air cargo news life sciences and pharmaceuticals air cargo conference|london": "NO"
+      },
+      "21": {
+        "60|gmp-compliant locations": "YES",
+        "healthcare-dedicated facilities|60": "NO",
+        "more than 100|healthcare-dedicated facilities": "YES",
+        "ups|more than 100": "YES"
+      },
+      "20": {
+        "frozen|cryogenics": "NO",
+        "ambient and controlled-room temperature|frozen": "YES",
+        "temperature-sensitive storage|ambient and controlled-room temperature": "NO"
+      },
+      "19": {
+        "logistics capabilities|clinical trials": "YES",
+        "ups|logistics capabilities": "YES"
+      },
+      "17": {
+        "long-term growth plans|biopharma segment": "YES",
+        "clinical trials|long-term growth plans": "YES",
+        "ups|clinical trials": "YES"
+      },
+      "16": {
+        "good manufacturing practices|gmp": "YES",
+        "depots|good manufacturing practices": "YES",
+        "10|depots": "YES",
+        "44|10": "NO",
+        "more than 650|44": "NO",
+        "marken|more than 650": "YES"
+      },
+      "15": {
+        "time- and temperature-sensitive|on-spec delivery": "NO",
+        "ups|time- and temperature-sensitive": "NO"
+      },
+      "14": {
+        "marken|biological samples": "YES"
+      },
+      "13": {
+        "investigational medicinal products|49,000": "YES",
+        "clinical trial material|investigational medicinal products": "NO",
+        "marken|clinical trial material": "YES"
+      },
+      "12": {
+        "wheeler|marken": "NO"
+      },
+      "9": {
+        "ups|marken": "NO"
+      },
+      "8": {
+        "ups|healthcare logistics services portfolio": "YES",
+        "marken|ups": "YES"
+      },
+      "7": {
+        "global reach|marken": "YES",
+        "streamlined logistics services|global reach": "NO",
+        "strict regulatory compliance|streamlined logistics services": "NO",
+        "clinical trials|strict regulatory compliance": "YES",
+        "ups|clinical trials": "YES"
+      },
+      "4": {
+        "strategic market|ups": "YES",
+        "healthcare logistics|strategic market": "YES"
+      },
+      "1": {
+        "healthcare logistics|marken": "YES",
+        "ups|healthcare logistics": "YES"
+      },
+      "0": {
+        "pharma logistics specialist|marken": "YES",
+        "ups|pharma logistics specialist": "NO"
+      }
+    },
+    "a57cb6": {
+      "12": {
+        "deviation free|high-value pharmaceutical products": "YES",
+        "va-q-tainer|deviation free": "YES",
+        "high-performing packaging solution|va-q-tainer": "YES",
+        "unbroken cool chain|high-performing packaging solution": "YES",
+        "va-q-tec|unbroken cool chain": "YES"
+      },
+      "11": {
+        "india|unbroken cool chain": "YES",
+        "network station|mumbai": "YES"
+      },
+      "10": {
+        "yusen logistics|network station": "YES"
+      },
+      "8": {
+        "temperature controlled international transportation|indian": "YES",
+        "india|temperature controlled international transportation": "YES"
+      },
+      "7": {
+        "network station|mumbai": "YES",
+        "va-q-tec|network station": "YES",
+        "yusen logistics|va-q-tec": "YES"
+      },
+      "5": {
+        "yusen logistics|yusen logistics globally": "YES"
+      },
+      "4": {
+        "hyderabad|india": "YES",
+        "ahmedabad|hyderabad": "NO",
+        "expansion|ahmedabad": "YES",
+        "yusen logistics|expansion": "YES",
+        "va-q-tec|yusen logistics": "YES"
+      },
+      "3": {
+        "pre-conditioning processes|va-q-tec network station": "YES",
+        "quality-check|pre-conditioning processes": "NO",
+        "receipt|quality-check": "NO",
+        "container release|receipt": "NO"
+      },
+      "2": {
+        "va-q-tainer|yusen logistics": "YES",
+        "preconditioned|va-q-tainer": "NO",
+        "return containers|preconditioned": "NO",
+        "va-q-tec|return containers": "YES"
+      },
+      "1": {
+        "temperature-controlled pharmaceutical shipments|india": "YES",
+        "mumbai|temperature-controlled pharmaceutical shipments": "YES",
+        "va-q-tec network station|mumbai": "YES",
+        "va-q-tec|va-q-tec network station": "YES",
+        "yusen logistics|va-q-tec": "YES"
+      },
+      "0": {
+        "va-q-tec|mumbai": "YES",
+        "yusen logistics|va-q-tec": "YES"
+      }
+    },
+    "44d783": {
+      "6": {
+        "precise temperature mode conditions|5\u00b0c": "YES",
+        "pharmaceutical goods|precise temperature mode conditions": "YES",
+        "airbridgecargo|pharmaport 360": "YES"
+      },
+      "5": {
+        "abc|control tower 24/7": "YES"
+      },
+      "3": {
+        "60c to -40c|nas series air cargo pallets": "NO",
+        "ambient temperatures|60c to -40c": "YES",
+        "pharmaport 360|ambient temperatures": "YES"
+      },
+      "2": {
+        "abc|temperature-sensitive shipments": "YES",
+        "switzerland|abc": "NO",
+        "montreux|switzerland": "YES",
+        "logipharma europe|montreux": "YES"
+      },
+      "1": {
+        "sonoco thermosafe|pharmaport 360 temperature-controlled containers": "YES",
+        "airbridgecargo|sonoco thermosafe": "YES"
+      },
+      "0": {
+        "airbridgecargo|sonoco thermosafe": "YES"
+      }
+    },
+    "b5730c": {
+      "5": {
+        "pharma shipper|cold chain solutions": "YES"
+      },
+      "3": {
+        "1000|rkns": "YES",
+        "cats|container tracking system": "YES",
+        "service centres|cats": "NO",
+        "nine|service centres": "YES",
+        "puerto rico|nine": "NO",
+        "france|puerto rico": "NO",
+        "japan|france": "NO",
+        "korea|japan": "NO"
+      },
+      "2": {
+        "thermal protection|sizes from 200 litres to 1500": "YES",
+        "up to five days|thermal protection": "YES",
+        "kalibox|up to five days": "YES",
+        "active container company|kalibox": "YES"
+      },
+      "1": {
+        "csafe|kalibox passive pallet shipper": "YES"
+      },
+      "0": {
+        "csafe|kalibox": "YES"
+      }
+    },
+    "3fe7e4": {
+      "11": {
+        "airbridgecargo|ttsp shipment handling": "YES",
+        "pactl|airbridgecargo": "YES"
+      },
+      "9": {
+        "3500m2|100,000 tons": "YES"
+      },
+      "8": {
+        "temperature sensitive goods|pvg": "YES",
+        "cool chain infrastructure|temperature sensitive goods": "YES",
+        "cool center|cool chain infrastructure": "YES",
+        "pactl|iata ceiv": "YES"
+      },
+      "4": {
+        "abc|pharmaceutical sector": "NO"
+      },
+      "3": {
+        "mou|pharmaceutical shipment": "YES",
+        "iata ceiv|mou": "NO"
+      },
+      "2": {
+        "abc|shanghai airport authority": "YES"
+      },
+      "1": {
+        "mou|time and temperature sensitive shipment": "YES",
+        "pactl|mou": "YES",
+        "shanghai pudong air cargo terminals|pactl": "YES",
+        "airbridgecargo airlines|shanghai pudong air cargo terminals": "YES"
+      },
+      "0": {
+        "airbridgecargo|pactl": "YES"
+      }
+    },
+    "f38b99": {
+      "11": {
+        "highest-priority same-day service|medical shipments": "YES",
+        "lifeguard|highest-priority same-day service": "YES",
+        "savsu technologies|lifeguard": "NO",
+        "cold chain 2.0|savsu technologies": "YES",
+        "lifeguard|cold chain 2.0": "YES",
+        "tempcontrol|lifeguard": "YES"
+      },
+      "10": {
+        "united|tempcontrol": "YES",
+        "rap|united": "YES",
+        "csafe|rap": "YES"
+      },
+      "9": {
+        "csafe global|united": "NO",
+        "rap container|csafe global": "YES",
+        "csafe|rap container": "YES",
+        "lease|csafe": "YES",
+        "tempcontrol|lease": "YES"
+      },
+      "8": {
+        "tempcontrol|rap container": "NO",
+        "united|tempcontrol": "YES",
+        "csafe|united": "NO"
+      },
+      "7": {
+        "rap container|csafe": "NO",
+        "csafe|rap container": "YES"
+      },
+      "6": {
+        "pharmaceuticals|health care products": "YES"
+      },
+      "5": {
+        "rkn container|tempcontrol": "YES",
+        "csafe|rkn container": "YES"
+      },
+      "4": {
+        "battery run time|120 hours": "YES"
+      },
+      "3": {
+        "four standard us pallets|five standard euro pallets": "NO",
+        "6.68 cubic metres|four standard us pallets": "YES"
+      },
+      "2": {
+        "constant temperatures|extreme ambient temperatures": "YES",
+        "effective insulation|constant temperatures": "YES",
+        "heating and compressor-driven cooling technologies|effective insulation": "YES",
+        "rap container|heating and compressor-driven cooling technologies": "YES",
+        "csafe|rap container": "YES"
+      },
+      "1": {
+        "life science commodities|tempcontrol": "YES",
+        "pharmaceuticals|life science commodities": "YES",
+        "rap temperature-controlled container|pharmaceuticals": "YES",
+        "csafe|rap temperature-controlled container": "YES",
+        "united|csafe": "YES"
+      },
+      "0": {
+        "csafe|rap": "YES",
+        "united|csafe": "YES"
+      }
+    },
+    "7a84c5": {
+      "11": {
+        "build-up|storage": "NO",
+        "pre-storage|build-up": "NO",
+        "offload|pre-storage": "NO",
+        "acceptance|offload": "NO",
+        "pharma products|acceptance": "YES",
+        "2-8\u00b0c|pharma products": "YES",
+        "temperature-controlled environment|2-8\u00b0c": "YES"
+      },
+      "9": {
+        "pharma facility|copenhagen airport": "YES",
+        "wfs|pharma facility": "YES"
+      },
+      "8": {
+        "shoreham road|heathrow": "YES",
+        "segro|shoreham road": "YES"
+      },
+      "6": {
+        "deliver airside and landside access|uk": "YES",
+        "segro|wfs": "NO",
+        "the central london business unit|segro": "NO"
+      },
+      "5": {
+        "segro|airside cargo centre": "YES"
+      },
+      "4": {
+        "uk|airside facilities": "NO",
+        "wfs|uk": "NO"
+      },
+      "3": {
+        "four|heathrow cargo centre": "YES",
+        "400,000 sq ft|four": "YES",
+        "wfs|400,000 sq ft": "YES"
+      },
+      "2": {
+        "80,000 sq ft|warehouse space": "NO",
+        "approximately 60,000 sq ft|80,000 sq ft": "NO",
+        "552 shoreham road|approximately 60,000 sq ft": "NO",
+        "551 shoreham road|552 shoreham road": "NO",
+        "airside units|551 shoreham road": "YES"
+      },
+      "1": {
+        "segro|uk": "YES",
+        "airside freight facility|segro": "YES",
+        "heathrow cargo centre|airside freight facility": "NO",
+        "two|heathrow cargo centre": "YES",
+        "wfs|two": "YES",
+        "worldwide flight services|wfs": "YES"
+      },
+      "0": {
+        "two|heathrow cargo centre": "YES",
+        "wfs|two": "YES"
+      }
+    },
+    "a669f7": {
+      "3": {
+        "life science products|70 certified locations": "YES",
+        "pharmaceuticals|life science products": "NO",
+        "temp check premium product|pharmaceuticals": "YES",
+        "etihad|temp check premium product": "YES",
+        "qep accreditation|temp check": "YES",
+        "70 certified locations|qep accreditation": "YES"
+      },
+      "2": {
+        "melbourne international airport|sydney kingsford smith international airport": "NO",
+        "manchester airport|melbourne international airport": "NO",
+        "john f. kennedy international airport|manchester airport": "NO",
+        "new york|john f. kennedy international airport": "YES",
+        "mumbai|new york": "NO",
+        "chhatrapati shivaji international airport|mumbai": "YES",
+        "abu dhabi international airport|chhatrapati shivaji international airport": "NO"
+      },
+      "1": {
+        "stations|network": "YES",
+        "five|stations": "YES",
+        "hub|five": "NO",
+        "abu dhabi|hub": "YES",
+        "envirotainer|abu dhabi": "NO",
+        "qep|envirotainer": "YES",
+        "envirotainer|qep": "YES",
+        "etihad cargo|envirotainer": "YES"
+      },
+      "0": {
+        "etihad cargo|qep": "YES"
+      },
+      "4": {
+        "qep accreditation|temperature-controlled freight industry": "YES",
+        "envirotainer|qep accreditation": "YES",
+        "etihad cargo|envirotainer": "NO"
+      }
+    },
+    "f6e662": {
+      "4": {
+        "clear data-sharing approach|the master operating plan": "YES",
+        "abc|cargo iq": "NO"
+      },
+      "3": {
+        "abc|99%": "NO",
+        "cargo iq|abc": "YES",
+        "sgs|cargo iq": "YES"
+      },
+      "1": {
+        "moscow|russia": "YES",
+        "cargo iq|moscow": "YES",
+        "second|cargo iq": "NO",
+        "abc|second": "NO",
+        "airbridgecargo|abc": "YES"
+      },
+      "0": {
+        "airbridgecargo|cargo iq": "YES"
+      }
+    },
+    "1b3dd1": {
+      "9": {
+        "an estimated 3.3 million|24": "NO"
+      },
+      "7": {
+        "amazon|faa": "YES"
+      },
+      "6": {
+        "$3.4 million|the dallas morning news": "NO",
+        "hazardous air cargo|$3.4 million": "NO",
+        "more than $4.5 million|hazardous air cargo": "NO",
+        "faa|more than $4.5 million": "NO"
+      },
+      "5": {
+        "first|prohibited cargo": "NO"
+      },
+      "4": {
+        "nine|ups": "NO",
+        "caustic product|nine": "NO"
+      },
+      "3": {
+        "us$350,000|dangerous goods": "NO",
+        "amazon|us$350,000": "NO",
+        "the federal aviation administration|faa": "YES"
+      },
+      "1": {
+        "\"amazing liquid fire\"|dangerous air cargo": "YES"
+      },
+      "0": {
+        "amazon|$350,000": "NO"
+      }
+    },
+    "722280": {
+      "27": {
+        "iata|center of excellence for independent validators certification": "YES",
+        "international air transport association|iata": "YES",
+        "finnair|international air transport association": "YES"
+      },
+      "24": {
+        "glader|largely automated": "NO"
+      },
+      "23": {
+        "air cargo week|finnair": "NO"
+      },
+      "21": {
+        "vauramo|specialise": "NO",
+        "perishables|vauramo": "NO",
+        "pharma|perishables": "NO"
+      },
+      "20": {
+        "guarantee cool conditions|temperature controlled": "YES",
+        "cargo terminal|guarantee cool conditions": "YES"
+      },
+      "18": {
+        "increase our|bellyhold cargo": "YES",
+        "cargo terminal|increase our": "NO"
+      },
+      "15": {
+        "airbus a350s|four": "YES",
+        "19|airbus a350s": "YES",
+        "finnish|19": "NO",
+        "finnair|finnish": "YES"
+      },
+      "13": {
+        "storage area|two degrees celsius": "YES"
+      },
+      "12": {
+        "perishables|six to eight degrees celsius": "YES",
+        "packing area|perishables": "YES"
+      },
+      "11": {
+        "3,500 square metre|perishables area": "YES"
+      },
+      "9": {
+        "pharma|two to eight degrees celsius": "YES",
+        "storage rooms|pharma": "YES"
+      },
+      "8": {
+        "pharmaceuticals area|plus 20 degrees celsius": "YES",
+        "3,000 square metre|pharmaceuticals area": "YES"
+      },
+      "6": {
+        "a further 10,000 square metres|100,000 tonnes": "NO"
+      },
+      "4": {
+        "warehousing space|6,000 square metres": "NO",
+        "31,000 square metres|warehousing space": "YES"
+      },
+      "1": {
+        "cargo terminal|helsinki airport": "YES",
+        "cool nordic|cargo terminal": "YES",
+        "80 million euro|cool nordic": "NO",
+        "finnair|80 million euro": "NO"
+      },
+      "0": {
+        "finnair|cargo terminal": "YES"
+      }
+    },
+    "382565": {
+      "10": {
+        "dnata|uk": "YES",
+        "pharma cold-chain logistics|dnata": "NO",
+        "pharma-handling facilities|uk": "YES"
+      },
+      "9": {
+        "pharmaceuticals|variable temperature ranges": "YES"
+      },
+      "8": {
+        "severe temperature onslaught|pharmaceuticals": "NO",
+        "dnata|severe temperature onslaught": "YES"
+      },
+      "7": {
+        "cold front|uk": "YES"
+      },
+      "6": {
+        "dnata|summer and winter": "NO",
+        "temperature mapping|dnata": "YES"
+      },
+      "5": {
+        "assessment of potential transport routes|pharma products": "YES"
+      },
+      "4": {
+        "24-hour warehouse|monitoring system": "YES",
+        "dnata|24-hour warehouse": "YES"
+      },
+      "3": {
+        "good distribution programme|pharma handling technology": "YES",
+        "wda|good distribution programme": "YES",
+        "full wholesaler dealer authorisation|wda": "YES",
+        "dnata|full wholesaler dealer authorisation": "YES",
+        "mhra|dnata": "YES",
+        "uk|mhra": "YES"
+      },
+      "1": {
+        "good distribution practice|gdp": "YES",
+        "dnata|good distribution practice": "YES",
+        "uk mhra)|dnata": "YES",
+        "the uk medicines and healthcare products regulatory agency|uk mhra)": "YES"
+      },
+      "0": {
+        "gdp certification|uk": "YES",
+        "dnata|gdp certification": "YES"
+      }
+    },
+    "fa28ef": {
+      "10": {
+        "brussels airlines|africa": "YES",
+        "us|brussels airlines": "NO",
+        "asian|us": "NO"
+      },
+      "8": {
+        "perishable goods|africa": "YES",
+        "fresh-to-shelf|perishable goods": "YES"
+      },
+      "7": {
+        "brussels airlines|africa": "YES",
+        "alg|brussels airlines": "YES"
+      },
+      "6": {
+        "africa|brussels airlines cargo": "NO",
+        "brussels airlines|africa": "NO"
+      },
+      "5": {
+        "8%|african": "NO",
+        "north atlantic|8%": "NO",
+        "34%|north atlantic": "NO",
+        "five|34%": "NO"
+      },
+      "4": {
+        "us|europe": "NO",
+        "africa|us": "NO",
+        "over 41,000 tonnes|africa": "NO",
+        "belgian|over 41,000 tonnes": "NO"
+      },
+      "1": {
+        "air logistics group|belly-hold space": "NO",
+        "ecs|air logistics group": "NO",
+        "european cargo services|ecs": "YES",
+        "gssa|european cargo services": "YES",
+        "brussels airlines|gssa": "YES"
+      }
+    },
+    "300c5c": {
+      "8": {
+        "temperature deviation free|german-based": "NO",
+        "over a million|temperature deviation free": "YES",
+        "network|over a million": "YES",
+        "over 25|network": "YES",
+        "va-q-tec|over 25": "YES"
+      },
+      "7": {
+        "network|300 airports": "YES",
+        "etihad airways|network": "NO",
+        "va-q-tec|etihad airways": "YES"
+      },
+      "5": {
+        "bio-pharmaceuticals|clinical research": "YES",
+        "medical products|bio-pharmaceuticals": "NO",
+        "temperature-sensitive goods|medical products": "YES"
+      },
+      "4": {
+        "pharma|order the service directly through the airline": "YES"
+      },
+      "3": {
+        "two pallet capacity|-60": "YES",
+        "passive container|two pallet capacity": "YES",
+        "five|passive container": "YES",
+        "temperature controlled containers|five": "NO",
+        "alitalia|temperature controlled containers": "YES"
+      },
+      "2": {
+        "temperature will be guaranteed for over 120 hours|ambient temperature": "YES"
+      },
+      "1": {
+        "va-q-tec|passive containers": "YES",
+        "low temperature technology specialist|va-q-tec": "YES",
+        "alitalia|low temperature technology specialist": "YES",
+        "italian|alitalia": "YES"
+      }
+    },
+    "2bf30b": {
+      "8": {
+        "m4|a312": "YES",
+        "13|m4": "NO",
+        "m25|13": "NO",
+        "a30|m25": "YES"
+      },
+      "7": {
+        "a30|heathrow": "NO",
+        "heathrow south cargo centre|a30": "YES"
+      },
+      "6": {
+        "uxbridge|cargo centre": "YES"
+      },
+      "5": {
+        "kuehne + nagel|kuehne + nagel": "NO"
+      },
+      "4": {
+        "mhra|gxp certification": "YES",
+        "two \u2013 eight degrees centigrade area|mhra": "YES",
+        "15 \u2013 25 degrees centigrade|two \u2013 eight degrees centigrade area": "NO",
+        "temperature controlled|15 \u2013 25 degrees centigrade": "YES"
+      },
+      "3": {
+        "regulated agent|etsf": "NO",
+        "tapa|regulated agent": "NO",
+        "kuehne + nagel|tapa": "YES"
+      },
+      "1": {
+        "130,000 square foot|heathrow south cargo centre": "YES",
+        "heathrow airport|130,000 square foot": "YES",
+        "kuehne + nagel|heathrow airport": "YES"
+      },
+      "0": {
+        "kuehne + nagel|heathrow": "YES"
+      }
+    },
+    "6c2a13": {
+      "3": {
+        "temperature-sensitive|life-enhancing products": "YES",
+        "alitalia|temperature-sensitive": "YES",
+        "rap|alitalia": "NO",
+        "autonomous temperature management programming|rap": "YES",
+        "air recirculation system|autonomous temperature management programming": "NO",
+        "vip insulation|air recirculation system": "YES",
+        "csafe|vip insulation": "NO"
+      },
+      "2": {
+        "pharmaceutical|life science products": "YES",
+        "time-critical shipments|pharmaceutical": "YES",
+        "temperature-sensitive|time-critical shipments": "YES",
+        "rap container|temperature-sensitive": "YES"
+      },
+      "1": {
+        "csafe|rap active temperature-controlled containers": "YES",
+        "alitalia|csafe": "YES"
+      },
+      "0": {
+        "csafe|rap": "YES",
+        "alitalia|csafe": "YES"
+      }
+    },
+    "67ba35": {
+      "4": {
+        "aisats|indian": "NO"
+      },
+      "3": {
+        "drug controller lab|plant quarantine inspection & certification": "YES",
+        "a one stop shop|drug controller lab": "YES",
+        "-25 to +25c|a one stop shop": "NO",
+        "dedicated cold rooms|-25 to +25c": "YES",
+        "17|dedicated cold rooms": "YES"
+      },
+      "2": {
+        "seafood|flowers": "NO",
+        "poultry|seafood": "NO",
+        "vegetables|poultry": "NO",
+        "fruits|vegetables": "NO",
+        "pharmaceuticals|fruits": "NO",
+        "perishable commodities|pharmaceuticals": "YES",
+        "40,000 tonnes per annum|perishable commodities": "YES",
+        "sats|40,000 tonnes per annum": "NO",
+        "air india|sats": "YES",
+        "aisats coolport|air india": "YES",
+        "11,000 square metre|aisats coolport": "YES"
+      },
+      "1": {
+        "kempegowda international airport|bengaluru": "YES",
+        "perishable cargo handling centre|kempegowda international airport": "YES",
+        "integrated on-airport|perishable cargo handling centre": "YES",
+        "sats|integrated on-airport": "YES",
+        "air india|sats": "YES"
+      },
+      "0": {
+        "aisats coolport|bengaluru": "YES"
+      }
+    },
+    "ca2799": {
+      "8": {
+        "the middle east|africa": "NO",
+        "one|the middle east": "NO",
+        "db schenker|one": "NO"
+      },
+      "7": {
+        "18 sq km|free zone": "YES",
+        "the logistics district|18 sq km": "YES"
+      },
+      "6": {
+        "middle east|africa": "NO"
+      },
+      "5": {
+        "logistics center|dubai aviation city corporation": "YES"
+      },
+      "4": {
+        "80,000 sq m|db schenker": "YES",
+        "dubai|80,000 sq m": "YES",
+        "three|dubai": "NO",
+        "second|three": "NO"
+      },
+      "3": {
+        "db schenker|100%": "NO",
+        "first|db schenker": "NO"
+      },
+      "2": {
+        "db schenker|africa": "YES",
+        "3,500 sq m|mezzanine area": "YES",
+        "temperature-controlled warehouse|3,500 sq m": "YES",
+        "35,000 sq m|temperature-controlled warehouse": "YES"
+      },
+      "1": {
+        "dubai|dubai world central airport": "YES",
+        "logistics center|dubai": "YES",
+        "second|logistics center": "YES",
+        "db schenker|second": "YES"
+      },
+      "0": {
+        "db schenker|dubai": "YES"
+      }
+    },
+    "4d106d": {
+      "19": {
+        "dfw|more than 45%": "NO"
+      },
+      "18": {
+        "dfw|north texas": "YES",
+        "$37 billion|dfw": "NO",
+        "more than half|$37 billion": "NO"
+      },
+      "15": {
+        "ceiv|dallas facility": "YES",
+        "iata|ceiv": "YES"
+      },
+      "14": {
+        "dry cargo space|certified customs screening facility": "YES",
+        "refrigerated dock|dry cargo space": "YES"
+      },
+      "13": {
+        "perishable products|airlogistix usa": "NO"
+      },
+      "12": {
+        "dedicated cool-chain perishable cargo facility|us hub": "YES",
+        "dfw|dedicated cool-chain perishable cargo facility": "YES",
+        "37,000 sq ft cargo centre|dfw": "YES",
+        "dnata|37,000 sq ft cargo centre": "YES"
+      },
+      "11": {
+        "pharma products|time- and temperature-sensitive": "YES"
+      },
+      "10": {
+        "us|four hours": "NO",
+        "mid-continent location|us": "NO",
+        "dfw|mid-continent location": "YES"
+      },
+      "9": {
+        "community|ceiv pharma": "YES",
+        "dfw|community": "YES"
+      },
+      "8": {
+        "ceiv pharma|community": "YES",
+        "dfw|ceiv pharma": "YES",
+        "iata|dfw": "NO"
+      },
+      "7": {
+        "dfw|pharma gateway": "YES"
+      },
+      "6": {
+        "dfw|pharmaceutical handling operation": "YES",
+        "community|dfw": "YES",
+        "ceiv|community": "YES"
+      },
+      "4": {
+        "freight forwarder|expeditors": "YES"
+      },
+      "3": {
+        "scl cold chain|warehousing and distribution specialist": "NO",
+        "reefer trucker|scl cold chain": "YES",
+        "dnata cargo usa|reefer trucker": "NO",
+        "ground handler|dnata cargo usa": "YES",
+        "ceiv pharma|ground handler": "NO",
+        "community|ceiv pharma": "YES",
+        "dfw|community": "YES",
+        "four|dfw": "YES"
+      },
+      "2": {
+        "north america|ceiv pharma": "NO",
+        "only two|north america": "NO",
+        "one|only two": "NO",
+        "around 911,000 tons|one": "NO",
+        "texan hub|around 911,000 tons": "YES"
+      },
+      "1": {
+        "ceiv|pharma certification": "YES",
+        "center of excellence for independent validators|ceiv": "YES",
+        "iata|center of excellence for independent validators": "YES",
+        "dfw|iata": "YES",
+        "dallas fort worth|dfw": "YES"
+      },
+      "0": {
+        "dallas fort worth|ceiv": "YES"
+      }
+    },
+    "eb9449": {
+      "9": {
+        "life sciences and pharmaceutical conference|london": "NO",
+        "air cargo news|life sciences and pharmaceutical conference": "NO"
+      },
+      "7": {
+        "third|luxembourg": "NO",
+        "shanghai|third": "NO",
+        "valuable pharma shipments|shanghai": "NO"
+      },
+      "6": {
+        "lux-airport|second": "NO"
+      },
+      "4": {
+        "luxembourg|shanghai": "NO",
+        "healthcare products|luxembourg": "YES",
+        "gdp-secured end-to-end trade lane|healthcare products": "YES",
+        "eal|lux-airport": "YES"
+      },
+      "3": {
+        "good distribution practice|gdp": "YES",
+        "world health organization|good distribution practice": "YES",
+        "the european union|world health organization": "NO",
+        "time- and temperature-sensitive medicinal products|the european union": "NO"
+      },
+      "2": {
+        "shanghai|pudong airport": "NO",
+        "one|shanghai": "NO",
+        "eal|one": "NO",
+        "eastern air logistics|eal": "YES",
+        "lux-airport|eastern air logistics": "YES",
+        "luxembourg|lux-airport": "YES",
+        "zurich|luxembourg": "NO",
+        "singapore|zurich": "YES",
+        "sats|singapore": "NO",
+        "cargologic|sats": "YES",
+        "swiss worldcargo|cargologic": "YES"
+      },
+      "1": {
+        "asia|china 2016": "NO",
+        "europe|asia": "NO",
+        "temperature-sensitive pharma products|europe": "NO"
+      },
+      "0": {
+        "shanghai|luxembourg": "YES"
+      }
+    },
+    "92e797": {
+      "5": {
+        "prio ib fixed temp'|temperature controlled product transportation": "YES",
+        "ana|prio ib fixed temp'": "YES"
+      },
+      "4": {
+        "japan|ceiv pharma": "NO",
+        "first|japan": "NO"
+      },
+      "2": {
+        "narita international airport|tokyo": "YES",
+        "ana|narita international airport": "YES"
+      },
+      "1": {
+        "iata|ceiv pharma": "YES",
+        "japan|iata": "NO",
+        "first|japan": "NO",
+        "ana|first": "NO",
+        "all nippon airways|ana": "YES"
+      },
+      "0": {
+        "japanese|ceiv pharma": "NO",
+        "first|japanese": "NO",
+        "ana|first": "NO"
+      }
+    },
+    "0af32b": {
+      "9": {
+        "asia pacific|airbridgecargo": "YES",
+        "north america|asia pacific": "NO",
+        "europe|north america": "NO"
+      },
+      "8": {
+        "trucking companies|outsourced partners": "NO",
+        "ground handling agents and ramp agents|trucking companies": "NO",
+        "audits of|ground handling agents and ramp agents": "YES",
+        "pharma shipments|audits of": "NO",
+        "lane assessments|pharma shipments": "YES",
+        "abc|lane assessments": "YES",
+        "pharma product|abc": "YES"
+      },
+      "7": {
+        "iata|ceiv pharma certification": "YES",
+        "russia|iata": "NO",
+        "first|russia": "YES",
+        "abc|first": "NO"
+      },
+      "6": {
+        "control processes|pharma shipments": "YES",
+        "strict handling procedures|control processes": "NO",
+        "abc|strict handling procedures": "YES"
+      },
+      "5": {
+        "pharma industry|qualified staff": "NO",
+        "abc|pharma industry": "YES",
+        "abcpharma|abc": "YES"
+      },
+      "2": {
+        "container shipments|good distribution practices": "YES",
+        "qualified envirotainer provider training and quality program|qep": "YES",
+        "envirotainer|qualified envirotainer provider training and quality program": "YES"
+      },
+      "1": {
+        "moscow sheremetyevo airport|dallas": "NO",
+        "global hub|moscow sheremetyevo airport": "YES",
+        "envirotainer qep accreditation|global hub": "YES",
+        "pharma services|envirotainer qep accreditation": "YES",
+        "abc|pharma services": "YES",
+        "airbridgecargo|abc": "YES"
+      },
+      "0": {
+        "envirotainer|qep": "YES",
+        "airbridgecargo|envirotainer": "YES"
+      }
+    },
+    "0f5119": {
+      "9": {
+        "sao paulo|brazil": "NO",
+        "germany|sao paulo": "NO",
+        "frankfurt|germany": "NO",
+        "indiana|frankfurt": "NO",
+        "indianapolis|indiana": "NO",
+        "network locations|indianapolis": "YES",
+        "pelican biothermal|network locations": "YES"
+      },
+      "8": {
+        "queen's award for enterprise|the united kingdom's": "NO",
+        "second|queen's award for enterprise": "NO",
+        "peli biothermal|second": "NO",
+        "european|peli biothermal": "NO"
+      },
+      "6": {
+        "cr\u0113do|on demand program": "YES",
+        "network stations|cr\u0113do": "YES",
+        "drop-points|network stations": "NO",
+        "nearly 80|drop-points": "YES"
+      },
+      "5": {
+        "innovation in the transportation|medical treatments": "NO"
+      },
+      "1": {
+        "\"made in minnesota manufacturing awards\"|minnesota business": "NO",
+        "supply chain innovator|\"made in minnesota manufacturing awards\"": "NO",
+        "temperature controlled packaging|supply chain innovator": "NO",
+        "pelican biothermal|temperature controlled packaging": "YES"
+      },
+      "0": {
+        "minnesota|pelican biothermal": "YES"
+      }
+    },
+    "1b767d": {
+      "10": {
+        "tail-to-tail loading|dangerous goods": "YES",
+        "vienna|time:matters": "YES",
+        "munich|vienna": "NO",
+        "frankfurt|munich": "NO"
+      },
+      "9": {
+        "frankfurt|munich": "NO",
+        "hubs|frankfurt": "YES",
+        "dangerous goods|hubs": "YES",
+        "fast handling processes and transit times|dangerous goods": "YES",
+        "time:matters|fast handling processes and transit times": "YES"
+      },
+      "8": {
+        "dangerous goods|time:matters": "NO"
+      },
+      "6": {
+        "france|portugal": "NO",
+        "hungary|france": "NO",
+        "thailand|hungary": "NO",
+        "japan|thailand": "NO",
+        "hong kong (special administrative region)|japan": "NO",
+        "china|hong kong (special administrative region)": "NO",
+        "india|china": "NO",
+        "us|india": "NO",
+        "germany|us": "NO"
+      },
+      "5": {
+        "brussels airlines|ten": "NO",
+        "austrian airlines|brussels airlines": "NO",
+        "lufthansa cargo|austrian airlines": "NO",
+        "lufthansa|lufthansa cargo": "YES",
+        "on passenger and cargo aircrafts|lufthansa": "YES",
+        "dangerous goods|on passenger and cargo aircrafts": "YES"
+      },
+      "2": {
+        "5|6": "NO",
+        "4|5": "NO",
+        "3|4": "NO",
+        "2|3": "NO",
+        "time-critical goods|2": "YES",
+        "urgent transports|time-critical goods": "YES"
+      },
+      "1": {
+        "urgent transports|dangerous goods": "YES",
+        "special speed logistics services provider|urgent transports": "NO",
+        "time:matters|special speed logistics services provider": "YES"
+      },
+      "0": {
+        "dangerous goods|ten": "NO",
+        "time:matters|dangerous goods": "YES"
+      }
+    },
+    "699893": {
+      "13": {
+        "sun-reflective film|temperature-sensitive shipments": "YES",
+        "\"road feeder service cool\"|sun-reflective film": "NO",
+        "cool center|\"road feeder service cool\"": "NO"
+      },
+      "11": {
+        "constant temperature control|without the need for external energy sources": "YES",
+        "passive thermal containers|constant temperature control": "YES"
+      },
+      "10": {
+        "five sizes|two us pallets inside": "NO",
+        "+25\u00b0c|five sizes": "NO",
+        "temperature ranges|+25\u00b0c": "YES",
+        "six|temperature ranges": "YES",
+        "lufthansa cargo|six": "YES",
+        "temperature controlled containers|lufthansa cargo": "YES"
+      },
+      "9": {
+        "usa|south america": "NO",
+        "india|usa": "NO",
+        "asia|india": "NO",
+        "germany|asia": "NO",
+        "lufthansa cargo|germany": "YES"
+      },
+      "8": {
+        "germany|fourth": "NO"
+      },
+      "6": {
+        "va-q-tec|five days temperature stability": "YES"
+      },
+      "3": {
+        "lufthansa cargo|va-q-tec": "YES"
+      },
+      "1": {
+        "lufthansa cargo|passive temperature-controlled container": "YES",
+        "high-performance thermal containers|lufthansa cargo": "NO",
+        "va-q-tec|high-performance thermal containers": "YES"
+      },
+      "0": {
+        "lufthansa cargo|va-q-tec": "YES"
+      }
+    },
+    "55777d": {
+      "3": {
+        "competence center|roughly 20,000": "YES"
+      },
+      "1": {
+        "vienna airport|temperature-sensitive products": "YES",
+        "refrigerated warehouse space|vienna airport": "YES",
+        "500m2|refrigerated warehouse space": "YES",
+        "dhl global forwarding|500m2": "YES"
+      },
+      "0": {
+        "dhl|vienna": "YES"
+      }
+    },
+    "cdd606": {
+      "5": {
+        "minimises the risk|temperature-sensitive air freight": "YES",
+        "jettainer|minimises the risk": "YES"
+      },
+      "4": {
+        "american airlines cargo|reefer containers": "YES",
+        "abu dhabi|american airlines cargo": "YES",
+        "cool center of excellence|abu dhabi": "YES",
+        "jettainer|cool center of excellence": "YES"
+      },
+      "3": {
+        "abu dhabi|temperature-controlled ulds": "NO",
+        "cool center of excellence|abu dhabi": "YES",
+        "jettainer|cool center of excellence": "YES"
+      },
+      "1": {
+        "jettainer|cool management": "YES",
+        "uld|jettainer": "YES",
+        "american airlines cargo|uld": "YES",
+        "us|american airlines cargo": "YES"
+      },
+      "0": {
+        "jettainer|american airlines cargo": "YES"
+      }
+    }
+  },
+  "test": {
+    "4e3c63": {
+      "12": {
+        "16,000 square metres|third": "YES",
+        "custom-built air cargo warehouse|16,000 square metres": "YES",
+        "swissport|133": "YES",
+        "third|swissport": "YES"
+      },
+      "10": {
+        "european|logistics hubs": "YES",
+        "swissport|european": "YES"
+      },
+      "9": {
+        "average of two minutes|temperature-controlled warehouse": "YES",
+        "swissport|average of two minutes": "YES",
+        "direct access to the tarmac|swissport": "YES"
+      },
+      "8": {
+        "constant temperature|-20 degrees celcius": "YES",
+        "a unit|constant temperature": "YES",
+        "+2 and +8|a unit": "YES",
+        "special cooling units|+2 and +8": "YES"
+      },
+      "7": {
+        "temperature-controlled surface|+15 to +25 degrees celsius": "YES",
+        "7,500 square metres|temperature-controlled surface": "YES"
+      },
+      "5": {
+        "one|swissport": "YES",
+        "basel|one": "YES",
+        "some 47,000 tonnes|basel": "YES",
+        "nearly 10%|some 47,000 tonnes": "NO"
+      },
+      "4": {
+        "ceiv certification|switzerland": "YES",
+        "swissport international|ceiv certification": "NO",
+        "cargo facility|basel": "YES",
+        "pharmaceutical logistics|cargo facility": "YES",
+        "ceiv|pharmaceutical logistics": "YES"
+      },
+      "3": {
+        "ceiv|cargo facility": "YES",
+        "sixth|ceiv": "YES",
+        "basel warehouse|sixth": "YES",
+        "swissport|basel warehouse": "YES"
+      },
+      "1": {
+        "ceiv pharma certificate|pharmaceutical logistics": "YES",
+        "euroairport|ceiv pharma certificate": "YES",
+        "basel|euroairport": "YES",
+        "swissport cargo services|basel": "YES",
+        "iata|swissport cargo services": "YES"
+      },
+      "0": {
+        "pharma logistics|iata": "YES",
+        "swissport basel|pharma logistics": "YES"
+      },
+      "15": {
+        "chinese|hna": "YES"
+      },
+      "13": {
+        "4.7m tonnes|some 850": "NO",
+        "swissport international|4.7m tonnes": "YES"
+      }
+    },
+    "83f456": {
+      "10": {
+        "dubai world central|dubai international airport": "YES",
+        "operating 24/7 between|dubai world central": "YES",
+        "dedicated reefer trucks|operating 24/7 between": "YES",
+        "25,000 square metres|dedicated reefer trucks": "NO",
+        "dubai world central|25,000 square metres": "YES",
+        "dubai international airport|dubai world central": "NO",
+        "emirates skycentral cargo hubs|dubai international airport": "YES",
+        "cool chain facilities|emirates skycentral cargo hubs": "YES"
+      },
+      "9": {
+        "one|b747-400erf": "YES",
+        "777-fs|one": "NO",
+        "boeing|777-fs": "YES",
+        "13|boeing": "YES",
+        "14|13": "NO",
+        "wide-bodied aircraft|14": "YES",
+        "259|wide-bodied aircraft": "YES",
+        "emirates skycargo|259": "YES",
+        "dubai|emirates skycargo": "YES",
+        "perishables|dubai": "YES",
+        "30,000 tonnes|perishables": "YES"
+      },
+      "8": {
+        "dubai|spoilage": "YES",
+        "perishables|dubai": "YES",
+        "white covers|perishables": "YES",
+        "complimentary|white covers": "YES",
+        "emirates skycargo|complimentary": "YES"
+      },
+      "7": {
+        "air cargo europe|munich": "NO"
+      },
+      "6": {
+        "white cover xtreme|two": "NO",
+        "dupont|white cover xtreme": "YES",
+        "emirates skycargo|dupont": "YES",
+        "two|white cover xtreme": "NO"
+      },
+      "5": {
+        "over 155|dupont": "NO"
+      },
+      "4": {
+        "tyvek xtreme w50|white cover": "YES",
+        "dupont|tyvek xtreme w50": "YES",
+        "first|dupont": "YES",
+        "emirates skycargo|first": "YES",
+        "extreme and variable weather conditions|emirates skycargo": "YES",
+        "pharmaceuticals|extreme and variable weather conditions": "YES",
+        "temperature sensitive shipments|pharmaceuticals": "YES",
+        "white cover xtreme|temperature sensitive shipments": "YES"
+      },
+      "3": {
+        "white cover advanced|packaged pharmaceuticals shipments": "YES",
+        "higher temperature tolerance|white cover advanced": "NO",
+        "vegetables|higher temperature tolerance": "NO",
+        "fruits|vegetables": "NO",
+        "perishables|fruits": "YES",
+        "white cover|perishables": "YES"
+      },
+      "2": {
+        "emirates|white cover advanced'": "YES",
+        "external heat and weather fluctuations|emirates": "NO",
+        "first level of protection|external heat and weather fluctuations": "YES",
+        "lightweight thermal cargo covers|first level of protection": "YES",
+        "dupont|lightweight thermal cargo covers": "YES",
+        "emirates skycargo|dupont": "YES",
+        "extreme weather conditions|emirates skycargo": "YES",
+        "white cover advanced|extreme weather conditions": "YES",
+        "white cover|white cover advanced": "NO",
+        "emirates skycargo|white cover": "YES",
+        "tyvek|emirates skycargo": "YES",
+        "dupont|tyvek": "YES",
+        "tyvek xtreme w50|dupont": "YES",
+        "temperature sensitive cargo|tyvek xtreme w50": "NO",
+        "white cover xtreme|temperature sensitive cargo": "YES",
+        "tyvek xtreme w50|white cover xtreme": "YES",
+        "dupont|tyvek xtreme w50": "YES"
+      },
+      "1": {
+        "white cover solution|dupont": "YES",
+        "emirates skycargo|white cover solution": "YES"
+      }
+    },
+    "04aa9e": {
+      "9": {
+        "61|150,000 sq m": "NO",
+        "agility|61": "YES",
+        "india|agility": "YES"
+      },
+      "7": {
+        "box packaging|va-q-tec": "YES",
+        "lsec|va-q-tec": "YES"
+      },
+      "6": {
+        "primary warehouse for solutions from packaging|va-q-tec": "YES"
+      },
+      "4": {
+        "indian|60%": "NO"
+      },
+      "3": {
+        "agility|india": "YES",
+        "control tower|agility": "YES"
+      },
+      "2": {
+        "vishakhapatnam|bangalore": "NO",
+        "pune|vishakhapatnam": "NO",
+        "goa|pune": "NO",
+        "hyderabad|goa": "NO",
+        "pharma manufacturers|hyderabad": "YES",
+        "rajiv gandhi international airport|pharma manufacturers": "YES",
+        "lsec|rajiv gandhi international airport": "YES",
+        "life sciences excellence center|lsec": "YES",
+        "6,000 sq ft|life sciences excellence center": "YES"
+      },
+      "1": {
+        "temperature-controlled life sciences storage|hyderabad airport zone": "YES",
+        "first|temperature-controlled life sciences storage": "YES",
+        "agility|first": "YES"
+      },
+      "0": {
+        "agility|hyderabad": "YES"
+      }
+    },
+    "258cdf": {
+      "5": {
+        "insulcap thermal covers|pharmaceutical shipments": "YES",
+        "peli biothermal|insulcap thermal covers": "YES"
+      },
+      "3": {
+        "rapid temperature changes|cold chain": "YES",
+        "temperature-sensitive goods|rapid temperature changes": "YES",
+        "insulcap thermal covers|temperature-sensitive goods": "YES",
+        "peli biothermal|insulcap thermal covers": "YES"
+      },
+      "2": {
+        "weather extremes|pharmaceuticals": "NO",
+        "temperature spikes|weather extremes": "NO",
+        "insulcap pallet|temperature spikes": "YES",
+        "wilpak|insulcap pallet": "YES"
+      },
+      "1": {
+        "protective covers|pharma shipments": "YES",
+        "wilpak|protective covers": "YES",
+        "global distribution partnership|wilpak": "YES",
+        "peli biothermal|global distribution partnership": "YES"
+      },
+      "0": {
+        "peli biothermal|wilpak": "YES"
+      }
+    },
+    "185025": {
+      "10": {
+        "2-8\u00b0c|temperature-controlled environments": "YES",
+        "15-25\u00b0c|2-8\u00b0c": "YES",
+        "dedicated pharma cells|15-25\u00b0c": "YES",
+        "two|dedicated pharma cells": "YES",
+        "wfs|two": "YES"
+      },
+      "8": {
+        "paris|milan": "YES",
+        "iata|ceiv pharma certifications": "YES",
+        "gdp|iata": "NO",
+        "good distribution practice|gdp": "YES",
+        "wfs|good distribution practice": "YES"
+      },
+      "7": {
+        "iata|ceiv pharma certification": "YES",
+        "europe|iata": "YES",
+        "wfs|europe": "YES",
+        "first|wfs": "YES",
+        "brussels|first": "YES"
+      },
+      "6": {
+        "general manager|scandinavia": "NO",
+        "wfs|general manager": "NO",
+        "pharma shipments|wfs": "NO",
+        "ceiv certification|denmark": "YES",
+        "iata|ceiv certification": "YES",
+        "wfs|iata": "YES"
+      },
+      "5": {
+        "denmark|india": "YES",
+        "air india's|denmark": "YES"
+      },
+      "4": {
+        "electronic roller bed system|pharma shipments": "YES"
+      },
+      "3": {
+        "2-8\u00b0c|15-25\u00b0c": "NO",
+        "temperature chambers|2-8\u00b0c": "YES",
+        "16 cargo units|temperature chambers": "NO"
+      },
+      "2": {
+        "ceiv pharma certification programme|denmark": "YES",
+        "iata|ceiv pharma certification programme": "YES",
+        "wfs|iata": "YES",
+        "wfs|wfs": "NO"
+      },
+      "1": {
+        "denmark|new delhi": "YES",
+        "boeing 787|denmark": "YES",
+        "three times weekly|boeing 787": "YES",
+        "air india's|three times weekly": "YES",
+        "copenhagen|air india's": "NO",
+        "pharma facility|copenhagen": "YES",
+        "worldwide flight services|wfs": "YES"
+      },
+      "0": {
+        "copenhagen|air india cargo": "NO",
+        "pharma facility|copenhagen": "YES",
+        "wfs|pharma facility": "YES"
+      }
+    },
+    "bf1809": {
+      "8": {
+        "mumbai and hyderabad branches|dachser india": "YES",
+        "ceiv certification|mumbai and hyderabad branches": "YES",
+        "dachser air & sea india subcontinent|ceiv certification": "YES"
+      },
+      "5": {
+        "ceiv pharma certification|cold-chain logistics requirements": "YES",
+        "dachser india|ceiv pharma certification": "YES",
+        "india|dachser india": "NO",
+        "iata|india": "NO",
+        "asia pacific|iata": "NO"
+      },
+      "4": {
+        "lsh|life science and healthcare": "YES"
+      },
+      "3": {
+        "ceiv pharma certification|dachser india": "YES",
+        "the indian subcontinent|ceiv pharma certification": "NO",
+        "dachser air & sea logistics|the indian subcontinent": "YES"
+      },
+      "2": {
+        "center of excellence for independent validators in pharmaceutical logistics|mumbai": "YES",
+        "international air transport association|center of excellence for independent validators in pharmaceutical logistics": "YES",
+        "second|international air transport association": "YES",
+        "hyderabad|second": "YES"
+      },
+      "1": {
+        "iata ceiv pharma|mumbai and hyderabad branches": "YES",
+        "dachser india|iata ceiv pharma": "YES"
+      }
+    },
+    "6125a2": {
+      "11": {
+        "uk|life sciences and healthcare": "YES",
+        "london|uk": "YES",
+        "heathrow airport|london": "YES",
+        "temperature controlled facility|heathrow airport": "YES",
+        "ijs global gefco|temperature controlled facility": "YES"
+      },
+      "10": {
+        "frankfurt airport|germany": "YES",
+        "life sciences and healthcare warehouse facility|frankfurt airport": "YES",
+        "24-hour|life sciences and healthcare warehouse facility": "YES",
+        "ijs global gefco|24-hour": "YES"
+      },
+      "9": {
+        "ijs global gefco|the life sciences and healthcare": "YES",
+        "ceiv|ijs global gefco": "YES"
+      },
+      "8": {
+        "ceiv|pharmaceutical logistics": "YES",
+        "center of excellence for independent validators|ceiv": "YES",
+        "iata|center of excellence for independent validators": "YES",
+        "international air transport association|iata": "YES"
+      },
+      "7": {
+        "wda|store medicinal products": "YES",
+        "wholesale distribution authorisation|wda": "YES",
+        "ijs global gefco|wholesale distribution authorisation": "YES"
+      },
+      "2": {
+        "medicinal products for human use|world health organization": "YES",
+        "good distribution practice|medicinal products for human use": "YES"
+      },
+      "1": {
+        "gdp|the dutch ministry of health": "YES",
+        "good distribution practice|gdp": "YES",
+        "nl|good distribution practice": "YES",
+        "ijs global gefco|nl": "YES"
+      },
+      "0": {
+        "netherlands|gdp": "YES",
+        "ijs global gefco|netherlands": "YES"
+      }
+    },
+    "8ede8e": {
+      "13": {
+        "the cargo community|perishable cool chain": "NO",
+        "perishable cool chain|track and trace on box level": "YES"
+      },
+      "10": {
+        "scmp|the holland flower alliance": "YES",
+        "collaboration|scmp": "YES",
+        "air france klm|martainair": "NO"
+      },
+      "9": {
+        "kuehne + nagel|panalpina": "NO",
+        "the holland flower alliance|kuehne + nagel": "YES"
+      },
+      "7": {
+        "global standard 1|gln": "YES"
+      },
+      "6": {
+        "air cargo sectors|two": "NO",
+        "floriculture|air cargo sectors": "YES",
+        "collaboration|floriculture": "YES"
+      },
+      "4": {
+        "traceable in real time|on shipment level": "NO",
+        "aalsmeer|traceable in real time": "YES",
+        "kenya|aalsmeer": "YES",
+        "nairobi|kenya": "YES"
+      },
+      "3": {
+        "gln|one": "NO",
+        "air waybill numbers|gln": "YES"
+      },
+      "2": {
+        "schiphol|europe": "YES",
+        "scmp|schiphol": "YES",
+        "smart cargo mainport program|scmp": "YES"
+      },
+      "1": {
+        "shipment data|air waybill numbers": "YES"
+      },
+      "0": {
+        "schiphol|shipment data": "YES"
+      },
+      "15": {
+        "amsterdam|eu green fast lanes": "NO",
+        "pharma gateway|amsterdam": "YES",
+        "scmp|schiphol": "YES"
+      }
+    },
+    "51fa1e": {
+      "7": {
+        "rap|valuable cargo": "YES",
+        "csafe|rap": "YES",
+        "american|csafe": "YES"
+      },
+      "6": {
+        "american|expeditetc\u00b0": "YES"
+      },
+      "5": {
+        "pharmaceutical|healthcare shippers": "NO",
+        "active rkn containers|pharmaceutical": "YES",
+        "csafe|active rkn containers": "YES",
+        "american airlines|csafe": "YES",
+        "healthcare|american airlines": "NO",
+        "pharmaceuticals|healthcare": "NO"
+      },
+      "3": {
+        "american airlines|rap": "YES"
+      },
+      "2": {
+        "ambient conditions|-30c and +54c": "YES",
+        "csafe|rap": "YES"
+      },
+      "1": {
+        "csafe|rap temperature-controlled active containers": "YES",
+        "american airlines|csafe": "YES"
+      },
+      "0": {
+        "csafe|rap": "YES",
+        "american airlines|csafe": "YES"
+      }
+    },
+    "1e897b": {
+      "26": {
+        "pharma gateway amsterdam|schiphol": "YES"
+      },
+      "18": {
+        "schiphol|pharma manufacturers": "YES"
+      },
+      "16": {
+        "air cargo|netherlands": "NO",
+        "ferry van der ent|air cargo": "NO",
+        "pharma gateway amsterdam|ferry van der ent": "NO"
+      },
+      "13": {
+        "yusen logistics|cyberfreight": "NO",
+        "vck logistics|yusen logistics": "NO",
+        "ijs global/gefco|vck logistics": "NO",
+        "jan de rijk logistics|ijs global/gefco": "NO",
+        "middelkoop & zn.|jan de rijk logistics": "NO"
+      },
+      "12": {
+        "de jong special services|d.j.": "NO",
+        "air france-klm-martinair cargo|de jong special services": "NO",
+        "swissport|air france-klm-martinair cargo": "NO",
+        "dnata|swissport": "NO",
+        "wfs|dnata": "NO",
+        "pharma gateway amsterdam|wfs": "YES"
+      },
+      "10": {
+        "good distribution practices|gdp": "YES",
+        "storage-centric scope|good distribution practices": "YES",
+        "pharma gateway amsterdam|storage-centric scope": "YES",
+        "ceiv|pharma gateway amsterdam": "YES",
+        "iata|ceiv": "YES"
+      },
+      "7": {
+        "iata|ceiv": "YES",
+        "certified track|consignee": "NO",
+        "pharma gateway amsterdam|certified track": "YES"
+      },
+      "6": {
+        "europe|pharma traffic": "NO",
+        "schiphol|europe": "YES"
+      },
+      "5": {
+        "pharma chain|schiphol": "YES"
+      },
+      "4": {
+        "pharma chain|pharma gateway amsterdam": "YES"
+      },
+      "3": {
+        "air cargo netherlands|the dutch air cargo industry association": "YES",
+        "pharma task force|air cargo netherlands": "YES",
+        "schiphol|pharma task force": "YES"
+      },
+      "2": {
+        "iata|berlin": "YES"
+      },
+      "1": {
+        "ceiv|pharma manufacturers": "NO",
+        "iata|ceiv": "YES",
+        "pharma chain|iata": "YES",
+        "schiphol|pharma chain": "YES",
+        "amsterdam airport|schiphol": "YES",
+        "berlin|amsterdam airport": "NO"
+      }
+    },
+    "2ab975": {
+      "7": {
+        "scandinavia|the early afternoon": "NO",
+        "europe|scandinavia": "NO",
+        "paris|early in the morning": "YES",
+        "hong kong|paris": "YES"
+      },
+      "6": {
+        "rapid transit times|two": "NO",
+        "just a few minutes|aircraft parking stands": "YES"
+      },
+      "5": {
+        "express hub|sodexi": "YES",
+        "sodexi|express hub": "NO"
+      },
+      "4": {
+        "over 160,000|cdg": "NO",
+        "55,000 tonnes|over 160,000": "NO"
+      },
+      "2": {
+        "35 per cent|geopost": "NO",
+        "air france-klm|35 per cent": "NO",
+        "65 per cent|air france-klm": "NO",
+        "sodexi|65 per cent": "NO"
+      },
+      "1": {
+        "paris-charles de gaulle|cdg": "YES",
+        "express freight warehouse|paris-charles de gaulle": "YES",
+        "7,600 sq m|express freight warehouse": "YES",
+        "sodexi|7,600 sq m": "YES",
+        "a\u00e9roports de paris|sodexi": "YES"
+      },
+      "0": {
+        "sodexi|paris": "YES"
+      }
+    },
+    "382423": {
+      "6": {
+        "cathay pacific|hong kong's": "NO",
+        "cpsl|cathay pacific": "YES",
+        "hong kong|cpsl": "NO"
+      },
+      "4": {
+        "perishable products|avoid increased product loss": "YES"
+      },
+      "3": {
+        "first|ceiv fresh": "YES",
+        "cathay pacific|first": "NO",
+        "iata|cathay pacific": "NO"
+      },
+      "2": {
+        "ceiv fresh|reducing spoilage and wastage": "YES",
+        "ceiv certificate|ceiv fresh": "YES"
+      },
+      "1": {
+        "iata|perishable cargo handling": "YES",
+        "ceiv fresh|iata": "YES",
+        "first|ceiv fresh": "YES",
+        "cathay pacific|first": "YES"
+      },
+      "0": {
+        "ceiv fresh certificate|cathay pacific": "YES",
+        "first|ceiv fresh certificate": "YES",
+        "world|first": "YES"
+      }
+    },
+    "779ac7": {
+      "4": {
+        "the world customs organisation|wco": "YES",
+        "the republic of turkey|the world customs organisation": "YES",
+        "the ministry of trade|the republic of turkey": "YES",
+        "certificate|the ministry of trade": "YES"
+      },
+      "3": {
+        "certificate|turkey": "YES"
+      },
+      "2": {
+        "trade operations|international arena": "YES",
+        "certificate|trade operations": "YES"
+      },
+      "1": {
+        "turkish cargo|certificate": "YES"
+      },
+      "0": {
+        "turkish cargo|aeo": "YES"
+      }
+    },
+    "a4df5e": {
+      "16": {
+        "over 60,000 square metres|500": "NO",
+        "logistics centre|over 60,000 square metres": "YES",
+        "dhl|logistics centre": "YES"
+      },
+      "15": {
+        "k\u00fchne+nagel|dhl": "NO",
+        "cargo-partner|k\u00fchne+nagel": "NO"
+      },
+      "13": {
+        "\u20ac8 billion|vienna airport": "NO",
+        "austrian|\u20ac8 billion": "NO",
+        "half|austrian": "NO"
+      },
+      "8": {
+        "8,000 square metres|air cargo centre": "YES",
+        "photovoltaic facilities|8,000 square metres": "YES",
+        "one|photovoltaic facilities": "NO"
+      },
+      "7": {
+        "\u20ac1.9 million|pharma handling centre": "NO",
+        "vienna airport|\u20ac1.9 million": "NO"
+      },
+      "6": {
+        "2\u00b0-8\u00b0c|1,415 square metre": "YES",
+        "cold store|2\u00b0-8\u00b0c": "YES",
+        "153 square metre|cold store": "YES"
+      },
+      "5": {
+        "about 1,600 square meters|air cargo centre": "YES",
+        "pharma handling centre|about 1,600 square meters": "YES"
+      },
+      "4": {
+        "air cargo centre|pharma handling centre": "YES",
+        "13,000 square metres|air cargo centre": "YES",
+        "logistics centre|13,000 square metres": "YES"
+      },
+      "3": {
+        "cargo partner|dhl": "NO",
+        "pharma hub|cargo partner": "NO",
+        "air cargo centre|pharma hub": "NO",
+        "four|air cargo centre": "NO"
+      },
+      "2": {
+        "flughafen wien|cargo capabilities": "NO",
+        "\u20ac17.9 million|flughafen wien": "NO"
+      },
+      "1": {
+        "cargo capacity|pharma handling centre": "NO",
+        "13,000 square metres|cargo capacity": "YES",
+        "vienna airport|13,000 square metres": "YES"
+      },
+      "0": {
+        "vienna airport|cargo capabilities": "YES"
+      }
+    },
+    "ec38f0": {
+      "5": {
+        "heathrow|new orleans international": "YES",
+        "london|heathrow": "YES"
+      },
+      "4": {
+        "emergency shipments|guarantee to fly": "YES",
+        "critical product|emergency shipments": "YES",
+        "iag cargo|critical product": "YES"
+      },
+      "3": {
+        "machinery parts|oil and gas components": "NO"
+      },
+      "2": {
+        "bellyhold capacity|up to 15 tonnes": "YES",
+        "boeing 787-8 aircraft|bellyhold capacity": "YES",
+        "louisiana|boeing 787-8 aircraft": "NO",
+        "london|louisiana": "YES",
+        "first|london": "NO",
+        "iag|first": "NO",
+        "earlier today|iag": "NO"
+      },
+      "1": {
+        "new orleans|london": "YES",
+        "bellyhold capacity|new orleans": "YES",
+        "time-critical product|bellyhold capacity": "YES",
+        "iag cargo|time-critical product": "YES"
+      }
+    },
+    "e45cef": {
+      "9": {
+        "destinations|one-way rental service": "YES",
+        "cargolux|destinations": "YES",
+        "90|cargolux": "YES",
+        "va-q-tainer serviced rental|90": "YES"
+      },
+      "8": {
+        "cargolux|temperature-sensitive and valuable cargo": "YES",
+        "va-q-tec|cargolux": "NO"
+      },
+      "7": {
+        "europe|va-q-tec": "NO",
+        "puerto rico|europe": "YES",
+        "first|puerto rico": "NO"
+      },
+      "6": {
+        "puerto rico|cool chain flights": "YES",
+        "va-q-tec|puerto rico": "YES"
+      },
+      "5": {
+        "cargolux|dedicated uld team": "YES"
+      },
+      "4": {
+        "cargolux|temperature sensitive healthcare products": "YES",
+        "va-q-tec|cargolux": "YES"
+      },
+      "3": {
+        "luxembourg-based|va-q-tec": "YES",
+        "aguadilla|puerto rico": "YES",
+        "cargolux|aguadilla": "YES"
+      },
+      "2": {
+        "temperature deviation|production site to consignee": "YES",
+        "cool chain transportation|temperature deviation": "YES",
+        "va-q-tec|cool chain transportation": "YES"
+      },
+      "1": {
+        "va-q-tec|passive containers": "YES",
+        "cv pharma|va-q-tec": "YES",
+        "cargolux|cv pharma": "YES"
+      },
+      "0": {
+        "cargolux|va-q-tec": "YES"
+      }
+    },
+    "72a25e": {
+      "3": {
+        "yusen|u.k.": "YES",
+        "external temporary storage facility|yusen": "YES",
+        "first|external temporary storage facility": "YES",
+        "iso|first": "NO",
+        "caa|iso": "NO",
+        "iata|caa": "NO",
+        "aeo|iata": "NO"
+      },
+      "0": {
+        "yusen|heathrow": "YES"
+      }
+    },
+    "37caa1": {
+      "8": {
+        "african network|ethiopian airlines": "YES"
+      },
+      "7": {
+        "african|addis ababa": "YES",
+        "ethiopian airlines|african": "YES",
+        "dokasch temperature solutions|ethiopian airlines": "NO"
+      },
+      "5": {
+        "dokasch|opticooler": "YES",
+        "highly reliable packaging solution|dokasch": "YES"
+      },
+      "4": {
+        "dokasch|active container": "YES",
+        "ethiopian airlines|dokasch": "YES",
+        "handling temperature sensitive goods|ethiopian airlines": "NO",
+        "addis ababa hub|handling temperature sensitive goods": "YES"
+      },
+      "3": {
+        "africa|addis ababa": "YES",
+        "uld provider|africa": "NO",
+        "german|uld provider": "YES"
+      },
+      "2": {
+        "self regulating temperature control|temperature sensitive goods": "YES",
+        "battery powered cooling compressors and heaters|self regulating temperature control": "YES",
+        "opticooler|battery powered cooling compressors and heaters": "YES"
+      },
+      "1": {
+        "dokasch temperature solutions|opticooler": "YES",
+        "climate-controlled services|dokasch temperature solutions": "YES",
+        "ethiopian airlines|climate-controlled services": "YES"
+      },
+      "0": {
+        "ethiopian airlines|opticooler": "YES",
+        "dokasch|ethiopian airlines": "YES"
+      }
+    },
+    "7fade7": {
+      "4": {
+        "bru|brucloud": "YES"
+      },
+      "2": {
+        "the belgian federal agency for the safety of the food chain|fasfc": "YES",
+        "perishable management application|the belgian federal agency for the safety of the food chain": "YES"
+      },
+      "1": {
+        "perishable management app|brucloud": "YES",
+        "brussels airport|bru": "YES"
+      },
+      "0": {
+        "perishables|brucloud": "YES",
+        "brussels|perishables": "YES"
+      }
+    },
+    "883b57": {
+      "8": {
+        "misskampf|ground handling services fraport": "NO"
+      },
+      "6": {
+        "life science|healthcare shipments": "NO"
+      },
+      "4": {
+        "temperature sensitive cargo handling|hcc": "YES"
+      },
+      "3": {
+        "lug|iata ceiv pharma certification programme": "YES"
+      },
+      "2": {
+        "all-embracing temperature monitoring|alarm system": "NO",
+        "lug|all-embracing temperature monitoring": "NO",
+        "hcc|lug": "NO"
+      },
+      "1": {
+        "650 sq m|first": "NO",
+        "frankfurt airport|650 sq m": "YES",
+        "hcc|frankfurt airport": "YES",
+        "health care center|hcc": "YES",
+        "lug|health care center": "YES"
+      },
+      "0": {
+        "health care center|frankfurt": "YES",
+        "lug|health care center": "YES"
+      }
+    },
+    "893598": {
+      "8": {
+        "one|ceiv pharma certification": "NO",
+        "delta cargo|one": "NO"
+      },
+      "7": {
+        "delta cargo|ceiv certification": "YES",
+        "over 20 per cent|delta cargo": "NO",
+        "north american|over 20 per cent": "NO"
+      },
+      "6": {
+        "pharmaceuticals|trade lane": "YES",
+        "delta|air france klm martinair cargo": "YES"
+      },
+      "3": {
+        "paris|rome": "NO",
+        "milan|paris": "NO",
+        "brussels|milan": "NO",
+        "amsterdam|brussels": "NO",
+        "ceiv pharma certified|amsterdam": "YES",
+        "atlanta|ceiv pharma certified": "YES",
+        "first|atlanta": "YES",
+        "delta|first": "YES"
+      },
+      "2": {
+        "headquarters level|atlanta hub": "YES",
+        "iata ceiv|headquarters level": "YES",
+        "international air transport association center of excellence for independent validators|iata ceiv": "YES"
+      },
+      "1": {
+        "usa|iata ceiv": "YES",
+        "first|usa": "YES",
+        "delta cargo|first": "YES"
+      },
+      "0": {
+        "delta cargo|iata ceiv": "YES"
+      }
+    },
+    "619ffe": {
+      "4": {
+        "european|drop points": "YES"
+      },
+      "3": {
+        "reusable credo line|temperature controlled packaging": "YES",
+        "receive and return|reusable credo line": "YES",
+        "peli biothermal|receive and return": "YES",
+        "pharmaceutical manufacturing and transfer|peli biothermal": "NO",
+        "frankfurt main airport|pharmaceutical manufacturing and transfer": "YES",
+        "close proximity|frankfurt main airport": "YES"
+      },
+      "2": {
+        "cr\u0113do on demand|rental program": "YES"
+      },
+      "1": {
+        "frankfurt|global pharmaceuticals sector": "NO",
+        "network station|frankfurt": "YES",
+        "peli biothermal|network station": "YES"
+      },
+      "0": {
+        "peli biothermal|uld": "YES"
+      }
+    },
+    "36cff7": {
+      "7": {
+        "pharmaceutical|healthcare commodities": "NO",
+        "expeditetc|pharmaceutical": "YES",
+        "american|expeditetc": "YES"
+      },
+      "6": {
+        "ceiv|training for warehouse handling staff": "YES"
+      },
+      "5": {
+        "ceiv|pharmaceutical": "YES",
+        "iata|ceiv": "YES"
+      },
+      "4": {
+        "first|u.s.": "YES"
+      },
+      "2": {
+        "pharmaceutical|philadelphia international airport": "YES",
+        "25,000 square foot|pharmaceutical": "YES",
+        "miami international airport|25,000 square foot": "NO",
+        "dallas fort-worth international airport|miami international airport": "NO",
+        "key hub|dallas fort-worth international airport": "YES"
+      },
+      "1": {
+        "ceiv|pharma certification": "YES",
+        "center of excellence for independent validators|ceiv": "YES",
+        "iata|center of excellence for independent validators": "YES",
+        "international air transport association|iata": "YES",
+        "american airlines cargo|international air transport association": "YES"
+      },
+      "0": {
+        "iata|ceiv": "YES",
+        "american airlines cargo|iata": "YES"
+      }
+    },
+    "27051f": {
+      "7": {
+        "directly connected|tarmac": "YES",
+        "luxembourg|directly connected": "YES",
+        "amsterdam|luxembourg": "NO",
+        "london heathrow|amsterdam": "NO",
+        "europe|london heathrow": "YES",
+        "certysis-licensed airport locations|europe": "YES",
+        "three|certysis-licensed airport locations": "YES",
+        "panalpina|three": "YES"
+      },
+      "6": {
+        "panalpina|boeing 747-8 freighter": "YES",
+        "mexico|panalpina": "NO"
+      },
+      "5": {
+        "hub|latin america": "NO",
+        "european|hub": "YES",
+        "luxembourg|european": "YES",
+        "panalpina|luxembourg": "YES"
+      },
+      "3": {
+        "organic fruits|vegetables": "NO",
+        "perishables europe|organic fruits": "NO",
+        "panalpina|perishables europe": "NO"
+      },
+      "2": {
+        "organic produce|european hub": "YES",
+        "licensed receiver|organic produce": "YES",
+        "first|licensed receiver": "YES",
+        "panalpina|first": "YES"
+      },
+      "1": {
+        "vegetables|certysis": "NO",
+        "organic fruits|vegetables": "NO",
+        "luxembourg airport|organic fruits": "YES",
+        "hub|luxembourg airport": "YES",
+        "panalpina|hub": "YES"
+      },
+      "0": {
+        "panalpina|luxembourg": "YES"
+      }
+    },
+    "2aee30": {
+      "8": {
+        "temperature excursions|co2 footprint": "YES",
+        "skycell|temperature excursions": "YES",
+        "united|skycell": "YES"
+      },
+      "7": {
+        "skycell containers|us": "YES",
+        "united|skycell containers": "YES",
+        "skycell|united": "YES",
+        "skycell|skycell": "NO"
+      },
+      "6": {
+        "skycell|tempcontrol": "YES"
+      },
+      "4": {
+        "high-value biopharmaceutical shipments|temperature control": "YES",
+        "vaccines|high-value biopharmaceutical shipments": "YES",
+        "tempcontrol|vaccines": "YES",
+        "united cargo|tempcontrol": "YES"
+      },
+      "3": {
+        "internet of things sensors|skycell": "YES"
+      },
+      "2": {
+        "patented insulation|rechargeable cooling temperature": "YES",
+        "skycell containers|patented insulation": "YES"
+      },
+      "1": {
+        "temperature-sensitive containers|skycell": "YES",
+        "us|temperature-sensitive containers": "YES",
+        "first|us": "YES",
+        "tempcontrol|first": "YES",
+        "united cargo|tempcontrol": "YES"
+      },
+      "0": {
+        "skycell|united cargo": "YES"
+      }
+    },
+    "18637b": {
+      "8": {
+        "iata|ceiv": "YES",
+        "pharmaceutical hubs|iata": "YES",
+        "one|pharmaceutical hubs": "NO",
+        "frankfurt|one": "NO"
+      },
+      "5": {
+        "frankfurt|pharma-gateway for europe": "YES"
+      },
+      "3": {
+        "lug|swissport": "NO",
+        "lufthansa cargo cool center|lug": "NO",
+        "lufthansa cargo|lufthansa cargo cool center": "YES",
+        "fcs frankfurt cargo services|lufthansa cargo": "NO",
+        "celebi cargo|fcs frankfurt cargo services": "NO",
+        "iata|ceiv": "YES",
+        "frankfurt|iata": "YES",
+        "bollore logistics germany|frankfurt": "YES",
+        "perishable center betriebs|bollore logistics germany": "NO"
+      },
+      "2": {
+        "certified pharmaceutical gateway|europe": "YES",
+        "frankfurt|certified pharmaceutical gateway": "YES"
+      },
+      "0": {
+        "iata|ceiv": "YES",
+        "europe|iata": "YES",
+        "frankfurt|europe": "YES"
+      },
+      "1": {
+        "certified hub|europe": "YES",
+        "ceiv|certified hub": "YES",
+        "center of excellence for independent validators|ceiv": "YES",
+        "iata|center of excellence for independent validators": "YES",
+        "international air transport association|iata": "YES",
+        "frankfurt airport|international air transport association": "YES",
+        "air cargo community frankfurt|frankfurt airport": "YES"
+      }
+    },
+    "7e0e0a": {
+      "5": {
+        "dhl|iata": "YES",
+        "lifeconex|dhl temperature management solutions": "NO",
+        "dhl|lifeconex": "NO"
+      },
+      "4": {
+        "u.s.|hubs": "YES",
+        "stations|u.s.": "YES"
+      },
+      "3": {
+        "dhl|third": "NO",
+        "iata ceiv|dhl": "YES"
+      },
+      "2": {
+        "iata ceiv|third": "YES",
+        "center of excellence for independent validators in pharmaceutical logistics|iata ceiv": "YES",
+        "international air transport association|center of excellence for independent validators in pharmaceutical logistics": "YES",
+        "san juan|international air transport association": "NO",
+        "philadelphia|san juan": "NO",
+        "miami|philadelphia": "NO",
+        "los angeles|miami": "NO",
+        "cincinnati|los angeles": "NO",
+        "chicago|cincinnati": "NO",
+        "atlanta|chicago": "YES"
+      },
+      "1": {
+        "bogota|colombia": "YES",
+        "iata ceiv|bogota": "NO",
+        "us|stations": "YES",
+        "11|us": "YES",
+        "seven|11": "NO",
+        "dhl|seven": "NO"
+      },
+      "0": {
+        "us|stations": "YES",
+        "7|us": "YES",
+        "bogota|7": "NO",
+        "iata ceiv|bogota": "YES",
+        "dhl|iata ceiv": "YES"
+      }
+    },
+    "9fb11e": {
+      "14": {
+        "4advice|envirotainer": "NO",
+        "e-cargoware|4advice": "NO",
+        "montevideo free airport|e-cargoware": "NO",
+        "dhl|montevideo free airport": "NO",
+        "euroairport basel mulhouse freiburg|dhl": "NO",
+        "brinks|euroairport basel mulhouse freiburg": "NO",
+        "expeditors|brinks": "NO",
+        "singapore airlines cargo|expeditors": "NO",
+        "brussels airlines cargo|singapore airlines cargo": "NO",
+        "three|brussels airlines cargo": "NO",
+        "strategic pharma members|three": "NO",
+        "msd|strategic pharma members": "YES",
+        "pfizer|msd": "NO",
+        "johnson & johnson|pfizer": "NO"
+      },
+      "13": {
+        "mumbai|chhatrapati shivaji airport": "YES",
+        "sharjah international airport|mumbai": "NO",
+        "changi airport|sharjah international airport": "NO",
+        "brussels airport|changi airport": "NO",
+        "miami international airport|brussels airport": "NO",
+        "pharma.aero|miami international airport": "YES"
+      },
+      "12": {
+        "ceiv certified companies|shippers and airport authorities": "NO",
+        "air cargo industry|ceiv certified companies": "YES",
+        "pharma.aero|air cargo industry": "YES"
+      },
+      "9": {
+        "pharma.aero|cross industry collaboration": "YES"
+      },
+      "8": {
+        "first|russia": "YES",
+        "moscow sheremetyevo hub|first": "YES",
+        "ceiv|moscow sheremetyevo hub": "YES",
+        "iata|ceiv": "YES",
+        "airbridgecargo|iata": "YES"
+      },
+      "7": {
+        "iata|ceiv": "YES",
+        "hong kong|five million tonnes": "YES"
+      },
+      "5": {
+        "pharma|pharmaceutical industry": "YES"
+      },
+      "4": {
+        "pharma corridors|pharma.aero": "YES",
+        "ceiv|pharma.aero": "NO"
+      },
+      "3": {
+        "pharma shipper members|pharmaceutical shipments": "NO"
+      },
+      "2": {
+        "improve reliability end-to-end|pharma shippers": "YES",
+        "pharmaceutical logistics|improve reliability end-to-end": "YES",
+        "ceiv|pharmaceutical logistics": "YES",
+        "centre of excellence for independent validators|ceiv": "YES",
+        "iata|centre of excellence for independent validators": "YES",
+        "international air transport association|iata": "YES"
+      },
+      "1": {
+        "airbridgecargo|alha group": "NO",
+        "hkia|airbridgecargo": "NO",
+        "hong kong international airport|hkia": "YES",
+        "pharma.aero|hong kong international airport": "YES"
+      },
+      "0": {
+        "alha group|pharma.aero": "YES",
+        "airbridgecargo|alha group": "NO",
+        "hkia|airbridgecargo": "NO"
+      }
+    },
+    "934b8a": {
+      "18": {
+        "north america|ceiv pharma certification": "YES",
+        "only two|north america": "YES",
+        "one|only two": "NO",
+        "around 911,000 tons|one": "NO",
+        "texan|around 911,000 tons": "YES"
+      },
+      "17": {
+        "dfw|ceiv pharma certification": "YES",
+        "dallas fort worth airport|dfw": "YES"
+      },
+      "15": {
+        "approximately 200,000 tonnes|11%": "NO",
+        "fiumicino|approximately 200,000 tonnes": "YES"
+      },
+      "14": {
+        "one|ceiv pharma certification": "NO",
+        "fiumicino|one": "NO"
+      },
+      "13": {
+        "iata|european": "NO"
+      },
+      "10": {
+        "one|european": "NO",
+        "italy|one": "NO",
+        "second|italy": "YES",
+        "lazio|second": "YES"
+      },
+      "9": {
+        "the far east|south america": "NO",
+        "north america|the far east": "NO"
+      },
+      "7": {
+        "temperature variations|pharmaceutical products": "YES"
+      },
+      "6": {
+        "iata|ceiv pharma certification": "YES"
+      },
+      "5": {
+        "da vinci airport|community approach": "YES",
+        "ciampino airport|da vinci airport": "YES",
+        "rome|ciampino airport": "YES",
+        "fiumicino|rome": "YES",
+        "adr|fiumicino": "YES",
+        "aeroporti di roma|adr": "YES"
+      },
+      "4": {
+        "munich|germany": "YES",
+        "ace|munich": "NO",
+        "air cargo europe|ace": "NO",
+        "iata|air cargo europe": "NO"
+      },
+      "3": {
+        "highly sensitive cargoes|temperature integrity": "YES"
+      },
+      "2": {
+        "ceiv|center of excellence for independent validators": "YES",
+        "iata|ceiv": "YES"
+      },
+      "1": {
+        "italy|ceiv pharma certification": "YES",
+        "first|italy": "YES",
+        "leonardo da vinci|first": "NO",
+        "fiumicino|leonardo da vinci": "YES",
+        "rome|fiumicino": "YES"
+      },
+      "0": {
+        "fiumicino|ceiv": "YES"
+      }
+    },
+    "e8f155": {
+      "7": {
+        "swissport|cargo documentation services": "YES"
+      },
+      "6": {
+        "flughafen wien|swissport": "YES",
+        "vienna|flughafen wien": "YES"
+      },
+      "5": {
+        "austria|switzerland": "NO",
+        "germany|austria": "NO",
+        "15 airports|germany": "NO",
+        "direct airside access|15 airports": "YES"
+      },
+      "4": {
+        "shorter transit times|vienna": "YES"
+      },
+      "3": {
+        "director access|airport apron": "YES",
+        "two air cargo handlers at vienna airport|director access": "YES",
+        "one|two air cargo handlers at vienna airport": "YES",
+        "swissport|one": "YES"
+      },
+      "2": {
+        "2,100 square metres|direct airside access": "NO",
+        "swissport|2,100 square metres": "YES"
+      },
+      "1": {
+        "vienna international airport|7,000 square metres": "YES",
+        "air cargo warehouse|vienna international airport": "YES",
+        "second|air cargo warehouse": "YES",
+        "swissport|second": "YES"
+      },
+      "0": {
+        "second|vienna": "YES",
+        "swissport|second": "YES"
+      }
+    },
+    "3672ad": {
+      "6": {
+        "kenya civil aviation authority|kcaa": "YES",
+        "regulated agent|kenya civil aviation authority": "YES",
+        "local certifications|regulated agent": "YES",
+        "ra3|local certifications": "NO",
+        "isago|ra3": "NO",
+        "audit|isago": "YES",
+        "global certifications|audit": "YES"
+      },
+      "5": {
+        "ground handling|singapore airlines": "YES"
+      },
+      "3": {
+        "sia cargo|jkia": "YES",
+        "siginon aviation|sia cargo": "YES"
+      },
+      "2": {
+        "air cargo terminal on the airside|jkia": "YES",
+        "audit|siginon": "YES"
+      },
+      "1": {
+        "jkia|nairobi": "YES",
+        "jomo kenyatta international airport|jkia": "YES",
+        "sia cargo|jomo kenyatta international airport": "YES",
+        "singapore airlines|sia cargo": "YES",
+        "ground handling|singapore airlines": "YES",
+        "siginon aviation|ground handling": "YES",
+        "kenyan|siginon aviation": "YES"
+      },
+      "0": {
+        "siginon aviation|sia cargo": "YES",
+        "african|siginon aviation": "YES"
+      }
+    },
+    "8ce13d": {
+      "12": {
+        "dedicated facility|oslo airport": "YES"
+      },
+      "11": {
+        "wfs|emeaa": "NO"
+      },
+      "10": {
+        "norway|norwegian seafood": "YES",
+        "seafood centre|norway": "YES"
+      },
+      "7": {
+        "cargo hub|northern europe": "YES",
+        "oslo airport|cargo hub": "YES",
+        "wfs|oslo airport": "YES"
+      },
+      "6": {
+        "oslo airport|norwegian seafood": "YES",
+        "seafood centre|oslo airport": "YES"
+      },
+      "5": {
+        "cool chain logistics|for seafood": "YES"
+      },
+      "3": {
+        "norwegian|230,000 tons": "NO",
+        "90,000 tons|norwegian": "NO",
+        "185,000 tons|90,000 tons": "NO"
+      },
+      "2": {
+        "europe|36 per cent": "NO",
+        "oslo|europe": "YES",
+        "nordic|oslo": "YES",
+        "half|nordic": "NO",
+        "norway|half": "YES"
+      },
+      "1": {
+        "oslo airport|up to 250,000 tons": "YES",
+        "seafood centre|oslo airport": "YES",
+        "mou|seafood centre": "YES",
+        "sj\u00f8matterminalen|mou": "YES",
+        "wfs|sj\u00f8matterminalen": "YES",
+        "worldwide flight services|wfs": "YES"
+      },
+      "0": {
+        "seafood centre|oslo airport": "YES",
+        "wfs|seafood centre": "YES"
+      }
+    },
+    "529d6f": {
+      "5": {
+        "csafe|rkn": "YES",
+        "temperature-controlled container solution|larger cargo payloads": "YES",
+        "life-science shippers|temperature-controlled container solution": "YES",
+        "rap|life-science shippers": "YES",
+        "csafe|rap": "YES"
+      },
+      "4": {
+        "rap|battery life of well over 100 hours": "YES",
+        "rkn|rap": "YES",
+        "csafe|rkn": "YES"
+      },
+      "3": {
+        "four standard us-pallets|five": "NO",
+        "rap|four standard us-pallets": "YES",
+        "6.68m3|rap": "NO",
+        "-30c to +54c|6.68m3": "YES",
+        "ambient temperatures|-30c to +54c": "YES",
+        "constant payload temperatures|ambient temperatures": "YES"
+      },
+      "2": {
+        "extreme ambient temperature conditions|long-duration shipments": "NO",
+        "thermocor vip insulation|extreme ambient temperature conditions": "YES",
+        "compressor driven cooling technologies|thermocor vip insulation": "YES",
+        "rap|compressor driven cooling technologies": "YES"
+      },
+      "1": {
+        "european aviation safety agency|easa": "YES",
+        "rap temperature-controlled container|european aviation safety agency": "YES",
+        "csafe global|rap temperature-controlled container": "YES"
+      },
+      "0": {
+        "rap container|easa": "YES",
+        "csafe|rap container": "YES"
+      }
+    },
+    "036533": {
+      "5": {
+        "pharma|airbridgecargo": "NO",
+        "global|pharma": "NO",
+        "freight forwarders|pharma manufacturers": "NO",
+        "airline|freight forwarders": "NO",
+        "three|airline": "NO",
+        "cooperation|three": "NO"
+      },
+      "4": {
+        "abc|specific equipment to monitor and track": "YES"
+      },
+      "3": {
+        "certified stations|temperature-controlled containers": "NO",
+        "qep|certified stations": "YES",
+        "qualified envirotainer provider|qep": "YES",
+        "iata ceiv pharma|qualified envirotainer provider": "NO",
+        "extending its network|iata ceiv pharma": "YES",
+        "airline|extending its network": "YES"
+      },
+      "2": {
+        "volga-dnepr group|freight forwarders": "NO",
+        "russian|volga-dnepr group": "YES"
+      },
+      "1": {
+        "abc pharma|60 percent": "YES",
+        "airbridgecargo|abc": "YES"
+      },
+      "0": {
+        "airbridgecargo|60 percent": "YES"
+      }
+    },
+    "05c1c2": {
+      "13": {
+        "dubai international airport|dubai world central": "NO",
+        "dedicated temperature-controlled storage space|dubai international airport": "YES",
+        "25,000 square meters|dedicated temperature-controlled storage space": "YES"
+      },
+      "9": {
+        "150|six": "NO"
+      },
+      "7": {
+        "white cover advanced|protecting temperature-sensitive shipments": "YES",
+        "emirates skycargo|white cover advanced": "YES"
+      },
+      "6": {
+        "external heat|weather fluctuations": "YES",
+        "lightweight cargo covers|external heat": "YES",
+        "emirates skycargo|lightweight cargo covers": "YES",
+        "the white cover|emirates skycargo": "YES"
+      },
+      "5": {
+        "cold chain protection|in air transit": "YES",
+        "tyvek|cold chain protection": "YES",
+        "pallet cover|tyvek": "YES",
+        "first|pallet cover": "YES",
+        "emirates skycargo white cover|first": "YES",
+        "tyvek|emirates skycargo": "YES",
+        "dupont|tyvek": "YES"
+      },
+      "3": {
+        "emirates|dupont safety & construction": "NO",
+        "dupont|emirates": "YES"
+      },
+      "2": {
+        "emirates towers|dubai": "YES"
+      },
+      "1": {
+        "emirates|10th": "NO",
+        "emirates skycargo|emirates": "YES",
+        "thermal cargo covers|emirates skycargo": "YES",
+        "tyvek|thermal cargo covers": "YES",
+        "dowdupont specialty products division|tyvek": "YES",
+        "dupont)|dowdupont specialty products division": "YES",
+        "dupont|dupont)": "YES"
+      },
+      "0": {
+        "dupont|emirates skycargo": "YES"
+      },
+      "19": {
+        "tyvek|emirates skycargo": "YES",
+        "dupont|tyvek": "YES"
+      },
+      "18": {
+        "white cover xtreme|first": "NO",
+        "the white cover|white cover xtreme": "NO"
+      },
+      "15": {
+        "global technical leader|tyvek": "NO",
+        "dupont|global technical leader": "NO",
+        "emirates|dupont": "YES"
+      },
+      "14": {
+        "cool dollies|cold chain protection": "YES",
+        "emirates skycargo|cool dollies": "YES"
+      }
+    },
+    "53328d": {
+      "11": {
+        "mab kargo|verify halal": "YES"
+      },
+      "7": {
+        "mab kargo|halal logistics service": "YES",
+        "mab kargo|mab kargo": "NO"
+      },
+      "6": {
+        "labuan halal hub|serunai commerce": "NO",
+        "malaysia|labuan halal hub": "NO",
+        "nippon express|malaysia": "YES",
+        "sejung group of korea|nippon express": "NO",
+        "first|sejung group of korea": "NO"
+      },
+      "5": {
+        "the malaysia airlines academy|kelana jaya": "YES"
+      },
+      "4": {
+        "hala and non-halal shipments|handled and stored separately": "YES",
+        "mab kargo|hala and non-halal shipments": "NO"
+      },
+      "3": {
+        "mab kargo|halal logistics": "YES",
+        "ms2400-certification|mab kargo": "YES"
+      },
+      "2": {
+        "mab kargo|halal logistics service": "YES"
+      },
+      "1": {
+        "ms2400-halal certification|the malaysian department of islamic development (jakim": "YES",
+        "halal logistics service|ms2400-halal certification": "NO",
+        "malaysia aviation group|halal logistics service": "YES",
+        "mab kargo|malaysia aviation group": "YES"
+      },
+      "0": {
+        "mab kargo|halal logistics": "YES"
+      }
+    },
+    "c647f6": {
+      "9": {
+        "qr pharma|global customer base": "YES",
+        "pharmaceuticals|qr pharma": "YES",
+        "qatar airways cargo|pharmaceuticals": "YES",
+        "pharma network|qatar airways cargo": "YES",
+        "dublin|pharma network": "YES",
+        "colombo|dublin": "NO"
+      },
+      "8": {
+        "the republic of ireland|united kingdom": "YES",
+        "qatar airways cargo|the republic of ireland": "YES"
+      },
+      "6": {
+        "sri lanka|the republic of ireland": "NO"
+      },
+      "5": {
+        "pharmaceuticals|healthcare products": "YES",
+        "consistent growth|pharmaceuticals": "YES"
+      },
+      "4": {
+        "sri lanka|healthcare products": "YES"
+      },
+      "3": {
+        "nine|ten": "NO"
+      },
+      "2": {
+        "qatar airways|b787 dreamliner flights": "YES",
+        "dublin|qatar airways": "NO",
+        "pharma network|dublin": "NO",
+        "colombo|pharma network": "YES"
+      },
+      "1": {
+        "pharma network|73": "YES",
+        "ireland|pharma network": "YES",
+        "dublin|ireland": "YES",
+        "sri lanka|dublin": "NO",
+        "colombo|sri lanka": "YES",
+        "qatar airways cargo|colombo": "YES"
+      }
+    },
+    "feb903": {
+      "9": {
+        "second|life sciences and pharmaceuticals conference": "NO",
+        "air cargo news|second": "NO"
+      },
+      "8": {
+        "asia-pacific|north and south america": "NO",
+        "europe|asia-pacific": "NO",
+        "more than 50|europe": "YES",
+        "healthcare distribution network|more than 50": "YES",
+        "ups|healthcare distribution network": "YES"
+      },
+      "7": {
+        "direct feeder connection|cologne/bonn airport": "YES",
+        "quality assurance services|direct feeder connection": "YES",
+        "temperature-sensitive storage|quality assurance services": "NO"
+      },
+      "6": {
+        "gdp|the dutch ministry of health": "NO",
+        "european union good distribution practice|gdp": "YES"
+      },
+      "5": {
+        "poland|hungary": "NO",
+        "italy|poland": "NO",
+        "spain|italy": "NO",
+        "european|spain": "YES",
+        "ups|european": "NO",
+        "ups|ups": "NO"
+      },
+      "4": {
+        "ups|european": "YES",
+        "limburg|ups": "YES",
+        "logistics-and transportation-centric area|limburg": "YES",
+        "dedicated healthcare facility|logistics-and transportation-centric area": "YES",
+        "third|dedicated healthcare facility": "YES",
+        "ups|third": "NO"
+      },
+      "3": {
+        "germany|41,000 pallet places": "NO",
+        "cologne/bonn airport|germany": "YES",
+        "european air hub|cologne/bonn airport": "YES",
+        "ups|european air hub": "YES",
+        "roermond|ups": "NO",
+        "28,000 sq m|roermond": "YES"
+      },
+      "2": {
+        "amsterdam|schiphol airport": "YES",
+        "healthcare-dedicated airfreight forwarding facility|amsterdam": "YES",
+        "us|healthcare-dedicated airfreight forwarding facility": "NO"
+      },
+      "1": {
+        "roermond|netherlands": "YES",
+        "healthcare distribution centre|roermond": "YES",
+        "ups|healthcare distribution centre": "YES"
+      },
+      "0": {
+        "ups|dutch": "YES"
+      }
+    },
+    "8b6f2e": {
+      "5": {
+        "highly accurate delivery performance|time-sensitive shipment": "NO",
+        "reliability|highly accurate delivery performance": "YES",
+        "fedex|tnt": "NO"
+      },
+      "4": {
+        "medical device industries|clinical trials sector": "YES",
+        "pharmaceutical|medical device industries": "NO",
+        "medpak vi\u00b0c|pharmaceutical": "YES"
+      },
+      "3": {
+        "fedex|tnt": "YES"
+      },
+      "2": {
+        "test medications|temperature-controlled reusable packaging": "YES",
+        "clinical trials sector|test medications": "YES",
+        "medpak vi\u00b0c|clinical trials sector": "YES"
+      },
+      "1": {
+        "sensitive healthcare products|europe": "YES",
+        "medpak vi\u00b0c|sensitive healthcare products": "YES",
+        "tnt|medpak vi\u00b0c": "YES",
+        "fedex|tnt": "YES"
+      },
+      "0": {
+        "tnt|medpak vi\u00b0c": "YES",
+        "fedex|tnt": "YES"
+      }
+    },
+    "85c6d9": {
+      "10": {
+        "iata perishable cargo regulations section 17|temperature control regulations": "YES",
+        "good distribution practice guides|iata perishable cargo regulations section 17": "NO",
+        "iata|ceiv": "YES",
+        "turkish cargo|iata": "YES"
+      },
+      "9": {
+        "consignments|health and extremely temperature- and time-critical": "YES"
+      },
+      "5": {
+        "comis|turkish cargo": "YES",
+        "telemetry system|comis": "NO"
+      },
+      "3": {
+        "dedicated area|1,030sq m": "YES",
+        "healthcare products|dedicated area": "YES",
+        "43,000sq m|healthcare products": "NO",
+        "indoor area|43,000sq m": "YES",
+        "25 \u00b0c)|indoor area": "YES",
+        "-20 \u00b0c|25 \u00b0c)": "YES",
+        "temperature ranges|-20 \u00b0c": "YES",
+        "four|temperature ranges": "YES",
+        "3,000sq m|four": "YES",
+        "storage area|3,000sq m": "YES",
+        "turkish cargo|storage area": "YES"
+      },
+      "2": {
+        "iata|ceiv standards": "YES",
+        "ceiv certificate|iata": "YES"
+      },
+      "1": {
+        "ceiv|pharmaceutical operations": "YES",
+        "center of excellence for independent validators|ceiv": "YES",
+        "iata|center of excellence for independent validators": "YES",
+        "turkish cargo|iata": "YES"
+      }
+    },
+    "868c74": {
+      "9": {
+        "south korea|japan": "NO",
+        "va-q-tec|south korea": "YES"
+      },
+      "8": {
+        "va-q-tec|va-q-tec": "YES"
+      },
+      "6": {
+        "six different temperature ranges|-60\u00b0c to +25\u00b0c": "YES",
+        "two us pallets inside|six different temperature ranges": "NO",
+        "five different sizes|two us pallets inside": "YES",
+        "thermal containers|five different sizes": "YES"
+      },
+      "5": {
+        "va-q-tec|cathay pacific cargo": "YES"
+      },
+      "4": {
+        "asia|va-q-tec": "NO"
+      },
+      "2": {
+        "temperature-controlled conditions|external energy sources": "YES",
+        "thermal containers|temperature-controlled conditions": "YES"
+      },
+      "1": {
+        "constant temperature|more than five days": "YES",
+        "thermal containers|constant temperature": "YES",
+        "va-q-tec|thermal containers": "YES",
+        "cathay pacific cargo|va-q-tec": "YES"
+      },
+      "0": {
+        "cathay pacific cargo|va-q-tec": "YES"
+      }
+    },
+    "9a9e63": {
+      "11": {
+        "13|europe": "YES",
+        "us|13": "NO",
+        "eight|us": "YES",
+        "drop points|eight": "YES",
+        "more than 50|drop points": "YES",
+        "one|more than 50": "YES",
+        "drop point|one": "YES",
+        "toronto|drop point": "YES"
+      },
+      "10": {
+        "drop-off points|drop points": "NO"
+      },
+      "9": {
+        "critical temperature requirements|drop point": "NO",
+        "credo shippers|critical temperature requirements": "YES"
+      },
+      "8": {
+        "credo on demand rental programme|temperature controlled passive shipper rental": "YES"
+      },
+      "7": {
+        "credo xtreme pallet shippers|credo cargo": "NO",
+        "ats|credo on demand": "YES",
+        "peli|ats": "YES",
+        "drop point|peli": "YES",
+        "toronto|drop point": "YES",
+        "temperature controlled healthcare transportation industry|toronto": "YES",
+        "canada|temperature controlled healthcare transportation industry": "YES",
+        "ats healthcare|canada": "YES"
+      },
+      "6": {
+        "ats healthcare|toronto": "YES",
+        "drop points|ats healthcare": "YES"
+      },
+      "4": {
+        "credo on demand|canadian": "NO",
+        "peli|credo on demand": "NO"
+      },
+      "3": {
+        "peli|canada": "YES",
+        "ats healthcare|peli": "YES"
+      },
+      "2": {
+        "credo on demand rental programme|reusable shipping assets": "YES",
+        "peli|credo on demand rental programme": "YES",
+        "drop point|peli": "YES",
+        "toronto|drop point": "YES",
+        "ats healthcare|toronto": "YES"
+      },
+      "1": {
+        "first|drop point": "YES",
+        "canada|first": "YES",
+        "credo on demand rental programme|canada": "YES",
+        "ats healthcare|credo on demand rental programme": "YES",
+        "peli|ats healthcare": "YES"
+      },
+      "0": {
+        "credo on demand|toronto": "YES",
+        "peli|credo on demand": "YES"
+      }
+    },
+    "346a0c": {
+      "8": {
+        "internal and external temperature|location": "NO",
+        "pharmaport|internal and external temperature": "YES"
+      },
+      "6": {
+        "ambient temperature|gps location": "YES",
+        "telemetry system|ambient temperature": "NO",
+        "federal aviation administration|telemetry system": "YES",
+        "pharmaport|federal aviation administration": "NO"
+      },
+      "5": {
+        "active containers|eliminates the need for refrigerated trucks": "NO",
+        "operate on battery power substantially longer|active containers": "YES",
+        "hybrid technology|operate on battery power substantially longer": "YES"
+      },
+      "4": {
+        "once charged|active temperature controlled container": "YES",
+        "precise temperature control|once charged": "YES",
+        "proprietary hybrid technology|precise temperature control": "YES",
+        "pharmaport 360|proprietary hybrid technology": "YES"
+      },
+      "2": {
+        "cathay pacific|pharma lift capabilities": "YES",
+        "pharmaport 360 containers|cathay pacific": "NO",
+        "pharmaceutical shippers|pharmaport 360 containers": "YES"
+      },
+      "1": {
+        "sonoco thermosafe|pharmaport 360": "YES",
+        "cathay pacific cargo|sonoco thermosafe": "YES"
+      },
+      "0": {
+        "cathay pacific|sonoco thermosafe": "YES"
+      }
+    },
+    "efc7c7": {
+      "6": {
+        "gdp|ceiv certifications": "NO",
+        "asia|pharma-handling services": "NO",
+        "africa|asia": "NO",
+        "middle east|africa": "NO",
+        "europe|middle east": "NO"
+      },
+      "5": {
+        "milan|copenhagen": "NO",
+        "paris|milan": "NO",
+        "wfs|paris": "YES"
+      },
+      "4": {
+        "gdp|ceiv-pharma": "NO",
+        "good distribution practices|gdp": "YES"
+      },
+      "3": {
+        "storage temperatures|+2\u00b0c": "YES",
+        "brussels|storage temperatures": "YES",
+        "dedicated pharma cells|brussels": "YES",
+        "two|dedicated pharma cells": "YES",
+        "wfs|two": "YES"
+      },
+      "2": {
+        "brussels|170 percent": "YES",
+        "pharmaceutical handling|brussels": "YES",
+        "wfs|pharmaceutical handling": "YES"
+      },
+      "1": {
+        "first|european": "YES",
+        "brussels cargo station|first": "YES",
+        "ceiv-pharma certification|brussels cargo station": "YES",
+        "iata|ceiv-pharma certification": "YES",
+        "international air transport association|iata": "YES",
+        "wfs|international air transport association": "YES",
+        "worldwide flight services|wfs": "YES"
+      },
+      "0": {
+        "ground-handling|brussels": "YES",
+        "ceiv certification|ground-handling": "YES",
+        "wfs|ceiv certification": "YES"
+      }
+    },
+    "68fcfd": {
+      "8": {
+        "data sharing|recorders in the shipments": "YES",
+        "mauroux|data sharing": "NO"
+      },
+      "5": {
+        "value chain|cool chain": "YES",
+        "air france klm martinair cargo|cca": "NO",
+        "perishables|air france klm martinair cargo": "NO"
+      },
+      "4": {
+        "fresh park venlo|netherlands": "NO",
+        "perishables|fresh park venlo": "NO",
+        "cca|perishables": "YES"
+      },
+      "2": {
+        "temperature excursions|pinch points": "YES",
+        "grower|consignee": "YES",
+        "tracking|grower": "YES",
+        "middle east|tracking": "YES",
+        "usa|middle east": "YES",
+        "europe|usa": "NO",
+        "latin america|europe": "YES"
+      },
+      "1": {
+        "data sharing|perishable shipments": "YES",
+        "cca|data sharing": "YES",
+        "cool chain|cca": "YES"
+      },
+      "0": {
+        "cca|data sharing": "YES"
+      }
+    },
+    "1735cc": {
+      "4": {
+        "de-containerising contents|for airfreight services to final destination": "YES",
+        "the ports of los angeles/long beach|de-containerising contents": "NO",
+        "ocean containers|the ports of los angeles/long beach": "YES",
+        "sea-air programme|ocean containers": "NO",
+        "apollo|sea-air programme": "YES"
+      },
+      "2": {
+        "28 to 40 degrees|13 truck high loading positions": "NO",
+        "three individualised units|28 to 40 degrees": "YES",
+        "total cold chain protection|three individualised units": "NO",
+        "cargo screening areas|total cold chain protection": "YES",
+        "temperature-controlled working|cargo screening areas": "NO"
+      },
+      "1": {
+        "los angeles international airport|us": "YES",
+        "off-airport warehouse|los angeles international airport": "YES",
+        "perishable centre|off-airport warehouse": "YES",
+        "15,663 sq ft|perishable centre": "YES",
+        "apollo freight|15,663 sq ft": "YES"
+      }
+    },
+    "3013a9": {
+      "7": {
+        "brazilian|brasilia": "YES",
+        "europe|brazilian": "YES",
+        "tap cargo|europe": "YES"
+      },
+      "6": {
+        "va-q-tec|brazil": "YES",
+        "tap|va-q-tec": "YES"
+      },
+      "5": {
+        "containers|constant temperature control": "YES"
+      },
+      "4": {
+        "two|us pallets": "YES",
+        "five sizes|two": "NO",
+        "+25\u00b0c|five sizes": "YES",
+        "temperature ranges|+25\u00b0c": "YES",
+        "six|temperature ranges": "YES",
+        "temperature controlled solutions|six": "YES",
+        "va-q-tainers|temperature controlled solutions": "YES"
+      },
+      "3": {
+        "europe|va-q-tec": "YES",
+        "high value pharmaceuticals|europe": "YES",
+        "brazil|high value pharmaceuticals": "YES",
+        "tap cargo|brazil": "YES"
+      },
+      "2": {
+        "europe|brazil": "YES",
+        "tap|europe": "YES"
+      },
+      "1": {
+        "global rental agreement|temperature-controlled container": "YES",
+        "tap cargo|global rental agreement": "YES",
+        "portuguese|tap cargo": "YES"
+      }
+    },
+    "72d118": {
+      "8": {
+        "93|27": "YES",
+        "china airline\u00b4s|93": "YES",
+        "opticooler|china airline\u00b4s": "YES",
+        "china airlines|opticooler": "NO",
+        "dokasch temperature solutions|china airlines": "YES",
+        "taiwan|dokasch temperature solutions": "NO"
+      },
+      "7": {
+        "asia|taiwan": "YES",
+        "dokasch temperature solutions|asia": "NO"
+      },
+      "6": {
+        "opticooler|temperature range": "YES",
+        "heaters|opticooler": "YES",
+        "battery-powered cooling compressors|heaters": "YES",
+        "electric|battery-powered cooling compressors": "YES"
+      },
+      "2": {
+        "active containers|china airlines": "YES",
+        "opticooler|active containers": "YES"
+      },
+      "1": {
+        "temperature-sensitive cargo|china airlines": "NO",
+        "climate-controlled solutions|temperature-sensitive cargo": "YES",
+        "german|climate-controlled solutions": "YES",
+        "dokasch temperature solutions|german": "YES"
+      },
+      "0": {
+        "china airlines|dokasch temperature solutions": "YES"
+      }
+    },
+    "40aca4": {
+      "9": {
+        "check-in and waiting times|co2 savings": "YES",
+        "ecological concerns|check-in and waiting times": "YES"
+      },
+      "8": {
+        "dakosy|hamburg": "NO"
+      },
+      "7": {
+        "customs|the hamburg forwarding agents association": "YES",
+        "hamburg airport|customs": "YES",
+        "swissport|hamburg airport": "NO",
+        "lug|swissport": "NO",
+        "handling agents|lug": "YES",
+        "sable|handling agents": "NO",
+        "a.hartrodt|sable": "NO",
+        "delta-stallion|a.hartrodt": "NO",
+        "forwarders cross freight|delta-stallion": "NO"
+      },
+      "5": {
+        "handling processes|traffic on the ground": "YES",
+        "fair@link|handling processes": "YES"
+      },
+      "3": {
+        "hamburg airport|geofence area": "YES",
+        "electronic forms|hamburg airport": "YES",
+        "customs declarations|electronic forms": "YES"
+      },
+      "2": {
+        "waiting and handling times|handling agents": "YES",
+        "shorter|waiting and handling times": "YES",
+        "time slots for deliveries|shorter": "YES",
+        "dakosy|time slots for deliveries": "YES"
+      },
+      "1": {
+        "fair@link|hamburg airport": "YES"
+      }
+    },
+    "7847e1": {
+      "7": {
+        "delta|atlanta": "YES",
+        "europe|asia": "NO",
+        "ceiv approved facilities|europe": "YES",
+        "seven|ceiv approved facilities": "YES",
+        "pharma approved stations|seven": "NO",
+        "50|pharma approved stations": "YES",
+        "delta|50": "YES"
+      },
+      "6": {
+        "ceiv certification|atlanta warehouse and headquarters": "YES",
+        "iata|ceiv certification": "YES",
+        "delta|iata": "YES"
+      },
+      "5": {
+        "rap|pharma shippers": "NO",
+        "delta|cold-chain pharma": "YES",
+        "csafe|delta": "NO"
+      },
+      "4": {
+        "trans-atlantic network|delta": "NO",
+        "tailored pharma options|trans-atlantic network": "YES",
+        "virgin atlantic cargo|tailored pharma options": "NO",
+        "air france-klm cargo|virgin atlantic cargo": "NO"
+      },
+      "3": {
+        "standard euro pallets|battery run time of over 120 hours": "NO",
+        "five|standard euro pallets": "YES",
+        "standard us pallets|five": "NO",
+        "four|standard us pallets": "YES"
+      },
+      "2": {
+        "extreme ambient temperatures|+54\u00b0c": "YES",
+        "superior insulation|extreme ambient temperatures": "YES",
+        "compressor-driven cooling technologies|superior insulation": "YES",
+        "innovative heating|compressor-driven cooling technologies": "NO",
+        "rap|innovative heating": "YES",
+        "csafe|rap": "YES"
+      },
+      "1": {
+        "rap|cold-chain pharma": "YES",
+        "csafe|rap": "YES",
+        "delta cargo|csafe": "YES",
+        "us|delta cargo": "YES",
+        "one|us": "NO"
+      },
+      "0": {
+        "csafe|rap": "YES",
+        "delta cargo|csafe": "YES"
+      }
+    },
+    "eba27a": {
+      "11": {
+        "cargolux|turkish cargo": "NO",
+        "air france klm|cargolux": "NO",
+        "cal|air france klm": "NO",
+        "finnair|cal": "NO"
+      },
+      "9": {
+        "ceiv|iata": "YES"
+      },
+      "7": {
+        "four|cold-storage rooms": "YES",
+        "apron|four": "NO",
+        "frankfurt|apron": "YES",
+        "direct access|frankfurt": "YES",
+        "cool centre|direct access": "YES",
+        "refrigerated container|cool centre": "NO"
+      },
+      "6": {
+        "first|iata": "NO",
+        "one|first": "NO"
+      },
+      "1": {
+        "center of excellence for independent validators|ceiv": "YES",
+        "iata|center of excellence for independent validators": "YES",
+        "sixth|iata": "YES",
+        "lufthansa cargo|sixth": "YES"
+      },
+      "0": {
+        "lufthansa cargo|sixth": "NO"
+      }
+    },
+    "8e59bc": {
+      "8": {
+        "acl|silk way holding": "YES"
+      },
+      "7": {
+        "track individual units|system level data": "YES",
+        "acl|track individual units": "NO"
+      },
+      "6": {
+        "acl|south carolina": "YES"
+      },
+      "5": {
+        "ulds|report uld locations": "NO",
+        "low-energy bluetooth devices|ulds": "YES",
+        "cores|low-energy bluetooth devices": "YES",
+        "acl|cores": "YES"
+      },
+      "4": {
+        "core transport technologies|real-time bluetooth tracking on its ulds": "YES",
+        "silk way|acl": "YES"
+      },
+      "3": {
+        "khasanshin|acl": "NO"
+      },
+      "2": {
+        "uld management|acl": "YES",
+        "silk way|uld management": "NO"
+      },
+      "1": {
+        "acl|real-time bluetooth-enabled uld tracking technology": "YES"
+      },
+      "0": {
+        "acl|uld": "YES",
+        "silk way|acl": "YES"
+      }
+    },
+    "8925f7": {
+      "16": {
+        "twice-weekly freighter service|brussels airport": "YES",
+        "finnair|twice-weekly freighter service": "YES"
+      },
+      "15": {
+        "eurozone|russia": "NO"
+      },
+      "13": {
+        "high-end products|china": "NO",
+        "finnair|high-end products": "NO"
+      },
+      "12": {
+        "japan|36 hours": "NO",
+        "norway|japan": "NO",
+        "asia|norway": "NO",
+        "kuusenmaki|asia": "NO"
+      },
+      "11": {
+        "europe|nine hours": "YES",
+        "japan|europe": "YES",
+        "china|japan": "YES",
+        "north east asia|china": "YES"
+      },
+      "9": {
+        "asia|kuusenmaki": "NO",
+        "europe|asia": "NO",
+        "finnair|europe": "YES"
+      },
+      "8": {
+        "kuusenmaki|bellyhold": "NO",
+        "two|kuusenmaki": "NO",
+        "seafood|two": "NO",
+        "pharma|seafood": "NO",
+        "eight services for specialist types|pharma": "YES",
+        "finnair|eight services for specialist types": "YES"
+      },
+      "7": {
+        "seafood|general cargo": "NO",
+        "perishables|seafood": "YES",
+        "pharma|perishables": "NO",
+        "life sciences|pharma": "YES"
+      },
+      "6": {
+        "transit cargo|specialised cargo": "NO"
+      },
+      "5": {
+        "finnair|three billion euros": "NO",
+        "air cargo week|acw": "YES"
+      },
+      "4": {
+        "17 per cent|finnair": "YES",
+        "cargo|17 per cent": "NO"
+      },
+      "3": {
+        "149,000 tonnes|300,000 tonnes": "NO"
+      },
+      "2": {
+        "bellyhold|50 per cent": "YES",
+        "airbus a350|bellyhold": "NO",
+        "19|airbus a350": "YES"
+      },
+      "1": {
+        "widebody fleet|freight terminal": "NO"
+      }
+    }
+  }
+}
