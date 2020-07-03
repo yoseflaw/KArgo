@@ -1,4 +1,4 @@
-# `KArgo` - Knowledge Acquistion from Special Cargo Text
+# `KArgo` - Knowledge Acquisition from Special Cargo Text
 
 `KArgo` is the automatic labeling implementation for my Master's Thesis:
 
