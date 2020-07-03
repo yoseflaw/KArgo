@@ -1,6 +1,6 @@
 # `KArgo` - Knowledge Acquistion from Special Cargo Text
 
-`KArgo` is the automatic labeling implementation from my Master's Thesis:
+`KArgo` is the automatic labeling implementation for my Master's Thesis:
 
 **Automatic Knowledge Acquisition for the Special Cargo Services Domain with Unsupervised Entity and Relation Extraction**
 
