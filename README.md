@@ -6,7 +6,7 @@
 
 The automatic labeling consists of two parts: entity extraction and relation clustering. The goal of the process is to produce labels automatically from the special cargo news articles with unsupervised approach. 
 
-<img src="https://github.com/yoseflaw/KArgo/images/kargo.png" alt="Kargo Scheme" width="350"/>
+<img src="https://github.com/yoseflaw/KArgo/blob/master/images/kargo.png" alt="Kargo Scheme" width="350"/>
 
 The repository contains the following folders:
 * data
@@ -41,4 +41,4 @@ The repository contains the following folders:
     
 Unsupervised Keyphrase Extraction results:
 
-<img src="https://github.com/yoseflaw/KArgo/results/plots/eval_20200630.png" alt="Keyphrase Extraction Results" width="550"/>
+<img src="https://github.com/yoseflaw/KArgo/blob/master/results/plots/eval_20200630.png" alt="Keyphrase Extraction Results" width="550"/>
